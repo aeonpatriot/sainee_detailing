@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sainee_detailing/router.dart';
+import 'package:sainee_detailing/validation/registration_validation.dart';
+import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
+
+import 'dependencies.dart' as di;
 
 void main() {
-  // runApp(const SplashScreen());
-  // runApp(LoginScreen());
-  runApp(const MyApp());
+  di.init();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<RegistrationValidation>(
+          create: (context) => RegistrationValidation()),
+      ChangeNotifierProvider<RegisterViewModel>(
+          create: (context) => RegisterViewModel()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

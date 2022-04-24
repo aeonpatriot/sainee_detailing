@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/validation/registration_validation.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   const RegisterScreenBody({
@@ -8,6 +10,9 @@ class RegisterScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RegistrationValidation registrationValidation =
+        Provider.of<RegistrationValidation>(context);
+
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -28,28 +33,39 @@ class RegisterScreenBody extends StatelessWidget {
           CenteredTextBox(
             hint: 'Full Name',
             isObscure: false,
-          ),
-          const SizedBox(height: 20),
-          CenteredTextBox(
-            hint: 'Username',
-            isObscure: false,
+            errorText: registrationValidation.name.error,
+            onChanged: (value) {
+              registrationValidation.setName(value);
+            },
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
             hint: 'Email',
             isObscure: false,
+            errorText: registrationValidation.email.error,
+            onChanged: (value) {
+              registrationValidation.setEmail(value);
+            },
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
             hint: 'Password',
             isObscure: true,
+            errorText: registrationValidation.password.error,
+            onChanged: (value) {
+              registrationValidation.setPassword(value);
+            },
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
             hint: 'Confirm Password',
             isObscure: true,
+            errorText: registrationValidation.confirmPassword.error,
+            onChanged: (value) {
+              registrationValidation.setConfirmPassword(value);
+            },
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: kPrimaryColorDarker,
@@ -62,9 +78,9 @@ class RegisterScreenBody extends StatelessWidget {
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 )),
-            onPressed: () {
-              print('sdfsdfsdfsdfsf');
-            },
+            onPressed: (!registrationValidation.isValid)
+                ? null
+                : registrationValidation.submitRegistration,
             child: const Text('REGISTER'),
           ),
           const SizedBox(height: 10),
@@ -91,10 +107,14 @@ class RegisterScreenBody extends StatelessWidget {
 class CenteredTextBox extends StatelessWidget {
   final String _hint;
   final bool _isObscure;
+  final String? _errorText;
+  final dynamic _onChange;
 
-  CenteredTextBox({hint, isObscure})
+  CenteredTextBox({hint, isObscure, errorText, onChanged})
       : _hint = hint,
-        _isObscure = isObscure;
+        _isObscure = isObscure,
+        _errorText = errorText,
+        _onChange = onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +122,16 @@ class CenteredTextBox extends StatelessWidget {
       width: 310.0,
       child: TextField(
         obscureText: _isObscure,
-        onChanged: (value) {},
-        style: const TextStyle(fontSize: 20.0),
+        onChanged: _onChange,
+        style: const TextStyle(fontSize: 17.0),
         decoration: InputDecoration(
-            suffixIcon: Icon(Icons.lock),
+            // suffixIcon: Icon(Icons.visibility),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
             filled: true,
             fillColor: Colors.white,
             labelText: _hint,
+            errorText: _errorText,
             border: const OutlineInputBorder(
               borderSide: BorderSide(width: 0, color: Colors.white),
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
