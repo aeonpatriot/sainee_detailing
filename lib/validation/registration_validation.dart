@@ -1,5 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:sainee_detailing/dependencies.dart';
+import 'package:sainee_detailing/models/user.dart';
+import 'package:sainee_detailing/services/user_service.dart';
 import 'package:sainee_detailing/validation/validation_item.dart';
 
 class RegistrationValidation with ChangeNotifier {
@@ -8,14 +11,19 @@ class RegistrationValidation with ChangeNotifier {
   ValidationItem _password = ValidationItem(null, null);
   ValidationItem _confirmPassword = ValidationItem(null, null);
 
+  // final User user = User();
   // bool _hidePassword = true;
+  final UserService userService = service();
 
   ValidationItem get name => _name;
   ValidationItem get email => _email;
   ValidationItem get password => _password;
   ValidationItem get confirmPassword => _confirmPassword;
   bool get isValid {
-    if (name.value != null && email.value != null && password.value != null) {
+    if (name.value != null &&
+        email.value != null &&
+        password.value != null &&
+        password.value == confirmPassword.value) {
       print('true');
       return true;
     } else {
@@ -49,7 +57,7 @@ class RegistrationValidation with ChangeNotifier {
       _password = ValidationItem(null, 'Must be at least 7 characters');
     }
     checkPassword();
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setConfirmPassword(String value) {
@@ -66,8 +74,24 @@ class RegistrationValidation with ChangeNotifier {
     notifyListeners();
   }
 
-  void submitRegistration() {
-    print(
-        'Name: ${name.value}, email: ${email.value}, password: ${password.value})');
+  void submitRegistration() async {
+    final User user = User(
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        type: 'customer',
+        image: 'test');
+
+    print(user.name);
+    print(user.email);
+    print(user.password);
+    print(user.type);
+    print(user.image);
+
+    final _user = await userService.createNewUser(user);
+
+    if (_user == null) print('Regiter failed');
+    // else
+    // Navigator.pushReplacementNamed(context, '/registersuccess');
   }
 }

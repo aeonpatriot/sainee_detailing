@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
+import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   const RegisterScreenBody({
@@ -12,6 +13,8 @@ class RegisterScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final RegistrationValidation registrationValidation =
         Provider.of<RegistrationValidation>(context);
+    final RegisterViewModel registerViewModel =
+        Provider.of<RegisterViewModel>(context);
 
     return Center(
       child: Column(
@@ -36,6 +39,7 @@ class RegisterScreenBody extends StatelessWidget {
             errorText: registrationValidation.name.error,
             onChanged: (value) {
               registrationValidation.setName(value);
+              // registerViewModel.user.name = 'value';
             },
           ),
           const SizedBox(height: 20),
@@ -45,6 +49,7 @@ class RegisterScreenBody extends StatelessWidget {
             errorText: registrationValidation.email.error,
             onChanged: (value) {
               registrationValidation.setEmail(value);
+              // registerViewModel.user.email = 'value';
             },
           ),
           const SizedBox(height: 20),
@@ -54,6 +59,7 @@ class RegisterScreenBody extends StatelessWidget {
             errorText: registrationValidation.password.error,
             onChanged: (value) {
               registrationValidation.setPassword(value);
+              // registerViewModel.user.password = 'value';
             },
           ),
           const SizedBox(height: 20),
