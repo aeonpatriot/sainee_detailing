@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/router.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
+import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
 
 import 'dependencies.dart' as di;
@@ -14,6 +15,8 @@ void main() {
           create: (context) => RegistrationValidation()),
       ChangeNotifierProvider<RegisterViewModel>(
           create: (context) => RegisterViewModel()),
+      ChangeNotifierProvider<LoginViewModel>(
+          create: (context) => LoginViewModel()),
     ],
     child: const MyApp(),
   ));

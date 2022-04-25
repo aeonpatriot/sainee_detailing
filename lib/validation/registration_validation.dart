@@ -12,7 +12,6 @@ class RegistrationValidation with ChangeNotifier {
   ValidationItem _confirmPassword = ValidationItem(null, null);
 
   // final User user = User();
-  // bool _hidePassword = true;
   final UserService userService = service();
 
   ValidationItem get name => _name;
@@ -24,10 +23,8 @@ class RegistrationValidation with ChangeNotifier {
         email.value != null &&
         password.value != null &&
         password.value == confirmPassword.value) {
-      print('true');
       return true;
     } else {
-      print('false');
       return false;
     }
   }

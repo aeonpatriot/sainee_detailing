@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/screen/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Timer(Duration(seconds: 3),
-    //     () => Navigator.pushReplacement(context, MainScreen.route()));
+    Timer(Duration(seconds: 3),
+        () => Navigator.pushReplacement(context, LoginScreen.route()));
   }
 
   @override

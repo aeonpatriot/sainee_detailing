@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
+import 'package:sainee_detailing/widget/centered_textbox.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   const RegisterScreenBody({
@@ -39,7 +40,6 @@ class RegisterScreenBody extends StatelessWidget {
             errorText: registrationValidation.name.error,
             onChanged: (value) {
               registrationValidation.setName(value);
-              // registerViewModel.user.name = 'value';
             },
           ),
           const SizedBox(height: 20),
@@ -49,23 +49,31 @@ class RegisterScreenBody extends StatelessWidget {
             errorText: registrationValidation.email.error,
             onChanged: (value) {
               registrationValidation.setEmail(value);
-              // registerViewModel.user.email = 'value';
             },
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
             hint: 'Password',
-            isObscure: true,
+            isObscure: registerViewModel.hidePasword,
             errorText: registrationValidation.password.error,
+            suffixIcon: IconButton(
+                onPressed: registerViewModel.setHidePassword,
+                icon: registerViewModel.hidePasword
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off)),
             onChanged: (value) {
               registrationValidation.setPassword(value);
-              // registerViewModel.user.password = 'value';
             },
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
             hint: 'Confirm Password',
-            isObscure: true,
+            isObscure: registerViewModel.hideConfirmPassword,
+            suffixIcon: IconButton(
+                onPressed: registerViewModel.setHideConfirmPassword,
+                icon: registerViewModel.hideConfirmPassword
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off)),
             errorText: registrationValidation.confirmPassword.error,
             onChanged: (value) {
               registrationValidation.setConfirmPassword(value);
@@ -98,50 +106,13 @@ class RegisterScreenBody extends StatelessWidget {
                 style: TextStyle(fontSize: 15.0),
               ),
               GestureDetector(
-                onTap: () => {print('alsdhfkjashdf')},
+                onTap: () => Navigator.pushReplacementNamed(context, '/login'),
                 child: const Text(' Sign in',
                     style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CenteredTextBox extends StatelessWidget {
-  final String _hint;
-  final bool _isObscure;
-  final String? _errorText;
-  final dynamic _onChange;
-
-  CenteredTextBox({hint, isObscure, errorText, onChanged})
-      : _hint = hint,
-        _isObscure = isObscure,
-        _errorText = errorText,
-        _onChange = onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 310.0,
-      child: TextField(
-        obscureText: _isObscure,
-        onChanged: _onChange,
-        style: const TextStyle(fontSize: 17.0),
-        decoration: InputDecoration(
-            // suffixIcon: Icon(Icons.visibility),
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
-            filled: true,
-            fillColor: Colors.white,
-            labelText: _hint,
-            errorText: _errorText,
-            border: const OutlineInputBorder(
-              borderSide: BorderSide(width: 0, color: Colors.white),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            )),
       ),
     );
   }

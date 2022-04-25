@@ -14,4 +14,15 @@ class UserService {
 
     return User.fromJson(json['user']);
   }
+
+  Future<User?> login(User user) async {
+    final json = await restService.post('login', data: user);
+    print(json);
+    print(json['user']);
+    if (json == null) return null;
+    restService.apiToken = json['token'];
+
+    print('tokensdfsdf' + restService.apiToken);
+    return User.fromJson(json['user']);
+  }
 }

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
+import 'package:sainee_detailing/widget/centered_textbox.dart';
 
 class LoginScreenBody extends StatelessWidget {
   const LoginScreenBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    LoginViewModel loginViewModel =
+        Provider.of<LoginViewModel>(context, listen: false);
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -25,15 +31,28 @@ class LoginScreenBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            _buildTextBox(
-                hint: 'Email',
-                onChanged: (value) => {},
-                prefixIcon: const Icon(Icons.person)),
+            Consumer<LoginViewModel>(
+              builder: (context, notifier, child) => CenteredTextBox(
+                  hint: 'Email',
+                  isObscure: false,
+                  onChanged: (value) => notifier.email = value,
+                  prefixIcon: const Icon(Icons.mail)),
+            ),
             const SizedBox(height: 20),
-            _buildTextBox(
+            Consumer<LoginViewModel>(
+              builder: (context, notifier, child) => CenteredTextBox(
                 hint: 'Pasword',
-                onChanged: (value) => {},
-                prefixIcon: const Icon(Icons.lock)),
+                onChanged: (value) => notifier.password = value,
+                isObscure: notifier.hidePassword ? true : false,
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  onPressed: notifier.setHidePassword,
+                  icon: notifier.hidePassword
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                ),
+              ),
+            ),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -47,9 +66,7 @@ class LoginScreenBody extends StatelessWidget {
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   )),
-              onPressed: () {
-                print('sdfsdfsdfsdfsf');
-              },
+              onPressed: loginViewModel.onLoginPressed,
               child: const Text('LOGIN'),
             ),
             const SizedBox(height: 10),
@@ -61,7 +78,8 @@ class LoginScreenBody extends StatelessWidget {
                   style: TextStyle(fontSize: 15),
                 ),
                 GestureDetector(
-                  onTap: () => {print('alsdhfkjashdf')},
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, '/register'),
                   child: const Text('  Create account',
                       style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
                 ),
@@ -69,29 +87,6 @@ class LoginScreenBody extends StatelessWidget {
             ),
             const SizedBox(height: 100),
           ],
-        ),
-      ),
-    );
-  }
-
-  SizedBox _buildTextBox({hint, onChanged, prefixIcon, suffixIcon}) {
-    return SizedBox(
-      width: 310.0,
-      height: 55,
-      child: TextField(
-        onChanged: onChanged,
-        style: const TextStyle(fontSize: 17.0),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          hintText: hint,
-          prefixIcon: prefixIcon,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.5),
-            borderRadius: BorderRadius.all(
-              Radius.circular(7),
-            ),
-          ),
         ),
       ),
     );
