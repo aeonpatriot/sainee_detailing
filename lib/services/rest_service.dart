@@ -4,7 +4,7 @@ import 'package:sainee_detailing/services/rest.dart';
 import 'package:http/http.dart' as http;
 
 class RestService implements Rest {
-  static const String _baseUrl = 'http://127.0.0.1:8000/api';
+  static const String _baseUrl = 'http://10.0.2.2:8000/api';
 
   @override
   Future post(String endpoint, {dynamic data}) async {
@@ -14,9 +14,10 @@ class RestService implements Rest {
       body: jsonEncode(data),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201 || response.statusCode == 200) {
       return jsonDecode(response.body);
     }
+    print(response.statusCode);
 
     return null;
   }

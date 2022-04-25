@@ -1,58 +1,58 @@
 class User {
-  String _id;
-  String _name;
-  String _email;
-  String _password;
-  String _type;
-  dynamic _image;
+  final String? _id;
+  final String _name;
+  final String _email;
+  final String? _password;
+  final String _type;
+  final dynamic _image;
 
   User({id, name, email, password, type, image})
-      : this._id = id,
-        this._name = name,
-        this._email = email,
-        this._password = password,
-        this._type = type,
-        this._image = image;
+      : _id = id,
+        _name = name,
+        _email = email,
+        _password = password,
+        _type = type,
+        _image = image;
 
   get id => _id;
-  set id(value) => _id = value;
+  // set id(value) => _id = value;
   get name => _name;
-  set name(value) => _name = value;
+  // set name(value) => _name = value;
   get email => _email;
-  set email(value) => _email = value;
+  // set email(value) => _email = value;
   get password => _password;
-  set password(value) => _password = value;
+  // set password(value) => _password = value;
   get type => _type;
-  set type(value) => _type = value;
+  // set type(value) => _type = value;
   get image => _image;
-  set image(value) => _image = value;
+  // set image(value) => _image = value;
 
   User.copy(User from)
       : this(
-          id: from.id,
-          name: from.name,
-          email: from.email,
-          password: from.password,
-          type: from.type,
-          image: from.image,
+          id: from._id,
+          name: from._name,
+          email: from._email,
+          password: from._password,
+          type: from._type,
+          image: from._image,
         );
 
   User.fromJson(Map<String, dynamic> json)
       : this(
           id: json['id'],
-          name: ['name'],
-          email: ['email'],
-          password: ['password'],
-          type: ['type'],
-          image: ['image'],
+          name: json['name'],
+          email: json['email'],
+          password: json['password'],
+          type: json['type'],
+          image: json['image'],
         );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'email': email,
-        'password': password,
-        'type': type,
-        'image': image,
+        'id': _id,
+        'name': _name,
+        'email': _email,
+        'password': _password,
+        'type': _type,
+        'image': _image,
       };
 }

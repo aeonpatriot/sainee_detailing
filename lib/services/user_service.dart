@@ -8,9 +8,10 @@ class UserService {
 
   Future<User?> createNewUser(User user) async {
     final json = await restService.post('register', data: user);
-
+    print(json);
+    print(json['user']);
     if (json == null) return null;
 
-    return User.fromJson(json);
+    return User.fromJson(json['user']);
   }
 }
