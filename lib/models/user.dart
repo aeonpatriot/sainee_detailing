@@ -1,9 +1,9 @@
 class User {
   final String? _id;
-  final String _name;
+  final String? _name;
   final String _email;
   final String? _password;
-  final String _type;
+  final String? _type;
   final dynamic _image;
 
   User({id, name, email, password, type, image})

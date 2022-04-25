@@ -4,7 +4,11 @@ import 'package:sainee_detailing/services/rest.dart';
 import 'package:http/http.dart' as http;
 
 class RestService implements Rest {
+  String? _apiToken;
   static const String _baseUrl = 'http://10.0.2.2:8000/api';
+
+  set apiToken(value) => _apiToken = value;
+  get apiToken => _apiToken;
 
   @override
   Future post(String endpoint, {dynamic data}) async {

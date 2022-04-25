@@ -12,6 +12,7 @@ class RegisterScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: kPrimaryColor,
         elevation: 0.0,
