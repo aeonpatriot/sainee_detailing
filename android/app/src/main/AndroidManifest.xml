@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sainee_detailing">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="sainee_detailing"
         android:name="${applicationName}"
