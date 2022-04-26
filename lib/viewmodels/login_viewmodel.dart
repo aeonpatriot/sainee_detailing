@@ -20,7 +20,7 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  onLoginPressed() async {
+  onLoginPressed(BuildContext context) async {
     final User user = User(
       email: email,
       password: password,
@@ -33,8 +33,11 @@ class LoginViewModel with ChangeNotifier {
 
     print(_user);
 
-    // if (_user == null) print('Regiter failed');
-    // else
-    // Navigator.pushReplacementNamed(context, '/registersuccess');
+    if (_user == null)
+      print('login failed');
+    else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/main', ModalRoute.withName('/login'));
+    }
   }
 }

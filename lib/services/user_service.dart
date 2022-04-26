@@ -25,4 +25,11 @@ class UserService {
     print('tokensdfsdf' + restService.apiToken);
     return User.fromJson(json['user']);
   }
+
+  Future<bool> logout() async {
+    final json = await restService.postWithToken('logout');
+    if (json == null) return false;
+
+    return true;
+  }
 }

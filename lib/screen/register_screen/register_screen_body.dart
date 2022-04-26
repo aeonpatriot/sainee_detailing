@@ -94,7 +94,9 @@ class RegisterScreenBody extends StatelessWidget {
                 )),
             onPressed: (!registrationValidation.isValid)
                 ? null
-                : registrationValidation.submitRegistration,
+                : () {
+                    registrationValidation.submitRegistration(context);
+                  },
             child: const Text('REGISTER'),
           ),
           const SizedBox(height: 10),

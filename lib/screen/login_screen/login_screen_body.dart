@@ -66,7 +66,9 @@ class LoginScreenBody extends StatelessWidget {
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   )),
-              onPressed: loginViewModel.onLoginPressed,
+              onPressed: () {
+                loginViewModel.onLoginPressed(context);
+              },
               child: const Text('LOGIN'),
             ),
             const SizedBox(height: 10),

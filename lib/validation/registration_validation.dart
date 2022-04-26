@@ -63,15 +63,18 @@ class RegistrationValidation with ChangeNotifier {
   }
 
   void checkPassword() {
+    print('pswd: ${password.value}');
+    print('cpswd:  ${confirmPassword.value}');
     if (password.value == confirmPassword.value) {
       _confirmPassword = ValidationItem(confirmPassword.value, null);
     } else {
-      _confirmPassword = ValidationItem(null, 'The password is not match');
+      _confirmPassword =
+          ValidationItem(confirmPassword.value, 'The password is not match');
     }
     notifyListeners();
   }
 
-  void submitRegistration() async {
+  void submitRegistration(BuildContext context) async {
     final User user = User(
         name: name.value,
         email: email.value,
@@ -87,8 +90,10 @@ class RegistrationValidation with ChangeNotifier {
 
     final _user = await userService.createNewUser(user);
 
-    if (_user == null) print('Regiter failed');
-    // else
-    // Navigator.pushReplacementNamed(context, '/registersuccess');
+    if (_user == null)
+      print('Regiter failed');
+    else {
+      Navigator.pushReplacementNamed(context, '/registersuccess');
+    }
   }
 }
