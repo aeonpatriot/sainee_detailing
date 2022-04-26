@@ -4,4 +4,5 @@ abstract class Rest {
   get apiToken => _apiToken;
   Future get(String endpoint);
   Future post(String endpoint, {dynamic data});
+  Future postWithToken(String endpoint, {dynamic data});
 }

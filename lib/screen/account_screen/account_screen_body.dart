@@ -36,7 +36,7 @@ class AccountScreenBody extends StatelessWidget {
                     if (index == 0) accountViewModel.onTapProfile();
                     if (index == 1) accountViewModel.onTapAddress();
                     if (index == 2) accountViewModel.onTapCar();
-                    if (index == 3) accountViewModel.onTapLogout();
+                    if (index == 3) accountViewModel.onTapLogout(context);
                   },
                   title: Text(accountViewModel.items[index]),
                   trailing: (index == 3)

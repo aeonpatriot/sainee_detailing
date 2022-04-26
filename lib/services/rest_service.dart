@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:sainee_detailing/services/rest.dart';
 import 'package:http/http.dart' as http;
@@ -19,9 +20,28 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.statusCode);
       return jsonDecode(response.body);
     }
-    print(response.statusCode);
+
+    return null;
+  }
+
+  @override
+  Future postWithToken(String endpoint, {dynamic data}) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/$endpoint'),
+      headers: {
+        'Content-Type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
+      },
+      body: jsonEncode(data),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.statusCode);
+      return jsonDecode(response.body);
+    }
 
     return null;
   }
