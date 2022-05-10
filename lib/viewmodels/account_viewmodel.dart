@@ -7,8 +7,8 @@ class AccountViewModel extends ChangeNotifier {
 
   final userService = service<UserService>();
 
-  onTapProfile() {
-    print('My Profile');
+  onTapProfile(BuildContext context) {
+    Navigator.pushNamed(context, '/profile');
   }
 
   onTapAddress() {

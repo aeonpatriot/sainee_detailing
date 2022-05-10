@@ -33,7 +33,7 @@ class AccountScreenBody extends StatelessWidget {
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   onTap: () {
-                    if (index == 0) accountViewModel.onTapProfile();
+                    if (index == 0) accountViewModel.onTapProfile(context);
                     if (index == 1) accountViewModel.onTapAddress();
                     if (index == 2) accountViewModel.onTapCar();
                     if (index == 3) accountViewModel.onTapLogout(context);
