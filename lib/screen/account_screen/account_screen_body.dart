@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 
 class AccountScreenBody extends StatelessWidget {
   const AccountScreenBody({
@@ -11,6 +14,9 @@ class AccountScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MainmenuViewModel mainmenuViewModel =
+        Provider.of<MainmenuViewModel>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -36,7 +42,10 @@ class AccountScreenBody extends StatelessWidget {
                     if (index == 0) accountViewModel.onTapProfile(context);
                     if (index == 1) accountViewModel.onTapAddress();
                     if (index == 2) accountViewModel.onTapCar();
-                    if (index == 3) accountViewModel.onTapLogout(context);
+                    if (index == 3) {
+                      accountViewModel.onTapLogout(context);
+                      mainmenuViewModel.currentIndex = 0;
+                    }
                   },
                   title: Text(accountViewModel.items[index]),
                   trailing: (index == 3)

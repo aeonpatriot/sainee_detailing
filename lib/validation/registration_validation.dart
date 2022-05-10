@@ -22,7 +22,8 @@ class RegistrationValidation with ChangeNotifier {
     if (name.value != null &&
         email.value != null &&
         password.value != null &&
-        password.value == confirmPassword.value) {
+        password.value == confirmPassword.value &&
+        password.value!.length >= 7) {
       return true;
     } else {
       return false;
@@ -51,7 +52,7 @@ class RegistrationValidation with ChangeNotifier {
     if (value != null && value.length >= 7) {
       _password = ValidationItem(value, null);
     } else {
-      _password = ValidationItem(null, 'Must be at least 7 characters');
+      _password = ValidationItem(value, 'Must be at least 7 characters');
     }
     checkPassword();
     // notifyListeners();
