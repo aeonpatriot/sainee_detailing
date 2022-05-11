@@ -9,8 +9,8 @@ import 'package:sainee_detailing/screen/splash_screen.dart';
 Route<dynamic>? createRoute(settings) {
   switch (settings.name) {
     case '/':
-      // return SplashScreen.route();
-      return MainMenuScreen.route();
+      return SplashScreen.route();
+    // return MainMenuScreen.route();
     // return LoginScreen.route();
     // return ProfileScreen.route();
     case '/login':
