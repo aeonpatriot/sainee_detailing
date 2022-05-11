@@ -4,14 +4,16 @@ class User {
   final String _email;
   final String? _password;
   final String? _type;
+  final String? _gender;
   final dynamic _image;
 
-  User({id, name, email, password, type, image})
+  User({id, name, email, password, type, gender, image})
       : _id = id,
         _name = name,
         _email = email,
         _password = password,
         _type = type,
+        _gender = gender,
         _image = image;
 
   get id => _id;
@@ -24,6 +26,8 @@ class User {
   // set password(value) => _password = value;
   get type => _type;
   // set type(value) => _type = value;
+  get gender => _gender;
+  // set gender(value) => _gender = value;
   get image => _image;
   // set image(value) => _image = value;
 
@@ -34,6 +38,7 @@ class User {
           email: from._email,
           password: from._password,
           type: from._type,
+          gender: from._gender,
           image: from._image,
         );
 
@@ -44,6 +49,7 @@ class User {
           email: json['email'],
           password: json['password'],
           type: json['type'],
+          gender: json['gender'],
           image: json['image'],
         );
 
@@ -53,6 +59,7 @@ class User {
         'email': _email,
         'password': _password,
         'type': _type,
+        'gender': _gender,
         'image': _image,
       };
 }

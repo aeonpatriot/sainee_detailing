@@ -7,9 +7,11 @@ class LoginViewModel with ChangeNotifier {
   String? _email;
   String? _password;
   bool _hidePassword = true;
+  User? _userDetails;
 
   final userService = service<UserService>();
 
+  User? get userDetails => _userDetails;
   get email => _email;
   set email(value) => _email = value;
   get password => _password;
@@ -36,6 +38,7 @@ class LoginViewModel with ChangeNotifier {
     if (_user == null)
       print('login failed');
     else {
+      _userDetails = _user;
       Navigator.pushNamedAndRemoveUntil(
           context, '/main', ModalRoute.withName('/login'));
     }
