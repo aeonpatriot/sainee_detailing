@@ -8,14 +8,15 @@ class CenteredTextBox extends StatelessWidget {
   final dynamic _suffixIcon;
   final Icon? _prefixIcon;
 
-  CenteredTextBox(
-      {hint, isObscure, errorText, onChanged, suffixIcon, prefixIcon})
+  const CenteredTextBox(
+      {Key? key, hint, isObscure, errorText, onChanged, suffixIcon, prefixIcon})
       : _hint = hint,
         _isObscure = isObscure,
         _errorText = errorText,
         _suffixIcon = suffixIcon,
         _prefixIcon = prefixIcon,
-        _onChange = onChanged;
+        _onChange = onChanged,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

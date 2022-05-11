@@ -21,15 +21,13 @@ class RegisterScreenBody extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Container(
-            child: const Align(
-              // alignment: Alignment.centerLeft,
-              child: Text(
-                'Create Account',
-                style: TextStyle(
-                  fontSize: titleFont,
-                  fontWeight: FontWeight.bold,
-                ),
+          const Align(
+            // alignment: Alignment.centerLeft,
+            child: Text(
+              'Create Account',
+              style: TextStyle(
+                fontSize: titleFont,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
