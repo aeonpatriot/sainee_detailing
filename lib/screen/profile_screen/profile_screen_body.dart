@@ -42,7 +42,7 @@ class ProfileScreenBody extends StatelessWidget {
           ),
           CustomContainer(
             preText: 'Phone',
-            suffixText: '${loginViewModel.userDetails!.gender}',
+            suffixText: '${loginViewModel.userDetails!.phoneNumber}',
             suffixIcon: rightArrowIcon,
           ),
           CustomContainer(

@@ -10,9 +10,19 @@ class RegistrationValidation with ChangeNotifier {
   ValidationItem _email = ValidationItem(null, null);
   ValidationItem _password = ValidationItem(null, null);
   ValidationItem _confirmPassword = ValidationItem(null, null);
+  String? _phoneNumber;
+  bool _isPhoneNumberValid = false;
 
-  // final User user = User();
   final UserService userService = service();
+
+  String? get phoneNumber => _phoneNumber;
+  set phoneNumber(value) => _phoneNumber = value;
+
+  get isPhoneNumberValid => _isPhoneNumberValid;
+  setIsPhoneNumberValid(value) {
+    _isPhoneNumberValid = value;
+    notifyListeners();
+  }
 
   ValidationItem get name => _name;
   ValidationItem get email => _email;
@@ -23,7 +33,8 @@ class RegistrationValidation with ChangeNotifier {
         email.value != null &&
         password.value != null &&
         password.value == confirmPassword.value &&
-        password.value!.length >= 7) {
+        password.value!.length >= 7 &&
+        isPhoneNumberValid) {
       return true;
     } else {
       return false;
@@ -79,15 +90,10 @@ class RegistrationValidation with ChangeNotifier {
     final User user = User(
         name: name.value,
         email: email.value,
+        phoneNumber: phoneNumber,
         password: password.value,
         type: 'customer',
         image: 'test');
-
-    print(user.name);
-    print(user.email);
-    print(user.password);
-    print(user.type);
-    print(user.image);
 
     final _user = await userService.createNewUser(user);
 
@@ -95,6 +101,12 @@ class RegistrationValidation with ChangeNotifier {
       print('Regiter failed');
     else {
       Navigator.pushReplacementNamed(context, '/registersuccess');
+      print(user.name);
+      print(user.email);
+      print(user.password);
+      print(user.type);
+      print(user.image);
+      print(user.phoneNumber);
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
@@ -48,6 +50,52 @@ class RegisterScreenBody extends StatelessWidget {
             onChanged: (value) {
               registrationValidation.setEmail(value);
             },
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: 310.0,
+            child: IntlPhoneField(
+              dropdownTextStyle: const TextStyle(fontSize: 15.5),
+              showCountryFlag: false,
+              countries: const ['MY'],
+              disableLengthCheck: true,
+              validator: (phoneNumber) {
+                if (phoneNumber != null &&
+                    (phoneNumber.number.length < 9 ||
+                        phoneNumber.number.length > 10)) {
+                  registrationValidation.phoneNumber =
+                      phoneNumber.completeNumber;
+                  registrationValidation.setIsPhoneNumberValid(false);
+                  return 'Enter valid number';
+                } else {
+                  registrationValidation.setIsPhoneNumberValid(true);
+                  return null;
+                }
+              },
+              initialCountryCode: 'MY',
+              onChanged: (phoneNumber) {
+                if (phoneNumber != null &&
+                    (phoneNumber.number.length < 9 ||
+                        phoneNumber.number.length > 10)) {
+                  registrationValidation.phoneNumber =
+                      phoneNumber.completeNumber;
+                  registrationValidation.setIsPhoneNumberValid(false);
+                } else {
+                  registrationValidation.setIsPhoneNumberValid(true);
+                }
+                print(registrationValidation.isPhoneNumberValid);
+              },
+              decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 17, horizontal: 15),
+                  filled: true,
+                  fillColor: Colors.white,
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(width: 0, color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  )),
+            ),
           ),
           const SizedBox(height: 20),
           CenteredTextBox(
