@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
-import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 
 class AccountScreenBody extends StatelessWidget {
   const AccountScreenBody({

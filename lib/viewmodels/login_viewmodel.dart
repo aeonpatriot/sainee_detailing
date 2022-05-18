@@ -10,6 +10,7 @@ class LoginViewModel with ChangeNotifier {
   bool _hidePassword = true;
   bool _isGenderSame = true;
   bool _isProfileSame = true;
+  bool _isLoginLoading = false;
   late User _userDetails;
   late User _userDetailsCopy;
 
@@ -21,6 +22,13 @@ class LoginViewModel with ChangeNotifier {
   set email(value) => _email = value;
   get password => _password;
   set password(value) => _password = value;
+
+  get isLoginLoading => _isLoginLoading;
+  setIsLoginLoading(value) {
+    _isLoginLoading = value;
+    notifyListeners();
+  }
+
   get hidePassword => _hidePassword;
   setHidePassword() {
     _hidePassword = !_hidePassword;
@@ -58,6 +66,7 @@ class LoginViewModel with ChangeNotifier {
       _userDetailsCopy = User.copy(_userDetails);
       Navigator.pushNamedAndRemoveUntil(
           context, '/main', ModalRoute.withName('/login'));
+      setIsLoginLoading(false);
     }
   }
 

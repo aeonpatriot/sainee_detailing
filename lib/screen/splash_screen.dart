@@ -8,7 +8,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   static Route route({user}) =>
-      MaterialPageRoute(builder: (context) => SplashScreen());
+      MaterialPageRoute(builder: (context) => const SplashScreen());
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

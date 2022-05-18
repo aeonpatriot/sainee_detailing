@@ -17,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         elevation: 0.0,
       ),
-      body: RegisterScreenBody(),
+      body: const RegisterScreenBody(),
     );
   }
 }

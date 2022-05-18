@@ -1,7 +1,6 @@
 import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/rest.dart';
-import 'package:sainee_detailing/services/rest_service.dart';
 
 class UserService {
   final restService = service<Rest>();

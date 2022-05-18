@@ -8,7 +8,9 @@ class RestService implements Rest {
   String? _apiToken;
   static const String _baseUrl = 'http://10.0.2.2:8000/api';
 
+  @override
   set apiToken(value) => _apiToken = value;
+  @override
   get apiToken => _apiToken;
 
   @override

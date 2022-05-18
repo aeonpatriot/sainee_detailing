@@ -54,22 +54,43 @@ class LoginScreenBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: kPrimaryColorDarker,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  minimumSize: const Size(310.0, 35.0),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  )),
-              onPressed: () {
-                loginViewModel.onLoginPressed(context);
-              },
-              child: const Text('LOGIN'),
+            Consumer<LoginViewModel>(
+              builder: (context, notifier, child) => ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColorDarker,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    minimumSize: const Size(310.0, 35.0),
+                    textStyle: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    )),
+                onPressed: () {
+                  notifier.setIsLoginLoading(true);
+                  loginViewModel.onLoginPressed(context);
+                },
+                child: notifier.isLoginLoading
+                    ? SizedBox(
+                        width: 300,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Text('Coming Right Up'),
+                            SizedBox(width: 10),
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                  color: kPrimaryColorDark,
+                                  backgroundColor: kPrimaryColor),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const Text('LOGIN'),
+              ),
             ),
             const SizedBox(height: 10),
             Row(

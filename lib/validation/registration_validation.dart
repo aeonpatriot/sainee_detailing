@@ -12,6 +12,7 @@ class RegistrationValidation extends ChangeNotifier {
   ValidationItem _confirmPassword = ValidationItem(null, null);
   String? _phoneNumber;
   bool _isPhoneNumberValid = false;
+  bool _isRegisterLoading = false;
 
   final UserService userService = service();
 
@@ -21,6 +22,12 @@ class RegistrationValidation extends ChangeNotifier {
   get isPhoneNumberValid => _isPhoneNumberValid;
   setIsPhoneNumberValid(value) {
     _isPhoneNumberValid = value;
+    notifyListeners();
+  }
+
+  get isRegisterLoading => _isRegisterLoading;
+  setIsRegisterLoading(value) {
+    _isRegisterLoading = value;
     notifyListeners();
   }
 
@@ -97,10 +104,11 @@ class RegistrationValidation extends ChangeNotifier {
 
     final _user = await userService.createNewUser(user);
 
-    if (_user == null)
+    if (_user == null) {
       print('Regiter failed');
-    else {
+    } else {
       Navigator.pushReplacementNamed(context, '/registersuccess');
+      setIsRegisterLoading(false);
       print(user.name);
       print(user.email);
       print(user.password);

@@ -12,11 +12,11 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: kPrimaryColor,
         elevation: 0.0,
       ),
-      body: LoginScreenBody(),
+      body: const LoginScreenBody(),
     );
   }
 }

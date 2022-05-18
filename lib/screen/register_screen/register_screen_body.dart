@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
@@ -83,7 +82,6 @@ class RegisterScreenBody extends StatelessWidget {
                 } else {
                   registrationValidation.setIsPhoneNumberValid(true);
                 }
-                print(registrationValidation.isPhoneNumberValid);
               },
               decoration: const InputDecoration(
                   contentPadding:
@@ -126,24 +124,45 @@ class RegisterScreenBody extends StatelessWidget {
             },
           ),
           const SizedBox(height: 40),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: kPrimaryColorDarker,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 10.0,
-                ),
-                minimumSize: const Size(310.0, 35.0),
-                textStyle: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                )),
-            onPressed: (!registrationValidation.isValid)
-                ? null
-                : () {
-                    registrationValidation.submitRegistration(context);
-                  },
-            child: const Text('REGISTER'),
+          Consumer<RegistrationValidation>(
+            builder: (context, notifier, child) => ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: kPrimaryColorDarker,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 10.0,
+                  ),
+                  minimumSize: const Size(310.0, 35.0),
+                  textStyle: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+              onPressed: (!registrationValidation.isValid)
+                  ? null
+                  : () {
+                      notifier.setIsRegisterLoading(true);
+                      registrationValidation.submitRegistration(context);
+                    },
+              child: notifier.isRegisterLoading
+                  ? SizedBox(
+                      width: 300,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          Text('Preparing Your Account'),
+                          SizedBox(width: 10),
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                                color: kPrimaryColorDark,
+                                backgroundColor: kPrimaryColor),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const Text('REGISTER'),
+            ),
           ),
           const SizedBox(height: 10),
           Row(

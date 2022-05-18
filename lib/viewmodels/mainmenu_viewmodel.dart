@@ -11,10 +11,10 @@ class MainmenuViewModel extends ChangeNotifier {
   set currentIndex(value) => _currentIndex = value;
 
   List<Widget> screen = [
-    MainMenuScreenBody(),
-    BookingListScreen(),
-    CarListScreen(),
-    AccountScreen(),
+    const MainMenuScreenBody(),
+    const BookingListScreen(),
+    const CarListScreen(),
+    const AccountScreen(),
   ];
 
   onTapBottomNav(int index) {

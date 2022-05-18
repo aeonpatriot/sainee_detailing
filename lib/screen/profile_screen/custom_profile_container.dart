@@ -47,11 +47,11 @@ class CustomProfileContainer extends StatelessWidget {
                   barrierDismissible: true,
                   context: context,
                   builder: (context) => AlertDialog(
-                        content: Container(
+                        content: SizedBox(
                           height: 180,
                           child: Column(
                             children: [
-                              Container(
+                              SizedBox(
                                 child: Text(
                                   'Gender',
                                   textAlign: TextAlign.center,
@@ -90,19 +90,15 @@ class CustomProfileContainer extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                   flex: 1,
-                  child: Container(
-                    child: Text(
-                      _preText,
-                      style: TextStyle(fontSize: textSize),
-                    ),
+                  child: Text(
+                    _preText,
+                    style: TextStyle(fontSize: textSize),
                   )),
               Expanded(
                   flex: 0,
-                  child: Container(
-                    child: Text(
-                      _suffixText,
-                      style: TextStyle(fontSize: textSize),
-                    ),
+                  child: Text(
+                    _suffixText,
+                    style: TextStyle(fontSize: textSize),
                   )),
               Expanded(
                   flex: 0,

@@ -3,19 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:sainee_detailing/screen/profile_screen/custom_profile_container.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
-import 'package:sainee_detailing/widget/gender_option_container.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   final Icon rightArrowIcon = const Icon(Icons.keyboard_arrow_right);
-  // User? copyUser;
 
   @override
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
-    ProfileViewModel profileViewModel =
-        Provider.of<ProfileViewModel>(context, listen: false);
-
-    // copyUser = User.copy(loginViewModel.userDetails)
+    // ProfileViewModel profileViewModel =
+    //     Provider.of<ProfileViewModel>(context, listen: false);
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
