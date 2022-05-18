@@ -5,7 +5,7 @@ import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/user_service.dart';
 import 'package:sainee_detailing/validation/validation_item.dart';
 
-class RegistrationValidation with ChangeNotifier {
+class RegistrationValidation extends ChangeNotifier {
   ValidationItem _name = ValidationItem(null, null);
   ValidationItem _email = ValidationItem(null, null);
   ValidationItem _password = ValidationItem(null, null);

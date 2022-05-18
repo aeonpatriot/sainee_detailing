@@ -1,18 +1,21 @@
 import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
+import 'package:sainee_detailing/screen/profile_screen/custom_profile_container.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
+import 'package:sainee_detailing/widget/gender_option_container.dart';
 
 class ProfileScreenBody extends StatelessWidget {
-  const ProfileScreenBody({
-    Key? key,
-  }) : super(key: key);
-
   final Icon rightArrowIcon = const Icon(Icons.keyboard_arrow_right);
+  // User? copyUser;
 
   @override
   Widget build(BuildContext context) {
-    LoginViewModel loginViewModel =
-        Provider.of<LoginViewModel>(context, listen: false);
+    LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    ProfileViewModel profileViewModel =
+        Provider.of<ProfileViewModel>(context, listen: false);
+
+    // copyUser = User.copy(loginViewModel.userDetails)
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -30,91 +33,42 @@ class ProfileScreenBody extends StatelessWidget {
               )
             ],
           ),
-          CustomContainer(
+          CustomProfileContainer(
             preText: 'Name',
-            suffixText: '${loginViewModel.userDetails!.name}',
+            suffixText: '${loginViewModel.userDetailsCopy.name}',
             suffixIcon: rightArrowIcon,
+            navigator: true,
+            editType: 'name',
+            onGoBack: loginViewModel.onGoBack,
+            loginViewModel: loginViewModel,
           ),
-          CustomContainer(
+          CustomProfileContainer(
             preText: 'Email',
-            suffixText: '${loginViewModel.userDetails!.email}',
+            suffixText: '${loginViewModel.userDetailsCopy.email}',
             suffixIcon: rightArrowIcon,
+            navigator: true,
+            editType: 'email',
+            onGoBack: loginViewModel.onGoBack,
+            loginViewModel: loginViewModel,
           ),
-          CustomContainer(
+          CustomProfileContainer(
             preText: 'Phone',
-            suffixText: '${loginViewModel.userDetails!.phoneNumber}',
+            suffixText: '${loginViewModel.userDetailsCopy.phoneNumber}',
             suffixIcon: rightArrowIcon,
+            navigator: true,
+            editType: 'phone',
+            onGoBack: loginViewModel.onGoBack,
+            loginViewModel: loginViewModel,
           ),
-          CustomContainer(
+          CustomProfileContainer(
             preText: 'Gender',
-            suffixText: loginViewModel.userDetails!.gender == null
+            suffixText: loginViewModel.userDetailsCopy.gender == null
                 ? 'Not Set'
-                : '${loginViewModel.userDetails!.gender}',
+                : '${loginViewModel.userDetailsCopy.gender}',
             suffixIcon: rightArrowIcon,
+            navigator: false,
+            loginViewModel: loginViewModel,
           ),
         ]);
-  }
-}
-
-class CustomContainer extends StatelessWidget {
-  const CustomContainer(
-      {Key? key,
-      required this.preText,
-      required this.suffixText,
-      required this.suffixIcon})
-      : super(key: key);
-
-  final String preText;
-  final String suffixText;
-  final dynamic suffixIcon;
-  final double textSize = 16;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Color.fromARGB(255, 255, 255, 255),
-      child: InkWell(
-        // splashColor: Colors.red,
-        onTap: () {
-          print('sdfsdfsdf');
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-              // color: Color.fromARGB(255, 255, 255, 255),
-              border: Border.symmetric(
-                  horizontal: BorderSide(color: Colors.black12))),
-          height: 60,
-          child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 10),
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Text(
-                      preText,
-                      style: TextStyle(fontSize: textSize),
-                    ),
-                  )),
-              Expanded(
-                  flex: 0,
-                  child: Container(
-                    child: Text(
-                      suffixText,
-                      style: TextStyle(fontSize: textSize),
-                    ),
-                  )),
-              Expanded(
-                  flex: 0,
-                  child: Container(
-                    child: suffixIcon,
-                  )),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

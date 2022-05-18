@@ -17,13 +17,19 @@ class UserService {
 
   Future<User?> login(User user) async {
     final json = await restService.post('login', data: user);
-    print(json);
-    print(json['user']);
     if (json == null) return null;
     restService.apiToken = json['token'];
 
-    print('tokensdfsdf' + restService.apiToken);
+    print('token:  ' + restService.apiToken);
     return User.fromJson(json['user']);
+  }
+
+  Future<User?> updateProfileDetails(User user) async {
+    final json = await restService.putWithToken('user/${user.id}', data: user);
+    // print('user service');
+    // print(json);
+    if (json == null) return null;
+    return User.fromJson(json);
   }
 
   Future<bool> logout() async {
