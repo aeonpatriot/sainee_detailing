@@ -10,8 +10,10 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AccountViewModel accountViewModel =
         Provider.of<AccountViewModel>(context, listen: false);
-    return Scaffold(
-      body: AccountScreenBody(accountViewModel: accountViewModel),
+    return SafeArea(
+      child: Scaffold(
+        body: AccountScreenBody(accountViewModel: accountViewModel),
+      ),
     );
   }
 }

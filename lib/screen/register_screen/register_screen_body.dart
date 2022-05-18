@@ -19,167 +19,170 @@ class RegisterScreenBody extends StatelessWidget {
         Provider.of<RegisterViewModel>(context);
 
     return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          const Align(
-            // alignment: Alignment.centerLeft,
-            child: Text(
-              'Create Account',
-              style: TextStyle(
-                fontSize: titleFont,
-                fontWeight: FontWeight.bold,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            const Align(
+              // alignment: Alignment.centerLeft,
+              child: Text(
+                'Create Account',
+                style: TextStyle(
+                  fontSize: titleFont,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 60),
-          CenteredTextBox(
-            hint: 'Full Name',
-            isObscure: false,
-            errorText: registrationValidation.name.error,
-            onChanged: (value) {
-              registrationValidation.setName(value);
-            },
-          ),
-          const SizedBox(height: 20),
-          CenteredTextBox(
-            hint: 'Email',
-            isObscure: false,
-            errorText: registrationValidation.email.error,
-            onChanged: (value) {
-              registrationValidation.setEmail(value);
-            },
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: 310.0,
-            child: IntlPhoneField(
-              dropdownTextStyle: const TextStyle(fontSize: 15.5),
-              showCountryFlag: false,
-              countries: const ['MY'],
-              disableLengthCheck: true,
-              validator: (phoneNumber) {
-                if (phoneNumber != null &&
-                    (phoneNumber.number.length < 9 ||
-                        phoneNumber.number.length > 10)) {
-                  registrationValidation.phoneNumber =
-                      phoneNumber.completeNumber;
-                  registrationValidation.setIsPhoneNumberValid(false);
-                  return 'Enter valid number';
-                } else {
-                  registrationValidation.setIsPhoneNumberValid(true);
-                  return null;
-                }
+            const SizedBox(height: 60),
+            CenteredTextBox(
+              hint: 'Full Name',
+              isObscure: false,
+              errorText: registrationValidation.name.error,
+              onChanged: (value) {
+                registrationValidation.setName(value);
               },
-              initialCountryCode: 'MY',
-              onChanged: (phoneNumber) {
-                if (phoneNumber != null &&
-                    (phoneNumber.number.length < 9 ||
-                        phoneNumber.number.length > 10)) {
-                  registrationValidation.phoneNumber =
-                      phoneNumber.completeNumber;
-                  registrationValidation.setIsPhoneNumberValid(false);
-                } else {
-                  registrationValidation.setIsPhoneNumberValid(true);
-                }
+            ),
+            const SizedBox(height: 20),
+            CenteredTextBox(
+              hint: 'Email',
+              isObscure: false,
+              errorText: registrationValidation.email.error,
+              onChanged: (value) {
+                registrationValidation.setEmail(value);
               },
-              decoration: const InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 17, horizontal: 15),
-                  filled: true,
-                  fillColor: Colors.white,
-                  labelText: 'Phone Number',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(width: 0, color: Colors.white),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  )),
             ),
-          ),
-          const SizedBox(height: 20),
-          CenteredTextBox(
-            hint: 'Password',
-            isObscure: registerViewModel.hidePasword,
-            errorText: registrationValidation.password.error,
-            suffixIcon: IconButton(
-                onPressed: registerViewModel.setHidePassword,
-                icon: registerViewModel.hidePasword
-                    ? const Icon(Icons.visibility)
-                    : const Icon(Icons.visibility_off)),
-            onChanged: (value) {
-              registrationValidation.setPassword(value);
-            },
-          ),
-          const SizedBox(height: 20),
-          CenteredTextBox(
-            hint: 'Confirm Password',
-            isObscure: registerViewModel.hideConfirmPassword,
-            suffixIcon: IconButton(
-                onPressed: registerViewModel.setHideConfirmPassword,
-                icon: registerViewModel.hideConfirmPassword
-                    ? const Icon(Icons.visibility)
-                    : const Icon(Icons.visibility_off)),
-            errorText: registrationValidation.confirmPassword.error,
-            onChanged: (value) {
-              registrationValidation.setConfirmPassword(value);
-            },
-          ),
-          const SizedBox(height: 40),
-          Consumer<RegistrationValidation>(
-            builder: (context, notifier, child) => ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: kPrimaryColorDarker,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: 10.0,
-                  ),
-                  minimumSize: const Size(310.0, 35.0),
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  )),
-              onPressed: (!registrationValidation.isValid)
-                  ? null
-                  : () {
-                      notifier.setIsRegisterLoading(true);
-                      registrationValidation.submitRegistration(context);
-                    },
-              child: notifier.isRegisterLoading
-                  ? SizedBox(
-                      width: 300,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          Text('Preparing Your Account'),
-                          SizedBox(width: 10),
-                          SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                                color: kPrimaryColorDark,
-                                backgroundColor: kPrimaryColor),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const Text('REGISTER'),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 310.0,
+              child: IntlPhoneField(
+                dropdownTextStyle: const TextStyle(fontSize: 15.5),
+                showCountryFlag: false,
+                countries: const ['MY'],
+                disableLengthCheck: true,
+                validator: (phoneNumber) {
+                  if (phoneNumber != null &&
+                      (phoneNumber.number.length < 9 ||
+                          phoneNumber.number.length > 10)) {
+                    registrationValidation.phoneNumber =
+                        phoneNumber.completeNumber;
+                    registrationValidation.setIsPhoneNumberValid(false);
+                    return 'Enter valid number';
+                  } else {
+                    registrationValidation.setIsPhoneNumberValid(true);
+                    return null;
+                  }
+                },
+                initialCountryCode: 'MY',
+                onChanged: (phoneNumber) {
+                  if ((phoneNumber.number.length < 9 ||
+                      phoneNumber.number.length > 10)) {
+                    registrationValidation.phoneNumber =
+                        phoneNumber.completeNumber;
+                    registrationValidation.setIsPhoneNumberValid(false);
+                  } else {
+                    registrationValidation.setIsPhoneNumberValid(true);
+                  }
+                },
+                decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 17, horizontal: 15),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: 'Phone Number',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0, color: Colors.white),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    )),
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Already have an account?',
-                style: TextStyle(fontSize: 15.0),
+            const SizedBox(height: 20),
+            CenteredTextBox(
+              hint: 'Password',
+              isObscure: registerViewModel.hidePasword,
+              errorText: registrationValidation.password.error,
+              suffixIcon: IconButton(
+                  onPressed: registerViewModel.setHidePassword,
+                  icon: registerViewModel.hidePasword
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off)),
+              onChanged: (value) {
+                registrationValidation.setPassword(value);
+              },
+            ),
+            const SizedBox(height: 20),
+            CenteredTextBox(
+              hint: 'Confirm Password',
+              isObscure: registerViewModel.hideConfirmPassword,
+              suffixIcon: IconButton(
+                  onPressed: registerViewModel.setHideConfirmPassword,
+                  icon: registerViewModel.hideConfirmPassword
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off)),
+              errorText: registrationValidation.confirmPassword.error,
+              onChanged: (value) {
+                registrationValidation.setConfirmPassword(value);
+              },
+            ),
+            const SizedBox(height: 40),
+            Consumer<RegistrationValidation>(
+              builder: (context, notifier, child) => ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColorDarker,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15.0,
+                      horizontal: 10.0,
+                    ),
+                    minimumSize: const Size(310.0, 35.0),
+                    textStyle: const TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    )),
+                onPressed: (!registrationValidation.isValid)
+                    ? null
+                    : () {
+                        notifier.setIsRegisterLoading(true);
+                        registrationValidation.submitRegistration(context);
+                      },
+                child: notifier.isRegisterLoading
+                    ? SizedBox(
+                        width: 300,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Text('Preparing Your Account'),
+                            SizedBox(width: 10),
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                  color: kPrimaryColorDark,
+                                  backgroundColor: kPrimaryColor),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const Text('REGISTER'),
               ),
-              GestureDetector(
-                onTap: () => Navigator.pushReplacementNamed(context, '/login'),
-                child: const Text(' Sign in',
-                    style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
-              ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Already have an account?',
+                  style: TextStyle(fontSize: 15.0),
+                ),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, '/login'),
+                  child: const Text(' Sign in',
+                      style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
+                ),
+              ],
+            ),
+            const SizedBox(height: 80),
+          ],
+        ),
       ),
     );
   }
