@@ -46,6 +46,31 @@ class RestService implements Rest {
     return null;
   }
 
+  //PUT with token METHOD
+  @override
+  Future putWithToken(String endpoint, {dynamic data}) async {
+    // print('$_baseUrl/$endpoint');
+    // print(data.toString());
+    final response = await http.post(
+      Uri.parse('$_baseUrl/$endpoint?_method=PUT'),
+      headers: {
+        'Content-Type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
+      },
+      body: jsonEncode(data),
+      // body: jsonEncode(<String, String>{
+      //   'email': data.email,
+      // }),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.statusCode);
+      return jsonDecode(response.body);
+    }
+    print(response.statusCode);
+    return null;
+  }
+
   @override
   Future get(String endpoint) async {
     final response = await http.post(
