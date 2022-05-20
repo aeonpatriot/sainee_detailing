@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
@@ -26,6 +28,8 @@ void main() {
           create: (context) => AccountViewModel()),
       ChangeNotifierProvider<ProfileViewModel>(
           create: (context) => ProfileViewModel()),
+      ChangeNotifierProvider<AddressViewModel>(
+          create: (context) => AddressViewModel()),
     ],
     child: const MyApp(),
   ));
@@ -36,9 +40,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+          textTheme: GoogleFonts.robotoTextTheme(
+        Theme.of(context).textTheme,
+      )),
       debugShowCheckedModeBanner: false,
-      title: 'Restaurant Booking System',
+      title: 'Sainee Detailing Services Online Booking System',
       onGenerateRoute: createRoute,
       initialRoute: '/',
     );

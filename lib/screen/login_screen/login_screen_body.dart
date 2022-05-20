@@ -12,25 +12,68 @@ class LoginScreenBody extends StatelessWidget {
     LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
 
-    return Center(
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
       child: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Image.asset(
-              'assets/images/logo.jpg',
-              semanticLabel: 'Sainee Detailing Logo',
-              height: 150.0,
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Sainee Detailing',
-              style: TextStyle(
-                fontSize: titleFont,
-                fontWeight: FontWeight.bold,
+            Stack(children: [
+              const SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: DecoratedBox(
+                    decoration: BoxDecoration(color: kPrimaryColor)),
+              ),
+              Positioned(
+                bottom: 100.0,
+                right: 100.0,
+                left: 100.0,
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: kColorBlack.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Image.asset(
+                    'assets/images/logo_magicwand.png',
+                    semanticLabel: 'Sainee Detailing Logo',
+                    height: 150.0,
+                  ),
+                ),
+              ),
+              const Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          color: kColorOffWhite,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(100),
+                          ))),
+                ),
+              ),
+            ]),
+            const SizedBox(
+              width: 310,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: kSecondaryColorDark,
+                    fontSize: headingFont,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             Consumer<LoginViewModel>(
               builder: (context, notifier, child) => CenteredTextBox(
                   hint: 'Email',
@@ -41,7 +84,7 @@ class LoginScreenBody extends StatelessWidget {
             const SizedBox(height: 20),
             Consumer<LoginViewModel>(
               builder: (context, notifier, child) => CenteredTextBox(
-                hint: 'Pasword',
+                hint: 'Password',
                 onChanged: (value) => notifier.password = value,
                 isObscure: notifier.hidePassword ? true : false,
                 prefixIcon: const Icon(Icons.lock),
@@ -89,7 +132,7 @@ class LoginScreenBody extends StatelessWidget {
                           ],
                         ),
                       )
-                    : const Text('LOGIN'),
+                    : const Text('Login'),
               ),
             ),
             const SizedBox(height: 10),
@@ -103,12 +146,12 @@ class LoginScreenBody extends StatelessWidget {
                 GestureDetector(
                   onTap: () =>
                       Navigator.pushReplacementNamed(context, '/register'),
-                  child: const Text('  Create account',
-                      style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
+                  child: const Text('  Sign up',
+                      style: TextStyle(fontSize: 15, color: kSecondaryColor)),
                 ),
               ],
             ),
-            const SizedBox(height: 100),
+            // const SizedBox(height: 150),
           ],
         ),
       ),

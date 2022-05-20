@@ -8,15 +8,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: kPrimaryColor,
-        elevation: 0.0,
-      ),
-      body: const LoginScreenBody(),
+    return const Scaffold(
+      // extendBodyBehindAppBar: true,
+      backgroundColor: kColorOffWhite,
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   iconTheme: const IconThemeData(color: Colors.black),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0.0,
+      // ),
+      body: LoginScreenBody(),
     );
   }
 }
