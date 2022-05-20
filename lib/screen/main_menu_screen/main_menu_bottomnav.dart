@@ -13,6 +13,7 @@ class MainmenuBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+        backgroundColor: kColorWhite,
         currentIndex: mainmenuViewModel.currentIndex,
         type: BottomNavigationBarType.fixed,
         elevation: 50,

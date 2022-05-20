@@ -11,8 +11,8 @@ class AccountViewModel extends ChangeNotifier {
     Navigator.pushNamed(context, '/profile');
   }
 
-  onTapAddress() {
-    print('My Address');
+  onTapAddress(BuildContext context) {
+    Navigator.pushNamed(context, '/address');
   }
 
   onTapCar() {

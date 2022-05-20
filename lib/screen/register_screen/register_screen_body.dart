@@ -18,22 +18,52 @@ class RegisterScreenBody extends StatelessWidget {
     final RegisterViewModel registerViewModel =
         Provider.of<RegisterViewModel>(context);
 
-    return Center(
+    return SizedBox(
+      height: double.infinity,
+      width: double.infinity,
       child: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Align(
-              // alignment: Alignment.centerLeft,
+            Stack(
+              children: const <Widget>[
+                SizedBox(
+                  height: 150,
+                  width: double.infinity,
+                  child: DecoratedBox(
+                      decoration: BoxDecoration(color: kPrimaryColor)),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: kColorOffWhite,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(100),
+                              // topRight: Radius.circular(100),
+                            ))),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 310.0,
               child: Text(
                 'Create Account',
                 style: TextStyle(
-                  fontSize: titleFont,
+                  color: kSecondaryColorDark,
+                  fontSize: headingFont,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 20),
             CenteredTextBox(
               hint: 'Full Name',
               isObscure: false,
@@ -89,9 +119,13 @@ class RegisterScreenBody extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     labelText: 'Phone Number',
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: kSecondaryColorDark)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: kSecondaryColorDark)),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 0, color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     )),
               ),
             ),
@@ -149,7 +183,7 @@ class RegisterScreenBody extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
-                            Text('Preparing Your Account'),
+                            Text('Creating Your Account'),
                             SizedBox(width: 10),
                             SizedBox(
                               height: 20,
@@ -161,7 +195,7 @@ class RegisterScreenBody extends StatelessWidget {
                           ],
                         ),
                       )
-                    : const Text('REGISTER'),
+                    : const Text('Sign Up'),
               ),
             ),
             const SizedBox(height: 10),
@@ -176,7 +210,7 @@ class RegisterScreenBody extends StatelessWidget {
                   onTap: () =>
                       Navigator.pushReplacementNamed(context, '/login'),
                   child: const Text(' Sign in',
-                      style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
+                      style: TextStyle(fontSize: 15, color: kSecondaryColor)),
                 ),
               ],
             ),

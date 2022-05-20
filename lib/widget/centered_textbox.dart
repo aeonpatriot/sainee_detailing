@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sainee_detailing/constant.dart';
 
 class CenteredTextBox extends StatelessWidget {
   final String _hint;
@@ -23,10 +24,12 @@ class CenteredTextBox extends StatelessWidget {
     return SizedBox(
       width: 310.0,
       child: TextField(
+        cursorColor: kSecondaryColorDark,
         obscureText: _isObscure,
         onChanged: _onChange,
         style: const TextStyle(fontSize: 17.0),
         decoration: InputDecoration(
+            focusColor: kSecondaryColorDark,
             suffixIcon: _suffixIcon,
             prefixIcon: _prefixIcon,
             contentPadding:
@@ -35,9 +38,13 @@ class CenteredTextBox extends StatelessWidget {
             fillColor: Colors.white,
             labelText: _hint,
             errorText: _errorText,
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: kSecondaryColorDark)),
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: kSecondaryColorDark)),
             border: const OutlineInputBorder(
               borderSide: BorderSide(width: 0, color: Colors.white),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
             )),
       ),
     );

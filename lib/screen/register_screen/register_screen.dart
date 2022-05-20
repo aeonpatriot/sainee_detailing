@@ -8,16 +8,16 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: kPrimaryColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: kPrimaryColor,
-        elevation: 0.0,
-      ),
-      body: const RegisterScreenBody(),
+      backgroundColor: kColorOffWhite,
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   iconTheme: const IconThemeData(color: Colors.black),
+      //   backgroundColor: kPrimaryColor,
+      //   elevation: 0.0,
+      // ),
+      body: RegisterScreenBody(),
     );
   }
 }
