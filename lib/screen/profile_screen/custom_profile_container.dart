@@ -10,7 +10,7 @@ class CustomProfileContainer extends StatelessWidget {
       required suffixText,
       required suffixIcon,
       required loginViewModel,
-      navigator,
+      required navigator,
       onGoBack})
       : _editType = editType,
         _preText = preText,
@@ -24,7 +24,7 @@ class CustomProfileContainer extends StatelessWidget {
   final String? _editType;
   final String _preText;
   final String _suffixText;
-  final bool? _navigator;
+  final bool _navigator;
   final dynamic _suffixIcon;
   final double textSize = 16;
   final dynamic _onGoBack;
@@ -103,7 +103,12 @@ class CustomProfileContainer extends StatelessWidget {
               Expanded(
                   flex: 0,
                   child: Container(
-                    child: _suffixIcon,
+                    child: _navigator
+                        ? _suffixIcon
+                        : const Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.transparent,
+                          ),
                   )),
             ],
           ),

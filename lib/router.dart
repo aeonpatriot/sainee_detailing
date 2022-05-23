@@ -6,6 +6,7 @@ import 'package:sainee_detailing/screen/other_screen/register_success_screen.dar
 import 'package:sainee_detailing/screen/profile_screen/edit_profile_screen.dart';
 import 'package:sainee_detailing/screen/profile_screen/profile_screen.dart';
 import 'package:sainee_detailing/screen/register_screen/register_screen.dart';
+import 'package:sainee_detailing/screen/splash_screen.dart';
 
 Route<dynamic>? createRoute(settings) {
   switch (settings.name) {

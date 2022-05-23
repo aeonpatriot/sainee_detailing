@@ -26,40 +26,58 @@ class RegisterScreenBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Stack(
-              children: const <Widget>[
-                SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: DecoratedBox(
-                      decoration: BoxDecoration(color: kPrimaryColor)),
+            Hero(
+              tag: 'header',
+              child: Material(
+                type: MaterialType.transparency,
+                child: Stack(
+                  children: const <Widget>[
+                    SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: DecoratedBox(
+                          decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [kPrimaryColor, kPrimaryColorDark]),
+                      )),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: kColorOffWhite,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(100),
+                                  // topRight: Radius.circular(100),
+                                ))),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child: SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: kColorOffWhite,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(100),
-                              // topRight: Radius.circular(100),
-                            ))),
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(
               width: 310.0,
-              child: Text(
-                'Create Account',
-                style: TextStyle(
-                  color: kSecondaryColorDark,
-                  fontSize: headingFont,
-                  fontWeight: FontWeight.bold,
+              child: Hero(
+                tag: 'title',
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Text(
+                    'Create Account',
+                    style: TextStyle(
+                      color: kSecondaryColorDark,
+                      fontSize: kHeadingFont,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -174,6 +192,7 @@ class RegisterScreenBody extends StatelessWidget {
                 onPressed: (!registrationValidation.isValid)
                     ? null
                     : () {
+                        FocusScope.of(context).unfocus();
                         notifier.setIsRegisterLoading(true);
                         registrationValidation.submitRegistration(context);
                       },
@@ -207,8 +226,7 @@ class RegisterScreenBody extends StatelessWidget {
                   style: TextStyle(fontSize: 15.0),
                 ),
                 GestureDetector(
-                  onTap: () =>
-                      Navigator.pushReplacementNamed(context, '/login'),
+                  onTap: () => Navigator.pop(context),
                   child: const Text(' Sign in',
                       style: TextStyle(fontSize: 15, color: kSecondaryColor)),
                 ),
