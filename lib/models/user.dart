@@ -7,8 +7,20 @@ class User {
   String? _type;
   String? _gender;
   dynamic _image;
+  String? _created_at;
+  String? _updated_at;
 
-  User({id, name, email, phoneNumber, password, type, gender, image})
+  User(
+      {id,
+      name,
+      email,
+      phoneNumber,
+      password,
+      type,
+      gender,
+      created_at,
+      updated_at,
+      image})
       : _id = id,
         _name = name,
         _email = email,
@@ -16,6 +28,8 @@ class User {
         _password = password,
         _type = type,
         _gender = gender,
+        _created_at = created_at,
+        _updated_at = updated_at,
         _image = image;
 
   get id => _id;
@@ -34,30 +48,67 @@ class User {
   set gender(value) => _gender = value;
   get image => _image;
   set image(value) => _image = value;
+  get created_at => _created_at;
+  // set created_at(value) => _created_at = value;
+  get updated_at => _updated_at;
+  // set updated_at(value) => _updated_at = value;
 
-  User.copy(User from)
-      : this(
-          id: from._id,
-          name: from._name,
-          email: from._email,
-          phoneNumber: from._phoneNumber,
-          password: from._password,
-          type: from._type,
-          gender: from._gender,
-          image: from._image,
-        );
+  // User.copy(User from)
+  //     : this(
+  //         id: from._id,
+  //         name: from._name,
+  //         email: from._email,
+  //         phoneNumber: from._phoneNumber,
+  //         password: from._password,
+  //         type: from._type,
+  //         gender: from._gender,
+  //         image: from._image,
+  //         created_at: from._created_at,
+  //         updated_at: from._updated_at,
+  //       );
 
-  User.fromJson(Map<String, dynamic> json)
-      : this(
-          id: json['id'],
-          name: json['name'],
-          email: json['email'],
-          phoneNumber: json['phoneNumber'],
-          password: json['password'],
-          type: json['type'],
-          gender: json['gender'],
-          image: json['image'],
-        );
+  factory User.copy(User from) {
+    return User(
+      id: from._id,
+      name: from._name,
+      email: from._email,
+      phoneNumber: from._phoneNumber,
+      password: from._password,
+      type: from._type,
+      gender: from._gender,
+      image: from._image,
+      created_at: from._created_at,
+      updated_at: from._updated_at,
+    );
+  }
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      password: json['password'],
+      type: json['type'],
+      gender: json['gender'],
+      image: json['image'],
+      created_at: json['created_at'],
+      updated_at: json['updated_at'],
+    );
+  }
+  // User.fromJson(Map<String, dynamic> json)
+  //     : this(
+  //         id: json['id'],
+  //         name: json['name'],
+  //         email: json['email'],
+  //         phoneNumber: json['phoneNumber'],
+  //         password: json['password'],
+  //         type: json['type'],
+  //         gender: json['gender'],
+  //         image: json['image'],
+  //         created_at: json['created_at'],
+  //         updated_at: json['updated_at'],
+  //       );
 
   Map<String, dynamic> toJson() => {
         'id': _id,
@@ -68,10 +119,12 @@ class User {
         'type': _type,
         'gender': _gender,
         'image': _image,
+        'created_at': _created_at,
+        'updated_at': _updated_at,
       };
 
   @override
   String toString() {
-    return 'User: {id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, type: $type, gender: $gender, image: $image, }';
+    return 'User: {id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, type: $type, gender: $gender, image: $image, created_at: $created_at, updated_at: $updated_at,}';
   }
 }

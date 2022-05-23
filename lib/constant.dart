@@ -14,8 +14,8 @@ const kColorWhite = Color.fromRGBO(255, 255, 255, 1.0);
 const kColorOffWhite = Color.fromRGBO(244, 246, 252, 1.0);
 const kColorBlack = Color.fromRGBO(0, 0, 0, 1.0);
 
-const double headingFont = 34.0;
-const double maincontentFont = 14.0;
+const double kHeadingFont = 34.0;
+const double kMaincontentFont = 15.0;
 
 // Old Color Pallete
 // const kPrimaryColor = Color.fromRGBO(255, 208, 139, 1.0);

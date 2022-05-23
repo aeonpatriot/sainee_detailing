@@ -41,6 +41,8 @@ class EditProfileScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          shadowColor: kSecondaryColorDark.withOpacity(0.2),
+          elevation: 2,
           titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
           iconTheme: const IconThemeData(color: kPrimaryColorDarker),
           backgroundColor: Colors.white,

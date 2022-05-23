@@ -32,10 +32,16 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                child: Image.asset(
-                  'assets/images/logo.jpg',
-                  semanticLabel: 'Sainee Detailing Logo',
-                  height: 170.0,
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: kColorBlack.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Image.asset(
+                    'assets/images/logo_magicwand.png',
+                    semanticLabel: 'Sainee Detailing Logo',
+                    height: 150.0,
+                  ),
                 ),
               )
             ],

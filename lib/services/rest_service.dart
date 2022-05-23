@@ -14,6 +14,38 @@ class RestService implements Rest {
   get apiToken => _apiToken;
 
   @override
+  Future get(String endpoint) async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/$endpoint'),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+
+    return null;
+  }
+
+  // GET all and return a list
+  // @override
+  // Future getAll(String endpoint) async {
+  //   final response = await http.get(
+  //     Uri.parse('$_baseUrl/$endpoint'),
+  //     headers: {'Content-Type': 'application/json'},
+  //   );
+  //   print('$_baseUrl/$endpoint');
+
+  //   if (response.statusCode == 200) {
+  //     print('inside 200');
+  //     return jsonDecode(response.body);
+  //   }
+
+  //   print('outside 200');
+  //   return null;
+  // }
+
+  @override
   Future post(String endpoint, {dynamic data}) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/$endpoint'),
@@ -29,6 +61,7 @@ class RestService implements Rest {
     return null;
   }
 
+  //POST with token METHOD
   @override
   Future postWithToken(String endpoint, {dynamic data}) async {
     final response = await http.post(
@@ -60,9 +93,6 @@ class RestService implements Rest {
         HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
       },
       body: jsonEncode(data),
-      // body: jsonEncode(<String, String>{
-      //   'email': data.email,
-      // }),
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
@@ -70,20 +100,6 @@ class RestService implements Rest {
       return jsonDecode(response.body);
     }
     print(response.statusCode);
-    return null;
-  }
-
-  @override
-  Future get(String endpoint) async {
-    final response = await http.post(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-    );
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-
     return null;
   }
 }
