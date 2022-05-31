@@ -13,6 +13,9 @@ class MainmenuBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+        selectedLabelStyle:
+            Theme.of(context).textTheme.caption?.copyWith(fontSize: 14),
+        unselectedLabelStyle: Theme.of(context).textTheme.caption,
         backgroundColor: kColorWhite,
         currentIndex: mainmenuViewModel.currentIndex,
         type: BottomNavigationBarType.fixed,

@@ -25,15 +25,24 @@ class AddressScreen extends StatelessWidget {
                 elevation: MaterialStateProperty.all<double>(0),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.transparent)),
-            child: Row(children: const [
-              Text('ADD'),
-              SizedBox(width: 2.5),
-              Icon(Icons.add),
+            child: Row(children: [
+              Text(
+                'ADD',
+                style: Theme.of(context).textTheme.button,
+              ),
+              const SizedBox(width: 2.5),
+              const Icon(Icons.add),
             ]),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/addAddress');
+            },
           ),
         ],
-        title: const Text('My Address'),
+        title: Text('My Address',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(color: kColorWhite)),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: kPrimaryColor,

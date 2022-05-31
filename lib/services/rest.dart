@@ -3,8 +3,8 @@ abstract class Rest {
   set apiToken(value) => _apiToken = value;
   get apiToken => _apiToken;
   Future get(String endpoint);
-  // Future getAll(String endpoint);
   Future post(String endpoint, {dynamic data});
   Future postWithToken(String endpoint, {dynamic data});
   Future putWithToken(String endpoint, {dynamic data});
+  Future deleteWithToken(String endpoint);
 }

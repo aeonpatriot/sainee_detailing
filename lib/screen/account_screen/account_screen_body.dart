@@ -6,15 +6,14 @@ import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 class AccountScreenBody extends StatelessWidget {
   const AccountScreenBody({
     Key? key,
-    required this.accountViewModel,
   }) : super(key: key);
-
-  final AccountViewModel accountViewModel;
 
   @override
   Widget build(BuildContext context) {
     final MainmenuViewModel mainmenuViewModel =
-        Provider.of<MainmenuViewModel>(context);
+        Provider.of<MainmenuViewModel>(context, listen: false);
+    final AccountViewModel accountViewModel =
+        Provider.of<AccountViewModel>(context, listen: false);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -46,7 +45,10 @@ class AccountScreenBody extends StatelessWidget {
                       mainmenuViewModel.currentIndex = 0;
                     }
                   },
-                  title: Text(accountViewModel.items[index]),
+                  title: Text(
+                    accountViewModel.items[index],
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                   trailing: (index == 3)
                       ? const Icon(
                           Icons.logout,

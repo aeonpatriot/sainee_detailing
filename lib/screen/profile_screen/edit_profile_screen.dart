@@ -32,14 +32,19 @@ class EditProfileScreen extends StatelessWidget {
           loginViewModel.isProfileSame = true;
           return false;
         } else {
-          ConfirmDiscardalert.showAlertDialog(
+          ConfirmDiscardAlert.showAlertDialog(
               context: context,
-              loginViewModel: loginViewModel,
-              isEditScreen: true);
+              onDiscardPressed: () {
+                loginViewModel.onEditProfileDiscard(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                loginViewModel.isProfileSame = true;
+              });
           return false;
         }
       },
       child: Scaffold(
+        backgroundColor: kColorOffWhite,
         appBar: AppBar(
           shadowColor: kSecondaryColorDark.withOpacity(0.2),
           elevation: 2,
@@ -55,10 +60,14 @@ class EditProfileScreen extends StatelessWidget {
                   });
                   loginViewModel.isProfileSame = true;
                 } else {
-                  ConfirmDiscardalert.showAlertDialog(
+                  ConfirmDiscardAlert.showAlertDialog(
                       context: context,
-                      loginViewModel: loginViewModel,
-                      isEditScreen: true);
+                      onDiscardPressed: () {
+                        loginViewModel.onEditProfileDiscard(context);
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        loginViewModel.isProfileSame = true;
+                      });
                 }
               },
               icon: const Icon(Icons.arrow_back)),
@@ -79,10 +88,19 @@ class EditProfileScreen extends StatelessWidget {
                             });
                             loginViewModel.isProfileSame = true;
                           },
-                    child: const Text('Save')))
+                    child: Text(
+                      'Save'.toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .button
+                          ?.copyWith(color: kPrimaryColorDarker),
+                    )))
           ],
           actionsIconTheme: const IconThemeData(color: kPrimaryColorDarker),
-          title: Text(getAppBarTitle(_editType, profileViewModel) ?? ''),
+          title: Text(
+            getAppBarTitle(_editType, profileViewModel) ?? '',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
         body: Column(children: [
           const SizedBox(
@@ -96,7 +114,7 @@ class EditProfileScreen extends StatelessWidget {
               setnewProfile(value, loginViewModel, _editType);
               loginViewModel.checkProfile(_editType);
             },
-            style: const TextStyle(fontSize: 17.0),
+            style: Theme.of(context).textTheme.bodyText1,
             decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent)),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
@@ -16,6 +18,8 @@ void main() {
   di.init();
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider<AddressValidation>(
+          create: (context) => AddressValidation()),
       ChangeNotifierProvider<RegistrationValidation>(
           create: (context) => RegistrationValidation()),
       ChangeNotifierProvider<RegisterViewModel>(
@@ -42,9 +46,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          textTheme: GoogleFonts.robotoTextTheme(
-        Theme.of(context).textTheme,
-      )),
+        brightness: Brightness.light,
+        textTheme: GoogleFonts.robotoTextTheme(
+          Theme.of(context).textTheme.copyWith(
+              // headline6: const TextStyle(color: kColorWhite),
+              // bodyText1: const TextStyle(fontSize: 16),
+              button: const TextStyle(
+                  color: kColorWhite,
+                  fontSize: 16,
+                  letterSpacing: 1.25,
+                  fontWeight: FontWeight.bold)),
+        ),
+      ),
+      //TODO set theme for text
       debugShowCheckedModeBanner: false,
       title: 'Sainee Detailing Services Online Booking System',
       onGenerateRoute: createRoute,

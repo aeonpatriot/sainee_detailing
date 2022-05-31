@@ -10,7 +10,13 @@ class CenteredTextBox extends StatelessWidget {
   final Icon? _prefixIcon;
 
   const CenteredTextBox(
-      {Key? key, hint, isObscure, errorText, onChanged, suffixIcon, prefixIcon})
+      {Key? key,
+      required hint,
+      required isObscure,
+      errorText,
+      onChanged,
+      suffixIcon,
+      prefixIcon})
       : _hint = hint,
         _isObscure = isObscure,
         _errorText = errorText,
@@ -27,7 +33,7 @@ class CenteredTextBox extends StatelessWidget {
         cursorColor: kSecondaryColorDark,
         obscureText: _isObscure,
         onChanged: _onChange,
-        style: const TextStyle(fontSize: 17.0),
+        style: Theme.of(context).textTheme.bodyText1,
         decoration: InputDecoration(
             focusColor: kSecondaryColorDark,
             suffixIcon: _suffixIcon,

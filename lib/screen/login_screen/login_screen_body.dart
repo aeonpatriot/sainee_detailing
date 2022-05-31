@@ -32,8 +32,8 @@ class LoginScreenBody extends StatelessWidget {
                         decoration: BoxDecoration(
                       color: kPrimaryColor,
                       gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                           colors: [kPrimaryColor, kPrimaryColorDark]),
                     )),
                   ),
@@ -44,7 +44,7 @@ class LoginScreenBody extends StatelessWidget {
                     child: Container(
                       height: 100,
                       decoration: BoxDecoration(
-                          color: kColorBlack.withOpacity(0.8),
+                          color: kColorBlack.withOpacity(0.9),
                           borderRadius: BorderRadius.circular(15)),
                       child: Image.asset(
                         'assets/images/logo_magicwand.png',
@@ -71,7 +71,7 @@ class LoginScreenBody extends StatelessWidget {
                 ]),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               width: 310,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -79,14 +79,10 @@ class LoginScreenBody extends StatelessWidget {
                   tag: 'title',
                   child: Material(
                     type: MaterialType.transparency,
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: kSecondaryColorDark,
-                        fontSize: kHeadingFont,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('Login',
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: kSecondaryColorDark)),
                   ),
                 ),
               ),
@@ -115,57 +111,69 @@ class LoginScreenBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            Consumer<LoginViewModel>(
-              builder: (context, notifier, child) => ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: kPrimaryColorDarker,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15.0,
-                      horizontal: 10.0,
-                    ),
-                    minimumSize: const Size(310.0, 35.0),
-                    textStyle: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  notifier.setIsLoginLoading(true);
-                  loginViewModel.onLoginPressed(context);
-                },
-                child: notifier.isLoginLoading
-                    ? SizedBox(
-                        width: 300,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Text('Coming Right Up'),
-                            SizedBox(width: 10),
-                            SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                  color: kPrimaryColorDark,
-                                  backgroundColor: kPrimaryColor),
-                            ),
-                          ],
+            Hero(
+              tag: 'mainButton',
+              child: Consumer<LoginViewModel>(
+                builder: (context, notifier, child) => ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: kPrimaryColorDarker,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15.0,
+                        horizontal: 10.0,
+                      ),
+                      minimumSize: const Size(310.0, 35.0),
+                      textStyle: const TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  onPressed: () {
+                    FocusScope.of(context).unfocus();
+                    notifier.setIsLoginLoading(true);
+                    loginViewModel.onLoginPressed(context);
+                  },
+                  child: notifier.isLoginLoading
+                      ? SizedBox(
+                          width: 300,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Coming Right Up'.toUpperCase(),
+                                style: Theme.of(context).textTheme.button,
+                              ),
+                              const SizedBox(width: 10),
+                              const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                    color: kPrimaryColorDark,
+                                    backgroundColor: kPrimaryColor),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Text(
+                          'LOGIN',
+                          style: Theme.of(context).textTheme.button,
                         ),
-                      )
-                    : const Text('Login'),
+                ),
               ),
             ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   'Dont\'t have an account?',
-                  style: TextStyle(fontSize: 15),
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/register'),
-                  child: const Text('  Sign up',
-                      style: TextStyle(fontSize: 15, color: kSecondaryColor)),
+                  child: Text(' Sign up',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          ?.copyWith(color: kSecondaryColor)),
                 ),
               ],
             ),
