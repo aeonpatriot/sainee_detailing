@@ -3,8 +3,10 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/register_screen/register_screen_body.dart';
 
 class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
   static Route route() =>
-      MaterialPageRoute(builder: (context) => RegisterScreen());
+      MaterialPageRoute(builder: (context) => const RegisterScreen());
 
   @override
   Widget build(BuildContext context) {

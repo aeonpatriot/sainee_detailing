@@ -29,7 +29,7 @@ class GenderOptionContainer extends StatelessWidget {
         child: Container(
           child: Text(
             _title,
-            style: TextStyle(fontSize: textSize),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           width: double.maxFinite,
           padding: const EdgeInsets.only(top: 15.5, left: 7.0),

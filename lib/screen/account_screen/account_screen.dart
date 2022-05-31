@@ -8,11 +8,9 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AccountViewModel accountViewModel =
-        Provider.of<AccountViewModel>(context, listen: false);
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        body: AccountScreenBody(accountViewModel: accountViewModel),
+        body: AccountScreenBody(),
       ),
     );
   }

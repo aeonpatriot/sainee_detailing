@@ -27,24 +27,39 @@ class _SplashScreenState extends State<SplashScreen> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          backgroundColor: kPrimaryColor,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      color: kColorBlack.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Image.asset(
-                    'assets/images/logo_magicwand.png',
-                    semanticLabel: 'Sainee Detailing Logo',
-                    height: 150.0,
+          backgroundColor: Colors.transparent,
+          body: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                  kSecondaryColor,
+                  kPrimaryColor,
+                  kPrimaryColorDark,
+                  kPrimaryColorDarker,
+                  kSecondaryColorDark,
+                ])),
+            height: double.infinity,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: kColorBlack.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Image.asset(
+                      'assets/images/logo_magicwand.png',
+                      semanticLabel: 'Sainee Detailing Logo',
+                      height: 150.0,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ));
   }

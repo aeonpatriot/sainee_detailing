@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/user_service.dart';
-import 'package:sainee_detailing/widget/snackbar.dart';
+import 'package:sainee_detailing/widget/custom_snackbar.dart';
 
 class LoginViewModel with ChangeNotifier {
   String? _email;
@@ -60,6 +60,11 @@ class LoginViewModel with ChangeNotifier {
     print(_user);
 
     if (_user == null) {
+      setIsLoginLoading(false);
+      FailedSnackBar.show(
+          context: context,
+          title: 'Oh Snap!',
+          message: 'Invalid login info. Please check your email or password');
       print('login failed');
     } else {
       _userDetails = _user;
@@ -81,8 +86,8 @@ class LoginViewModel with ChangeNotifier {
       _userDetails = _user;
       _userDetailsCopy = User.copy(_userDetails);
       Navigator.pop(context);
-      CustomSnackBar.show(
-          context: context, message: 'Profile Updated Successfully');
+      SuccessSnackBar.show(
+          context: context, message: 'Profile have been updated successfully');
       print('update success');
     }
   }
@@ -100,8 +105,8 @@ class LoginViewModel with ChangeNotifier {
       _userDetailsCopy = User.copy(_userDetails);
       _userDetailsCopy.gender = oldGender;
       Navigator.pop(context);
-      CustomSnackBar.show(
-          context: context, message: 'Profile Updated Successfully');
+      SuccessSnackBar.show(
+          context: context, message: 'Profile Have Been Updated Successfully');
       print('update success');
     }
   }

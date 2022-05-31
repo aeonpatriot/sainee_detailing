@@ -9,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   static Route route() =>
-      MaterialPageRoute(builder: (context) => ProfileScreen());
+      MaterialPageRoute(builder: (context) => const ProfileScreen());
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,14 @@ class ProfileScreen extends StatelessWidget {
           loginViewModel.isGenderSame = true;
           return false;
         } else {
-          ConfirmDiscardalert.showAlertDialog(
+          ConfirmDiscardAlert.showAlertDialog(
               context: context,
-              loginViewModel: loginViewModel,
-              isEditScreen: false);
+              onDiscardPressed: () {
+                loginViewModel.onProfileDiscard(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                loginViewModel.isGenderSame = true;
+              });
           return false;
         }
       },
@@ -42,7 +46,10 @@ class ProfileScreen extends StatelessWidget {
                       },
                 icon: const Icon(Icons.done)),
           ],
-          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          titleTextStyle: Theme.of(context)
+              .textTheme
+              .headline6
+              ?.copyWith(color: kColorWhite),
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: kPrimaryColor,
           title: const Text('My Profile'),
@@ -50,10 +57,14 @@ class ProfileScreen extends StatelessWidget {
               onPressed: () {
                 loginViewModel.isGenderSame
                     ? Navigator.pop(context)
-                    : ConfirmDiscardalert.showAlertDialog(
+                    : ConfirmDiscardAlert.showAlertDialog(
                         context: context,
-                        loginViewModel: loginViewModel,
-                        isEditScreen: false);
+                        onDiscardPressed: () {
+                          loginViewModel.onProfileDiscard(context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          loginViewModel.isGenderSame = true;
+                        });
               },
               icon: const Icon(Icons.arrow_back)),
         ),

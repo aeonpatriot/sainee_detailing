@@ -27,24 +27,6 @@ class RestService implements Rest {
     return null;
   }
 
-  // GET all and return a list
-  // @override
-  // Future getAll(String endpoint) async {
-  //   final response = await http.get(
-  //     Uri.parse('$_baseUrl/$endpoint'),
-  //     headers: {'Content-Type': 'application/json'},
-  //   );
-  //   print('$_baseUrl/$endpoint');
-
-  //   if (response.statusCode == 200) {
-  //     print('inside 200');
-  //     return jsonDecode(response.body);
-  //   }
-
-  //   print('outside 200');
-  //   return null;
-  // }
-
   @override
   Future post(String endpoint, {dynamic data}) async {
     final response = await http.post(
@@ -78,6 +60,7 @@ class RestService implements Rest {
       return jsonDecode(response.body);
     }
 
+    print(response.statusCode);
     return null;
   }
 
@@ -96,10 +79,33 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.body);
       print(response.statusCode);
       return jsonDecode(response.body);
     }
     print(response.statusCode);
+    return null;
+  }
+
+//DELETE with token METHOD
+  @override
+  Future deleteWithToken(String endpoint) async {
+    print('$_baseUrl/$endpoint');
+    final response = await http.delete(
+      Uri.parse('$_baseUrl/$endpoint'),
+      headers: {
+        'Content-Type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print(response.statusCode);
+      return jsonDecode(response.body);
+    }
+
+    print(response.statusCode);
+    print(response.body);
     return null;
   }
 }

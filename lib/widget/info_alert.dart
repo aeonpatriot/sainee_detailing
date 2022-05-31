@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
 
-class ConfirmDiscardAlert {
-  static showAlertDialog(
-      {required BuildContext context, required VoidCallback onDiscardPressed}) {
+class InfoAlert {
+  static showAlertDialog({required BuildContext context}) {
     showDialog(
         useRootNavigator: true,
         barrierDismissible: true,
         context: context,
         builder: (context) => AlertDialog(
               content: Text(
-                'Discard Changes?',
+                'The default address cannot be un-selected. You can set another address as default address instead.',
                 style: Theme.of(context).textTheme.bodyText1,
+                overflow: TextOverflow.visible,
               ),
               actions: [
                 TextButton(
                   child: Text(
-                    'No',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    'Discard',
+                    'OK',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
                         ?.copyWith(color: kPrimaryColorDarker),
                   ),
-                  onPressed: onDiscardPressed,
-                )
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ));
   }

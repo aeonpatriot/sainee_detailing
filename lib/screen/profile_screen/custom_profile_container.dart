@@ -32,50 +32,46 @@ class CustomProfileContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle? thisStyle = Theme.of(context).textTheme.bodyText1;
     return Material(
       color: const Color.fromARGB(255, 255, 255, 255),
       child: InkWell(
         onTap: () async {
-          if (_navigator != null) {
-            if (_navigator == true) {
-              await Navigator.pushNamed(context, '/editProfile',
-                  arguments: _editType);
-              _onGoBack();
-            } else {
-              showDialog(
-                  useRootNavigator: true,
-                  barrierDismissible: true,
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        content: SizedBox(
-                          height: 180,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                child: Text(
-                                  'Gender',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: textSize,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                width: double.maxFinite,
-                                height: 30,
+          if (_navigator == true) {
+            await Navigator.pushNamed(context, '/editProfile',
+                arguments: _editType);
+            _onGoBack();
+          } else {
+            showDialog(
+                useRootNavigator: true,
+                barrierDismissible: true,
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: SizedBox(
+                        height: 180,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              child: Text(
+                                'Gender',
+                                textAlign: TextAlign.center,
+                                style: thisStyle,
                               ),
-                              GenderOptionContainer(
-                                  title: 'Male',
-                                  loginViewModel: _loginViewModel),
-                              GenderOptionContainer(
-                                  title: 'Female',
-                                  loginViewModel: _loginViewModel),
-                              GenderOptionContainer(
-                                  title: 'Other',
-                                  loginViewModel: _loginViewModel),
-                            ],
-                          ),
+                              width: double.maxFinite,
+                              height: 30,
+                            ),
+                            GenderOptionContainer(
+                                title: 'Male', loginViewModel: _loginViewModel),
+                            GenderOptionContainer(
+                                title: 'Female',
+                                loginViewModel: _loginViewModel),
+                            GenderOptionContainer(
+                                title: 'Other',
+                                loginViewModel: _loginViewModel),
+                          ],
                         ),
-                      ));
-            }
+                      ),
+                    ));
           }
         },
         child: Container(
@@ -92,13 +88,13 @@ class CustomProfileContainer extends StatelessWidget {
                   flex: 1,
                   child: Text(
                     _preText,
-                    style: TextStyle(fontSize: textSize),
+                    style: thisStyle,
                   )),
               Expanded(
                   flex: 0,
                   child: Text(
                     _suffixText,
-                    style: TextStyle(fontSize: textSize),
+                    style: thisStyle,
                   )),
               Expanded(
                   flex: 0,

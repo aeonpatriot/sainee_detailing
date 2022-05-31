@@ -35,6 +35,7 @@ class RegistrationValidation extends ChangeNotifier {
   ValidationItem get email => _email;
   ValidationItem get password => _password;
   ValidationItem get confirmPassword => _confirmPassword;
+
   bool get isValid {
     if (name.value != null &&
         email.value != null &&
@@ -49,7 +50,7 @@ class RegistrationValidation extends ChangeNotifier {
   }
 
   void setName(String value) {
-    if (value != null && value.length >= 3) {
+    if (value.length >= 3) {
       _name = ValidationItem(value, null);
     } else {
       _name = ValidationItem(null, 'Must be at least 3 characters');
@@ -58,7 +59,7 @@ class RegistrationValidation extends ChangeNotifier {
   }
 
   void setEmail(String value) {
-    if (value != null && EmailValidator.validate(value)) {
+    if (EmailValidator.validate(value)) {
       _email = ValidationItem(value, null);
     } else {
       _email = ValidationItem(null, 'Enter a valid email');
@@ -67,7 +68,7 @@ class RegistrationValidation extends ChangeNotifier {
   }
 
   void setPassword(String value) {
-    if (value != null && value.length >= 7) {
+    if (value.length >= 7) {
       _password = ValidationItem(value, null);
     } else {
       _password = ValidationItem(value, 'Must be at least 7 characters');
@@ -82,8 +83,6 @@ class RegistrationValidation extends ChangeNotifier {
   }
 
   void checkPassword() {
-    print('pswd: ${password.value}');
-    print('cpswd:  ${confirmPassword.value}');
     if (password.value == confirmPassword.value) {
       _confirmPassword = ValidationItem(confirmPassword.value, null);
     } else {
@@ -93,7 +92,7 @@ class RegistrationValidation extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submitRegistration(BuildContext context) async {
+  Future submitRegistration(BuildContext context) async {
     final User user = User(
         name: name.value,
         email: email.value,
@@ -106,15 +105,10 @@ class RegistrationValidation extends ChangeNotifier {
 
     if (_user == null) {
       print('Regiter failed');
+      setIsRegisterLoading(false);
     } else {
       Navigator.pushReplacementNamed(context, '/registersuccess');
       setIsRegisterLoading(false);
-      print(user.name);
-      print(user.email);
-      print(user.password);
-      print(user.type);
-      print(user.image);
-      print(user.phoneNumber);
     }
   }
 }

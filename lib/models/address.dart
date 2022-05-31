@@ -155,6 +155,21 @@ class Address {
 
   @override
   String toString() {
-    return 'Address: {id: $id, userId: $userId, name: $name, phoneNumber: $phoneNumber, state: $state, city: $city, postcode: $postcode, addressLine1: $addressLine1, defaultAddress: $defaultAddress, latitude: $latitude, longitude: $longitude, created_at: $created_at, updated_at: $updated_at}';
+    return '''
+      Address: {
+        id: $id,
+        userId: $userId,
+        name: $name,
+        phoneNumber: $phoneNumber,
+        state: $state,
+        city: $city,
+        postcode: $postcode,
+        addressLine1: $addressLine1,
+        defaultAddress: $defaultAddress,
+        latitude: $latitude,
+        longitude: $longitude,
+        created_at: $created_at,
+        updated_at: $updated_at
+      }''';
   }
 }

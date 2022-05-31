@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
 
-class ConfirmDiscardAlert {
+class ConfirmDeleteAlert {
   static showAlertDialog(
-      {required BuildContext context, required VoidCallback onDiscardPressed}) {
+      {required BuildContext context, required VoidCallback onDeletePressed}) {
     showDialog(
         useRootNavigator: true,
         barrierDismissible: true,
         context: context,
         builder: (context) => AlertDialog(
               content: Text(
-                'Discard Changes?',
+                'Delete Address?',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               actions: [
@@ -25,13 +25,13 @@ class ConfirmDiscardAlert {
                 ),
                 TextButton(
                   child: Text(
-                    'Discard',
+                    'Delete',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1
                         ?.copyWith(color: kPrimaryColorDarker),
                   ),
-                  onPressed: onDiscardPressed,
+                  onPressed: onDeletePressed,
                 )
               ],
             ));

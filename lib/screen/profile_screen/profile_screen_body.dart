@@ -1,5 +1,6 @@
 import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
+import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/profile_screen/custom_profile_container.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 
@@ -17,17 +18,44 @@ class ProfileScreenBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flex(
-              direction: Axis.horizontal,
-              children: [
-                Expanded(
-                  child: Image.asset(
-                    'assets/images/placeholder-image-400x300.jpg',
-                    fit: BoxFit.fill,
-                    // height: 200,
-                  ),
-                )
-              ],
+            GestureDetector(
+              onTap: () {
+                print('test tap');
+              },
+              child: Container(
+                color: Colors.red,
+                width: double.infinity,
+                height: 250,
+                alignment: Alignment.center,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      'assets/images/placeholder-image-400x300.jpg',
+                      fit: BoxFit.fitWidth,
+                      width: double.infinity,
+                      height: 250,
+                      // height: 200,
+                    ),
+                    Positioned(
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 20,
+                        decoration:
+                            BoxDecoration(color: Colors.black.withOpacity(0.4)),
+                        child: Text('Tap to change',
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(color: kColorWhite)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             CustomProfileContainer(
               preText: 'Name',

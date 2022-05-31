@@ -2,6 +2,8 @@ import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/models/address.dart';
+import 'package:sainee_detailing/screen/address_screen/custom_widget.dart';
+import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 
@@ -17,10 +19,14 @@ class AddressScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
+    AddressViewModel addressViewModel = Provider.of<AddressViewModel>(context);
+    AddressValidation addressValidation =
+        Provider.of<AddressValidation>(context, listen: false);
 
     return FutureBuilder(
       future: addressViewModel.getUserAddresses(loginViewModel.userDetails.id),
       builder: (context, snapshot) {
+        print('address screen future builder');
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const Center(
@@ -32,6 +38,41 @@ class AddressScreenBody extends StatelessWidget {
               return Center(child: Text('Error: $error'));
             } else if (snapshot.hasData) {
               List<Address> data = snapshot.data as List<Address>;
+              if (data.isEmpty) {
+                return SizedBox(
+                  height: double.infinity,
+                  width: double.infinity,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Its empty here...',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: kSecondaryColorDark),
+                        ),
+                        Text(
+                          'Add new address now.',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: kSecondaryColorDark),
+                        ),
+                        Text(
+                          'Click the ADD + button at the top.',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: kSecondaryColorDark),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
               return ListView.builder(
                   padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
                   itemCount: data.length,
@@ -59,14 +100,11 @@ class AddressScreenBody extends StatelessWidget {
                         child: InkWell(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(20)),
-                          onTap: () {
-                            // final String data = '3.1582024524710235';
-                            // print(data.runtimeType);
-                            // final double dData = double.parse(data);
-                            // print(dData.runtimeType);
-                            // print(dData * 2);
-                            addressViewModel.getUserAddresses(
-                                loginViewModel.userDetails.id);
+                          onTap: () async {
+                            addressValidation.setValidationItemEdit(
+                                address: address);
+                            await addressViewModel.setAddressForEdit(address);
+                            Navigator.of(context).pushNamed('/editAddress');
                           },
                           child: SizedBox(
                             child: Stack(children: [
@@ -113,43 +151,11 @@ class AddressScreenBody extends StatelessWidget {
                     );
                   });
             } else {
-              return const Text('Having some problem to load data');
+              return const Center(
+                  child: Text('Having some problem to load data'));
             }
         }
       },
-    );
-  }
-}
-
-class AddressCardText extends StatelessWidget {
-  const AddressCardText({
-    Key? key,
-    required this.text,
-    this.isHeading,
-    this.isDefault,
-  }) : super(key: key);
-
-  final String text;
-  final bool? isHeading;
-  final String? isDefault;
-
-  static const maincontentTextColor = Color.fromRGBO(158, 158, 158, 1);
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-          text: text,
-          style: TextStyle(
-              color: isHeading == null ? maincontentTextColor : kColorBlack,
-              fontSize: kMaincontentFont),
-          children: (isDefault == 'Y')
-              ? [
-                  const TextSpan(
-                      text: ' [Default Address]',
-                      style: TextStyle(color: kSecondaryColor))
-                ]
-              : []),
     );
   }
 }
