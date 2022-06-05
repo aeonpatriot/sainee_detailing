@@ -1,0 +1,51 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:sainee_detailing/constant.dart';
+
+class CustomCachedNetworkImage extends StatelessWidget {
+  const CustomCachedNetworkImage({
+    Key? key,
+    required this.imageUrl,
+    bool? isCircle,
+  })  : isCircle = isCircle ?? false,
+        super(key: key);
+
+  final String imageUrl;
+  final bool isCircle;
+  final String rootImageUrl = 'http://192.168.1.106:8080/storage';
+  // final String rootImageUrl = 'http://192.168.1.107:8080/storage';
+  // final String rootImageUrl = 'http://10.0.2.2:8000/storage';
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      key: key,
+      httpHeaders: const {'Connection': 'Keep-Alive'},
+      imageUrl: "$rootImageUrl/$imageUrl",
+      imageBuilder: isCircle
+          ? (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent,
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+          : null,
+      placeholder: (context, url) => Container(
+          height: isCircle ? 60 : 100,
+          width: isCircle ? 60 : 100,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.transparent,
+          ),
+          child: const Center(
+              child: CircularProgressIndicator(color: kSecondaryColorDark))),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
+      fit: BoxFit.cover,
+      width: isCircle ? null : double.infinity,
+    );
+  }
+}

@@ -35,7 +35,7 @@ class EditProfileScreen extends StatelessWidget {
           ConfirmDiscardAlert.showAlertDialog(
               context: context,
               onDiscardPressed: () {
-                loginViewModel.onEditProfileDiscard(context);
+                loginViewModel.onEditProfileDiscard();
                 Navigator.pop(context);
                 Navigator.pop(context);
                 loginViewModel.isProfileSame = true;
@@ -63,7 +63,7 @@ class EditProfileScreen extends StatelessWidget {
                   ConfirmDiscardAlert.showAlertDialog(
                       context: context,
                       onDiscardPressed: () {
-                        loginViewModel.onEditProfileDiscard(context);
+                        loginViewModel.onEditProfileDiscard();
                         Navigator.pop(context);
                         Navigator.pop(context);
                         loginViewModel.isProfileSame = true;

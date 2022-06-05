@@ -28,7 +28,7 @@ class MainMenuScreen extends StatelessWidget {
             ),
       body: IndexedStack(
         index: mainmenuViewModel.currentIndex,
-        children: mainmenuViewModel.screen,
+        children: mainmenuViewModel.screenList,
       ),
       bottomNavigationBar: Consumer<MainmenuViewModel>(
         builder: (context, notifier, child) => MainmenuBottomNav(

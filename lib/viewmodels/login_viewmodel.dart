@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/user_service.dart';
@@ -75,21 +76,92 @@ class LoginViewModel with ChangeNotifier {
     }
   }
 
-  onProfileSave(BuildContext context) async {
-    final _user = await userService.updateProfileDetails(userDetailsCopy);
+  void onProfileSave(
+      {required BuildContext context,
+      XFile? profileTempFile,
+      XFile? headerTempFile,
+      required String userId,
+      required VoidCallback clearCache}) async {
+    List<Future<dynamic>> requestList = [];
+    int nullCount = 0;
 
-    print(_user?.gender);
+    if (!isGenderSame) {
+      requestList.add(userService.updateProfileDetails(userDetailsCopy));
+    }
+    if (headerTempFile != null) {
+      requestList.add(userService.updateImage(
+          userId: userId, imageFile: headerTempFile, imageType: 'headerImage'));
+    }
+    if (profileTempFile != null) {
+      requestList.add(userService.updateImage(
+          userId: userId,
+          imageFile: profileTempFile,
+          imageType: 'profileImage'));
+    }
 
-    if (_user == null) {
+    final List jsonResults = await Future.wait(requestList);
+    if (requestList.length == 3) {
+      for (var result in jsonResults) {
+        if (result != null) {
+          if ((result.headerImagePath != userDetails.headerImagePath) &&
+              (result.profileImagePath != userDetails.profileImagePath)) {
+            setUserDetailsAfterUpdateImage(result);
+          }
+        }
+      }
+    } else {
+      for (var result in jsonResults) {
+        if (result != null) {
+          setUserDetailsAfterUpdateImage(result);
+        }
+      }
+    }
+
+    for (var result in jsonResults) {
+      if (result == null) {
+        nullCount++;
+      }
+    }
+
+    if (nullCount == jsonResults.length) {
+      clearCache();
+      requestList = [];
+      FailedSnackBar.show(
+          context: context,
+          title: 'On Snap!',
+          message:
+              'There is some problem updating your profile. If this error persists please call our customer service');
+      print('update failed');
       print('update failed');
     } else {
-      _userDetails = _user;
-      _userDetailsCopy = User.copy(_userDetails);
-      Navigator.pop(context);
+      clearCache();
       SuccessSnackBar.show(
           context: context, message: 'Profile have been updated successfully');
       print('update success');
+      Navigator.of(context).pop();
+      requestList = [];
     }
+
+    print('jsonResults');
+    print(jsonResults.last);
+
+    // final _user = await userService.updateProfileDetails(userDetailsCopy);
+
+    // if (_user == null) {
+    //   FailedSnackBar.show(
+    //       context: context,
+    //       title: 'On Snap!',
+    //       message:
+    //           'There is some problem updating your profile. If this error persists please call our customer service');
+    //   print('update failed');
+    // } else {
+    //   _userDetails = _user;
+    //   _userDetailsCopy = User.copy(_userDetails);
+    //   Navigator.pop(context);
+    //   SuccessSnackBar.show(
+    //       context: context, message: 'Profile have been updated successfully');
+    //   print('update success');
+    // }
   }
 
   onEditProfileScreenSave(BuildContext context) async {
@@ -111,13 +183,13 @@ class LoginViewModel with ChangeNotifier {
     }
   }
 
-  onEditProfileDiscard(BuildContext context) {
+  onEditProfileDiscard() {
     final String oldGender = userDetailsCopy.gender;
     _userDetailsCopy = User.copy(_userDetails);
     _userDetailsCopy.gender = oldGender;
   }
 
-  onProfileDiscard(BuildContext context) {
+  onProfileDiscard() {
     _userDetailsCopy = User.copy(_userDetails);
   }
 
@@ -153,5 +225,11 @@ class LoginViewModel with ChangeNotifier {
     } else {
       setIsGenderSame(false);
     }
+  }
+
+  void setUserDetailsAfterUpdateImage(User newUserDetails) {
+    _userDetails = newUserDetails;
+    _userDetailsCopy = User.copy(_userDetails);
+    notifyListeners();
   }
 }

@@ -2,14 +2,19 @@ import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/profile_screen/custom_profile_container.dart';
+import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
+import 'package:sainee_detailing/widget/custom_placeholder_image.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   final Icon rightArrowIcon = const Icon(Icons.keyboard_arrow_right);
 
+  const ProfileScreenBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    ImageViewModel imageViewModel = Provider.of<ImageViewModel>(context);
     // ProfileViewModel profileViewModel =
     //     Provider.of<ProfileViewModel>(context, listen: false);
 
@@ -20,21 +25,38 @@ class ProfileScreenBody extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                print('test tap');
+                imageViewModel.headerImagePicker();
               },
               child: Container(
-                color: Colors.red,
+                color: Colors.transparent,
                 width: double.infinity,
                 height: 250,
                 alignment: Alignment.center,
                 child: Stack(
                   children: [
-                    Image.asset(
-                      'assets/images/placeholder-image-400x300.jpg',
-                      fit: BoxFit.fitWidth,
-                      width: double.infinity,
-                      height: 250,
-                      // height: 200,
+                    FutureBuilder<void>(
+                      future: imageViewModel.retrieveLostData(
+                          imageType: 'headerImage'),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<void> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return const CustomPlaceholderImage();
+                          case ConnectionState.done:
+                            return imageViewModel.previewHeaderImage(
+                                loginViewModel.userDetailsCopy.headerImagePath);
+                          default:
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text(
+                                    'Some error I guess from snapshot.haserror'),
+                              );
+                            } else {
+                              return const CustomPlaceholderImage();
+                            }
+                        }
+                        // height: 200,
+                      },
                     ),
                     Positioned(
                       right: 0,
@@ -47,6 +69,68 @@ class ProfileScreenBody extends StatelessWidget {
                         decoration:
                             BoxDecoration(color: Colors.black.withOpacity(0.4)),
                         child: Text('Tap to change',
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(color: kColorWhite)),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          imageViewModel.profileImagePicker();
+                        },
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.transparent,
+                          ),
+                          child: FutureBuilder<void>(
+                              future: imageViewModel.retrieveLostData(
+                                  imageType: 'profileImage'),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<void> snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.waiting:
+                                    return const CustomPlaceholderImage(
+                                        isCircle: true);
+                                  case ConnectionState.done:
+                                    return imageViewModel.previewProfileImage(
+                                        loginViewModel
+                                            .userDetailsCopy.profileImagePath);
+                                  default:
+                                    if (snapshot.hasError) {
+                                      return const Center(
+                                        child: Text(
+                                            'Some error I guess from snapshot.haserror from profile'),
+                                      );
+                                    } else {
+                                      return const CustomPlaceholderImage(
+                                          isCircle: true);
+                                    }
+                                }
+                              }),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 171,
+                      right: 171,
+                      bottom: 95,
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        width: 25,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(100),
+                                bottomRight: Radius.circular(100)),
+                            color: Colors.black.withOpacity(0.4)),
+                        child: Text('Edit',
                             style: Theme.of(context)
                                 .textTheme
                                 .caption

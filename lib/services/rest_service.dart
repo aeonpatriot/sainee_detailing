@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:image_picker/image_picker.dart';
 import 'package:sainee_detailing/services/rest.dart';
 import 'package:http/http.dart' as http;
 
 class RestService implements Rest {
   String? _apiToken;
-  static const String _baseUrl = 'http://10.0.2.2:8000/api';
+  // static const String _baseUrl = 'http://10.0.2.2:8000/api';
+  // static const String _baseUrl = 'http://192.168.1.107:8080/api';
+  static const String _baseUrl = 'http://192.168.1.106:8080/api';
 
   @override
   set apiToken(value) => _apiToken = value;
@@ -37,6 +40,7 @@ class RestService implements Rest {
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       print(response.statusCode);
+      print(response.body);
       return jsonDecode(response.body);
     }
 
@@ -57,6 +61,7 @@ class RestService implements Rest {
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       print(response.statusCode);
+
       return jsonDecode(response.body);
     }
 
@@ -107,5 +112,35 @@ class RestService implements Rest {
     print(response.statusCode);
     print(response.body);
     return null;
+  }
+
+  @override
+  Future uploadImage(String endpoint, XFile? imageFile, String imageType,
+      String requestName) async {
+    print(endpoint);
+    http.MultipartRequest request =
+        http.MultipartRequest('POST', Uri.parse('$_baseUrl/$endpoint'));
+
+    request.headers
+        .addAll(<String, String>{'Authorization': 'Bearer $_apiToken'});
+
+    File pickedFile = File(imageFile!.path);
+
+    print(pickedFile.path.split("/").last);
+
+    request.files.add(http.MultipartFile(requestName,
+        pickedFile.readAsBytes().asStream(), pickedFile.lengthSync(),
+        filename: pickedFile.path.split("/").last));
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.statusCode);
+      return jsonDecode(await response.stream.bytesToString());
+    } else {
+      print(response.contentLength);
+      print(response.statusCode);
+      return null;
+    }
   }
 }
