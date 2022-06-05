@@ -6,7 +6,8 @@ class User {
   String? _password;
   String? _type;
   String? _gender;
-  dynamic _image;
+  String? _headerImagePath;
+  String? _profileImagePath;
   String? _created_at;
   String? _updated_at;
 
@@ -20,7 +21,8 @@ class User {
       gender,
       created_at,
       updated_at,
-      image})
+      headerImagePath,
+      profileImagePath})
       : _id = id,
         _name = name,
         _email = email,
@@ -30,7 +32,8 @@ class User {
         _gender = gender,
         _created_at = created_at,
         _updated_at = updated_at,
-        _image = image;
+        _headerImagePath = headerImagePath,
+        _profileImagePath = profileImagePath;
 
   get id => _id;
   // set id(value) => _id = value;
@@ -46,8 +49,10 @@ class User {
   // set type(value) => _type = value;
   get gender => _gender;
   set gender(value) => _gender = value;
-  get image => _image;
-  set image(value) => _image = value;
+  String? get headerImagePath => _headerImagePath;
+  set headerImagePath(value) => _headerImagePath = value;
+  String? get profileImagePath => _profileImagePath;
+  set profileImagePath(value) => _profileImagePath = value;
   get created_at => _created_at;
   // set created_at(value) => _created_at = value;
   get updated_at => _updated_at;
@@ -76,7 +81,8 @@ class User {
       password: from._password,
       type: from._type,
       gender: from._gender,
-      image: from._image,
+      headerImagePath: from._headerImagePath,
+      profileImagePath: from._profileImagePath,
       created_at: from._created_at,
       updated_at: from._updated_at,
     );
@@ -91,7 +97,8 @@ class User {
       password: json['password'],
       type: json['type'],
       gender: json['gender'],
-      image: json['image'],
+      headerImagePath: json['headerImagePath'],
+      profileImagePath: json['profileImagePath'],
       created_at: json['created_at'],
       updated_at: json['updated_at'],
     );
@@ -118,7 +125,8 @@ class User {
         'password': _password,
         'type': _type,
         'gender': _gender,
-        'image': _image,
+        'headerImagePath': _headerImagePath,
+        'profileImagePath': _profileImagePath,
         'created_at': _created_at,
         'updated_at': _updated_at,
       };
@@ -133,7 +141,8 @@ class User {
         phoneNumber: $phoneNumber,
         type: $type,
         gender: $gender,
-        image: $image,
+        headerImagePath: $headerImagePath,
+        profileImagePath: $profileImagePath,
         created_at: $created_at,
         updated_at: $updated_at,
       }

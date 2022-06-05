@@ -1,3 +1,4 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/rest.dart';
@@ -28,7 +29,34 @@ class UserService {
     // print('user service');
     // print(json);
     if (json == null) return null;
+    print('user service update succss');
     return User.fromJson(json);
+  }
+
+  Future<User?> updateImage(
+      {required String userId,
+      required XFile? imageFile,
+      required String imageType}) async {
+    final String endpoint;
+    final String requestName;
+    if (imageType == 'headerImage') {
+      endpoint = 'user/headerImage/$userId';
+      requestName = 'headerImage';
+    } else {
+      requestName = 'profileImage';
+      endpoint = 'user/profileImage/$userId';
+    }
+    // else if (imageType == 'profileImage') {
+    //   endpoint = 'user/profileImage/$userId';
+    // }
+
+    final json = await restService.uploadImage(
+        endpoint, imageFile, imageType, requestName);
+
+    if (json == null) return null;
+    print('from user service');
+    print(json);
+    return User.fromJson(json['data']);
   }
 
   Future<bool> logout() async {

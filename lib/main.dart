@@ -7,6 +7,7 @@ import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
@@ -34,6 +35,8 @@ void main() {
           create: (context) => ProfileViewModel()),
       ChangeNotifierProvider<AddressViewModel>(
           create: (context) => AddressViewModel()),
+      ChangeNotifierProvider<ImageViewModel>(
+          create: (context) => ImageViewModel()),
     ],
     child: const MyApp(),
   ));

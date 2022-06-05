@@ -10,7 +10,7 @@ class MainmenuViewModel extends ChangeNotifier {
   get currentIndex => _currentIndex;
   set currentIndex(value) => _currentIndex = value;
 
-  List<Widget> screen = [
+  List<Widget> screenList = [
     const MainMenuScreenBody(),
     const BookingListScreen(),
     const CarListScreen(),

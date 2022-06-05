@@ -13,7 +13,6 @@ class RegisterScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<RegistrationValidation>(context, listen: false);
     final RegisterViewModel registerViewModel =
         Provider.of<RegisterViewModel>(context);
 

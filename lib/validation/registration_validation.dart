@@ -98,8 +98,7 @@ class RegistrationValidation extends ChangeNotifier {
         email: email.value,
         phoneNumber: phoneNumber,
         password: password.value,
-        type: 'customer',
-        image: 'test');
+        type: 'customer');
 
     final _user = await userService.createNewUser(user);
 

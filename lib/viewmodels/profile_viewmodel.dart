@@ -1,6 +1,7 @@
 import 'package:flutter/Material.dart';
 
 class ProfileViewModel extends ChangeNotifier {
+  //TODO need to check the profile details for update
   final Map<String, EditProfile> editList = {
     'name': EditProfile(
         appbarTitle: 'Edit Name',
