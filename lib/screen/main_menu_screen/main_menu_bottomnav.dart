@@ -27,8 +27,8 @@ class MainmenuBottomNav extends StatelessWidget {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: (mainmenuViewModel.currentIndex == 0)
-                  ? const Icon(Icons.other_houses)
-                  : const Icon(Icons.other_houses_outlined),
+                  ? const Icon(Icons.home)
+                  : const Icon(Icons.home_outlined),
               label: 'Home'),
           BottomNavigationBarItem(
               icon: (mainmenuViewModel.currentIndex == 1)
