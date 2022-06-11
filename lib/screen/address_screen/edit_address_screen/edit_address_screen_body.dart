@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
-import 'package:sainee_detailing/screen/address_screen/custom_widget.dart';
 import 'package:sainee_detailing/screen/address_screen/full_width_phone_field.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
+import 'package:sainee_detailing/widget/custom_full_width_text_field.dart';
+import 'package:sainee_detailing/widget/custom_labeled_switch.dart';
 
 class EditAddressScreenBody extends StatelessWidget {
   const EditAddressScreenBody({Key? key}) : super(key: key);
@@ -20,14 +21,13 @@ class EditAddressScreenBody extends StatelessWidget {
           Consumer2<AddressViewModel, AddressValidation>(
             builder: (_, addressNotifier, validationNotifier, __) =>
                 CustomFullWidthTextField(
-              isPostcode: false,
               errorText: validationNotifier.name.error,
               labelText: 'Full Name',
               onChanged: (name) {
                 validationNotifier.setName(name);
                 addressNotifier.editingAddressCopy.name = name;
               },
-              editAddressText: addressNotifier.editingAddressCopy.name,
+              editext: addressNotifier.editingAddressCopy.name,
             ),
           ),
           Consumer2<AddressViewModel, AddressValidation>(
@@ -58,46 +58,43 @@ class EditAddressScreenBody extends StatelessWidget {
           Consumer2<AddressViewModel, AddressValidation>(
             builder: (_, addressNotifier, validationNotifier, __) =>
                 CustomFullWidthTextField(
-              isPostcode: false,
               errorText: validationNotifier.state.error,
               labelText: 'State',
               onChanged: (state) {
                 validationNotifier.setState(state);
                 addressNotifier.editingAddressCopy.state = state;
               },
-              editAddressText: addressNotifier.editingAddressCopy.state,
+              editext: addressNotifier.editingAddressCopy.state,
             ),
           ),
           Consumer2<AddressViewModel, AddressValidation>(
             builder: (_, addressNotifier, validationNotifier, __) =>
                 CustomFullWidthTextField(
-              isPostcode: false,
               errorText: validationNotifier.city.error,
               labelText: 'City',
               onChanged: (city) {
                 validationNotifier.setCity(city);
                 addressNotifier.editingAddressCopy.city = city;
               },
-              editAddressText: addressNotifier.editingAddressCopy.city,
+              editext: addressNotifier.editingAddressCopy.city,
             ),
           ),
           Consumer2<AddressViewModel, AddressValidation>(
             builder: (_, addressNotifier, validationNotifier, __) =>
                 CustomFullWidthTextField(
-              isPostcode: false,
+              isNumber: true,
               errorText: validationNotifier.postcode.error,
               labelText: 'Postal Code',
               onChanged: (postcode) {
                 validationNotifier.setPostcode(postcode);
                 addressNotifier.editingAddressCopy.postcode = postcode;
               },
-              editAddressText: addressNotifier.editingAddressCopy.postcode,
+              editext: addressNotifier.editingAddressCopy.postcode,
             ),
           ),
           Consumer2<AddressViewModel, AddressValidation>(
             builder: (_, addressNotifier, validationNotifier, __) =>
                 CustomFullWidthTextField(
-              isPostcode: false,
               errorText: validationNotifier.detailAddress.error,
               labelText: 'Detailed Address',
               onChanged: (detailAddress) {
@@ -105,7 +102,7 @@ class EditAddressScreenBody extends StatelessWidget {
                 addressNotifier.editingAddressCopy.addressLine1 = detailAddress;
               },
               maxLine: 3,
-              editAddressText: addressNotifier.editingAddressCopy.addressLine1,
+              editext: addressNotifier.editingAddressCopy.addressLine1,
             ),
           ),
           const SizedBox(height: 10),
@@ -124,9 +121,9 @@ class EditAddressScreenBody extends StatelessWidget {
                       }
                     },
                     isEdit: true,
-                    defaultAddress:
+                    defaultValue:
                         addressNotifier.editingAddressCopy.defaultAddress,
-                    originalDefaultAddress:
+                    originalDefaultValue:
                         addressNotifier.editingAddress.defaultAddress,
                   )),
           const SizedBox(height: 40),

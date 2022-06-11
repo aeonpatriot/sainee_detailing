@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
-  const CustomCachedNetworkImage({
-    Key? key,
-    required this.imageUrl,
-    bool? isCircle,
-  })  : isCircle = isCircle ?? false,
+  const CustomCachedNetworkImage(
+      {Key? key, required this.imageUrl, bool? isCircle, bool? isCar})
+      : isCircle = isCircle ?? false,
+        isCar = isCar ?? false,
         super(key: key);
 
   final String imageUrl;
   final bool isCircle;
+  final bool isCar;
   final String rootImageUrl = 'http://192.168.1.106:8080/storage';
   // final String rootImageUrl = 'http://192.168.1.107:8080/storage';
   // final String rootImageUrl = 'http://10.0.2.2:8000/storage';
@@ -20,8 +20,9 @@ class CustomCachedNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       key: key,
-      httpHeaders: const {'Connection': 'Keep-Alive'},
+      // httpHeaders: const {'Connection': 'Keep-Alive'},
       imageUrl: "$rootImageUrl/$imageUrl",
+
       imageBuilder: isCircle
           ? (context, imageProvider) => Container(
                 decoration: BoxDecoration(
@@ -33,10 +34,30 @@ class CustomCachedNetworkImage extends StatelessWidget {
                   ),
                 ),
               )
-          : null,
+          : isCar
+              ? (context, imageProvider) => Container(
+                    height: 100,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                        color: Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20))),
+                  )
+              : null,
       placeholder: (context, url) => Container(
-          height: isCircle ? 60 : 100,
-          width: isCircle ? 60 : 100,
+          height: isCircle
+              ? 60
+              : isCar
+                  ? 100
+                  : 100,
+          width: isCircle
+              ? 60
+              : isCar
+                  ? 70
+                  : 100,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.transparent,

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sainee_detailing/screen/account_screen/account_screen.dart';
 import 'package:sainee_detailing/screen/booking_list_screen/booking_list_screen.dart';
-import 'package:sainee_detailing/screen/car_list_screen/car_list_screen.dart';
+import 'package:sainee_detailing/screen/car_screen/car_screen.dart';
 import 'package:sainee_detailing/screen/main_menu_screen/main_menu_screen_body.dart';
 
 class MainmenuViewModel extends ChangeNotifier {
@@ -13,7 +13,7 @@ class MainmenuViewModel extends ChangeNotifier {
   List<Widget> screenList = [
     const MainMenuScreenBody(),
     const BookingListScreen(),
-    const CarListScreen(),
+    const CarScreen(),
     const AccountScreen(),
   ];
 

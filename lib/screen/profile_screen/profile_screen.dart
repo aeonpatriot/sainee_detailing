@@ -4,7 +4,6 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/profile_screen/profile_screen_body.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
-import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
 import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,8 +16,6 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
     ImageViewModel imageViewModel = Provider.of<ImageViewModel>(context);
-    ProfileViewModel profileViewModel =
-        Provider.of<ProfileViewModel>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () async {
@@ -77,10 +74,15 @@ class ProfileScreen extends StatelessWidget {
               ?.copyWith(color: kColorWhite),
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: kPrimaryColor,
-          title: const Text('My Profile'),
+          title: Text(
+            'My Profile',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(color: kColorWhite),
+          ),
           leading: IconButton(
               onPressed: () {
-                print(imageViewModel.isHeaderChanged);
                 (loginViewModel.isGenderSame &&
                         (!imageViewModel.isHeaderChanged &&
                             !imageViewModel.isProfileChanged))

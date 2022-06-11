@@ -88,16 +88,25 @@ class AccountScreenBody extends StatelessWidget {
         Expanded(
           child: SizedBox(
             child: ListView.builder(
-              itemCount: 4,
+              itemCount: accountViewModel.items.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   onTap: () {
-                    if (index == 0) accountViewModel.onTapProfile(context);
-                    if (index == 1) accountViewModel.onTapAddress(context);
-                    if (index == 2) accountViewModel.onTapCar();
-                    if (index == 3) {
-                      accountViewModel.onTapLogout(context);
-                      mainmenuViewModel.currentIndex = 0;
+                    switch (index) {
+                      case 0:
+                        accountViewModel.onTapProfile(context);
+                        break;
+                      case 1:
+                        accountViewModel.onTapAddress(context);
+                        break;
+                      case 2:
+                        mainmenuViewModel.onTapBottomNav(2);
+                        break;
+                      case 3:
+                        accountViewModel.onTapLogout(context);
+                        mainmenuViewModel.currentIndex = 0;
+                        break;
+                      default:
                     }
                   },
                   title: Text(

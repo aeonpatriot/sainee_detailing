@@ -1,11 +1,12 @@
 import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
-import 'package:sainee_detailing/screen/address_screen/custom_widget.dart';
 import 'package:sainee_detailing/screen/address_screen/full_width_phone_field.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
+import 'package:sainee_detailing/widget/custom_full_width_text_field.dart';
+import 'package:sainee_detailing/widget/custom_labeled_switch.dart';
 
 class AddAddressScreenBody extends StatelessWidget {
   const AddAddressScreenBody({
@@ -21,7 +22,6 @@ class AddAddressScreenBody extends StatelessWidget {
           const CustomTextDivider(title: 'Contact'),
           Consumer<AddressValidation>(
             builder: (_, notifier, __) => CustomFullWidthTextField(
-              isPostcode: false,
               errorText: notifier.name.error,
               labelText: 'Full Name',
               onChanged: (name) {
@@ -52,7 +52,6 @@ class AddAddressScreenBody extends StatelessWidget {
           const CustomTextDivider(title: 'Address'),
           Consumer<AddressValidation>(
             builder: (_, notifier, __) => CustomFullWidthTextField(
-              isPostcode: false,
               errorText: notifier.state.error,
               labelText: 'State',
               onChanged: (state) {
@@ -62,7 +61,6 @@ class AddAddressScreenBody extends StatelessWidget {
           ),
           Consumer<AddressValidation>(
             builder: (_, notifier, __) => CustomFullWidthTextField(
-              isPostcode: false,
               errorText: notifier.city.error,
               labelText: 'City',
               onChanged: (city) {
@@ -72,7 +70,7 @@ class AddAddressScreenBody extends StatelessWidget {
           ),
           Consumer<AddressValidation>(
             builder: (_, notifier, __) => CustomFullWidthTextField(
-              isPostcode: false,
+              isNumber: true,
               errorText: notifier.postcode.error,
               labelText: 'Postal Code',
               onChanged: (postcode) {
@@ -82,7 +80,6 @@ class AddAddressScreenBody extends StatelessWidget {
           ),
           Consumer<AddressValidation>(
             builder: (_, notifier, __) => CustomFullWidthTextField(
-              isPostcode: false,
               errorText: notifier.detailAddress.error,
               labelText: 'Detailed Address',
               onChanged: (detailAddress) {

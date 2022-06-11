@@ -46,12 +46,9 @@ class UserService {
       requestName = 'profileImage';
       endpoint = 'user/profileImage/$userId';
     }
-    // else if (imageType == 'profileImage') {
-    //   endpoint = 'user/profileImage/$userId';
-    // }
 
     final json = await restService.uploadImage(
-        endpoint, imageFile, imageType, requestName);
+        endpoint: endpoint, imageFile: imageFile, requestName: requestName);
 
     if (json == null) return null;
     print('from user service');

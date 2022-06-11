@@ -56,7 +56,6 @@ class AddressViewModel extends ChangeNotifier {
 
   Future submitAddressDetails(BuildContext context,
       {required Address address, required dynamic resetValidationItem}) async {
-    print(address);
     setIsSubmitted(true);
     final List<Address>? addresses =
         await addressService.createNewAddress(address);
@@ -68,9 +67,7 @@ class AddressViewModel extends ChangeNotifier {
           message:
               'There is some problem creating your address. Please try again');
       setIsSubmitted(false);
-      print('get failed');
     } else {
-      //TODO go back to user address screen
       resetValidationItem();
       Navigator.of(context).pop();
       noti();
@@ -78,8 +75,6 @@ class AddressViewModel extends ChangeNotifier {
           context: context,
           message: 'Your new address has been created successfully');
       setIsSubmitted(false);
-      print('get success');
-      print(addresses);
       // return addresses;
     }
   }
