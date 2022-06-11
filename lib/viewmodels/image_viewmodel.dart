@@ -3,15 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sainee_detailing/dependencies.dart';
-import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/user_service.dart';
 import 'package:sainee_detailing/widget/custom_cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:sainee_detailing/widget/custom_placeholder_image.dart';
-import 'package:sainee_detailing/widget/custom_snackbar.dart';
 
 class ImageViewModel extends ChangeNotifier {
-  final String rootImageUrl = 'http://10.0.2.2:8000/storage';
   final userService = service<UserService>();
 
   // for header image
@@ -23,6 +20,11 @@ class ImageViewModel extends ChangeNotifier {
   XFile? profileImageFile;
   XFile? profileTempFile;
   bool isProfileChanged = false;
+
+  // for car image
+  XFile? carImageFile;
+  XFile? carTempFile;
+  bool isCarChanged = false;
 
   String? retrieveDataError;
 
@@ -38,6 +40,11 @@ class ImageViewModel extends ChangeNotifier {
     // notifyListeners();
   }
 
+  setCarImageFile(XFile? value) {
+    carImageFile = value;
+    // notifyListeners();
+  }
+
   void resetImagePicker() {
     headerImageFile = null;
     headerTempFile = null;
@@ -45,6 +52,9 @@ class ImageViewModel extends ChangeNotifier {
     profileImageFile = null;
     profileTempFile = null;
     isProfileChanged = false;
+    carImageFile = null;
+    carTempFile = null;
+    isCarChanged = false;
   }
 
   void headerImagePicker() async {
@@ -70,6 +80,43 @@ class ImageViewModel extends ChangeNotifier {
     if (profileTempFile != null) {
       isProfileChanged = true;
       notifyListeners();
+    }
+  }
+
+  void carImagePicker() async {
+    carImageFile =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 20);
+
+    carImageFile ??= carTempFile;
+    carTempFile = carImageFile;
+
+    if (carTempFile != null) {
+      isCarChanged = true;
+      notifyListeners();
+    }
+  }
+
+  Widget previewCarImage(String? carImageUrl, String? carImageName) {
+    if (carImageUrl != null && carImageFile == null) {
+      print('image from netowrk in image vm');
+      return Hero(
+        tag: '$carImageName',
+        child: CustomCachedNetworkImage(
+          key: UniqueKey(),
+          imageUrl: carImageUrl,
+        ),
+      );
+    } else {
+      if (carImageFile != null) {
+        return Image.file(
+          File(carImageFile!.path),
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: 250,
+        );
+      } else {
+        return const CustomPlaceholderImage();
+      }
     }
   }
 
@@ -152,6 +199,17 @@ class ImageViewModel extends ChangeNotifier {
         retrieveDataError = response.exception!.code;
       }
     }
+
+    if (imageType == 'carImage') {
+      if (response.isEmpty) {
+        return;
+      }
+      if (response.file != null) {
+        setCarImageFile(response.file);
+      } else {
+        retrieveDataError = response.exception!.code;
+      }
+    }
   }
 
   void clearCache() {
@@ -159,43 +217,5 @@ class ImageViewModel extends ChangeNotifier {
     imageCache.clear();
     imageCache.clearLiveImages();
     notifyListeners();
-  }
-
-  Future onUpdateImage(
-      {required BuildContext context,
-      required String userId,
-      required Function(User) setNewUserDetails}) async {
-    User? jsonHeader;
-    User? jsonProfile;
-    // print(headerImage!.path);
-    if (isHeaderChanged) {
-      jsonHeader = await userService.updateImage(
-          userId: userId, imageFile: headerTempFile, imageType: 'headerImage');
-    }
-    if (isProfileChanged) {
-      jsonProfile = await userService.updateImage(
-          userId: userId,
-          imageFile: profileTempFile,
-          imageType: 'profileImage');
-    }
-
-    if (jsonHeader == null && jsonProfile == null) {
-      FailedSnackBar.show(
-          context: context,
-          title: 'On Snap!',
-          message:
-              'There is some problem updating your iamge. If this error persists please call our customer service');
-      print('update failed');
-    }
-
-    if (jsonHeader != null || jsonProfile != null) {
-      setNewUserDetails(jsonHeader ?? jsonProfile!);
-      Navigator.pop(context);
-      SuccessSnackBar.show(
-          context: context, message: 'Profile Have Been Updated Successfully');
-      resetImagePicker();
-      print('update success');
-      print(jsonHeader);
-    }
   }
 }

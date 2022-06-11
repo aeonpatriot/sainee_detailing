@@ -4,10 +4,10 @@ import 'package:sainee_detailing/services/response_model.dart';
 import 'package:sainee_detailing/services/rest.dart';
 
 class AddressService {
-  final restservice = service<Rest>();
+  final restService = service<Rest>();
 
   Future<List<Address>?> getAllAddress() async {
-    final json = await restservice.get('addresses') as List?;
+    final json = await restService.get('addresses') as List?;
     if (json == null) {
       return null;
     }
@@ -17,7 +17,7 @@ class AddressService {
   }
 
   Future<List<Address>?> getUserAddress(String userId) async {
-    final json = await restservice.get('addresses/user/$userId') as List?;
+    final json = await restService.get('addresses/user/$userId') as List?;
     if (json == null) {
       return null;
     }
@@ -28,7 +28,7 @@ class AddressService {
 
   Future<List<Address>?> createNewAddress(Address address) async {
     final json =
-        await restservice.postWithToken('addresses', data: address) as List?;
+        await restService.postWithToken('addresses', data: address) as List?;
 
     print(json);
     if (json == null) {
@@ -41,7 +41,7 @@ class AddressService {
 
   Future<Address?> updateAddress(
       {required String addressId, required Address editedAddress}) async {
-    final json = await restservice.putWithToken('addresses/$addressId',
+    final json = await restService.putWithToken('addresses/$addressId',
         data: editedAddress);
 
     if (json == null) {
@@ -53,7 +53,7 @@ class AddressService {
   }
 
   Future<String?> deleteAddress(String addressId) async {
-    final json = await restservice.deleteWithToken('addresses/$addressId');
+    final json = await restService.deleteWithToken('addresses/$addressId');
 
     if (json == null) {
       return null;
