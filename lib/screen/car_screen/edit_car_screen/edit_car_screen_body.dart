@@ -4,7 +4,6 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
-import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_dropdown_field.dart';
 import 'package:sainee_detailing/widget/custom_full_width_text_field.dart';
 import 'package:sainee_detailing/widget/custom_labeled_switch.dart';
@@ -15,8 +14,8 @@ class EditCarScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginViewModel loginViewModel =
-        Provider.of<LoginViewModel>(context, listen: false);
+    // LoginViewModel loginViewModel =
+    //     Provider.of<LoginViewModel>(context, listen: false);
     ImageViewModel imageViewModel = Provider.of<ImageViewModel>(context);
 
     return SingleChildScrollView(

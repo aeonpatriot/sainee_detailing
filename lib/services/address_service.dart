@@ -30,7 +30,6 @@ class AddressService {
     final json =
         await restService.postWithToken('addresses', data: address) as List?;
 
-    print(json);
     if (json == null) {
       return null;
     }
