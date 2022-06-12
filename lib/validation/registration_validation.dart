@@ -103,7 +103,6 @@ class RegistrationValidation extends ChangeNotifier {
     final _user = await userService.createNewUser(user);
 
     if (_user == null) {
-      print('Regiter failed');
       setIsRegisterLoading(false);
     } else {
       Navigator.pushReplacementNamed(context, '/registersuccess');

@@ -1,32 +1,29 @@
-import 'package:flutter/Material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
-import 'package:sainee_detailing/models/address.dart';
-import 'package:sainee_detailing/validation/address_validation.dart';
-import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
+import 'package:sainee_detailing/models/car.dart';
+import 'package:sainee_detailing/validation/car_validation.dart';
+import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_card_list.dart';
 import 'package:sainee_detailing/widget/custom_placeholder_empty_list.dart';
 
-class AddressScreenBody extends StatelessWidget {
-  const AddressScreenBody({
+class CarScreenBody extends StatelessWidget {
+  const CarScreenBody({
     Key? key,
-    required this.addressViewModel,
   }) : super(key: key);
-
-  final AddressViewModel addressViewModel; //sama je kot
 
   @override
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
-    AddressViewModel addressViewModel = Provider.of<AddressViewModel>(context);
-    AddressValidation addressValidation =
-        Provider.of<AddressValidation>(context, listen: false);
+    CarViewModel carViewModel = Provider.of<CarViewModel>(context);
+    CarValidation carValidation =
+        Provider.of<CarValidation>(context, listen: false);
 
     return FutureBuilder(
-      future: addressViewModel.getUserAddresses(loginViewModel.userDetails.id),
-      builder: (context, snapshot) {
+      future: carViewModel.getUserCars(loginViewModel.userDetails.id),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const Center(
@@ -37,7 +34,8 @@ class AddressScreenBody extends StatelessWidget {
               final error = snapshot.error;
               return Center(child: Text('Error: $error'));
             } else if (snapshot.hasData) {
-              List<Address> data = snapshot.data as List<Address>;
+              print('from car body list');
+              List<Car> data = snapshot.data as List<Car>;
               if (data.isEmpty) {
                 return const CustomPlaceholderEmptyList(
                   firstText: 'Its empty here...',
@@ -49,28 +47,27 @@ class AddressScreenBody extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
                   itemCount: data.length,
                   itemBuilder: (context, index) {
-                    Address address = data[index];
+                    Car car = data[index];
                     return CustomCardList(
                       onTap: () async {
-                        addressValidation.setValidationItemEdit(
-                            address: address);
-                        await addressViewModel.setAddressForEdit(address);
-                        Navigator.of(context).pushNamed('/editAddress');
+                        carValidation.setValidationItemEdit(car: car);
+                        await carViewModel.setCarForEdit(car);
+                        Navigator.of(context).pushNamed('/editCar');
                       },
-                      isDefault: address.defaultAddress,
+                      hasImage: true,
+                      imageName: car.carImageName,
+                      imageUrl: car.carImagePath,
+                      isDefault: car.defaultCar!,
                       textList: <Widget>[
                         CustomCardListText(
-                            isDefault: address.defaultAddress,
+                            type: 'Car',
+                            isDefault: car.defaultCar!,
                             isHeading: true,
-                            text: address.name),
+                            text: car.model!),
                         const SizedBox(height: 10),
-                        CustomCardListText(text: address.phoneNumber),
+                        CustomCardListText(text: car.type!),
                         const SizedBox(height: 5),
-                        CustomCardListText(text: address.addressLine1),
-                        const SizedBox(height: 5),
-                        CustomCardListText(
-                            text:
-                                '${address.city}, ${address.state}, ${address.postcode}'),
+                        CustomCardListText(text: car.plateNumber!),
                       ],
                     );
                   });

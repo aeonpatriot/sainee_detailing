@@ -24,6 +24,7 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 200) {
+      print(response.body);
       return jsonDecode(response.body);
     }
 
@@ -115,8 +116,10 @@ class RestService implements Rest {
   }
 
   @override
-  Future uploadImage(String endpoint, XFile? imageFile, String imageType,
-      String requestName) async {
+  Future uploadImage(
+      {required String endpoint,
+      XFile? imageFile,
+      required String requestName}) async {
     print(endpoint);
     http.MultipartRequest request =
         http.MultipartRequest('POST', Uri.parse('$_baseUrl/$endpoint'));

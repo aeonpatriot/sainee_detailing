@@ -10,5 +10,7 @@ abstract class Rest {
   Future putWithToken(String endpoint, {dynamic data});
   Future deleteWithToken(String endpoint);
   Future uploadImage(
-      String endpoint, XFile? imageFile, String imageType, String requestName);
+      {required String endpoint,
+      XFile? imageFile,
+      required String requestName});
 }

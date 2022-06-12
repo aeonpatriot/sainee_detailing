@@ -58,15 +58,12 @@ class LoginViewModel with ChangeNotifier {
 
     final _user = await userService.login(user);
 
-    print(_user);
-
     if (_user == null) {
       setIsLoginLoading(false);
       FailedSnackBar.show(
           context: context,
           title: 'Oh Snap!',
           message: 'Invalid login info. Please check your email or password');
-      print('login failed');
     } else {
       _userDetails = _user;
       _userDetailsCopy = User.copy(_userDetails);
@@ -144,24 +141,6 @@ class LoginViewModel with ChangeNotifier {
 
     print('jsonResults');
     print(jsonResults.last);
-
-    // final _user = await userService.updateProfileDetails(userDetailsCopy);
-
-    // if (_user == null) {
-    //   FailedSnackBar.show(
-    //       context: context,
-    //       title: 'On Snap!',
-    //       message:
-    //           'There is some problem updating your profile. If this error persists please call our customer service');
-    //   print('update failed');
-    // } else {
-    //   _userDetails = _user;
-    //   _userDetailsCopy = User.copy(_userDetails);
-    //   Navigator.pop(context);
-    //   SuccessSnackBar.show(
-    //       context: context, message: 'Profile have been updated successfully');
-    //   print('update success');
-    // }
   }
 
   onEditProfileScreenSave(BuildContext context) async {

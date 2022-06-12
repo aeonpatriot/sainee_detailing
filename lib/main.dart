@@ -4,9 +4,11 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
+import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
@@ -23,6 +25,8 @@ void main() {
           create: (context) => AddressValidation()),
       ChangeNotifierProvider<RegistrationValidation>(
           create: (context) => RegistrationValidation()),
+      ChangeNotifierProvider<CarValidation>(
+          create: (context) => CarValidation()),
       ChangeNotifierProvider<RegisterViewModel>(
           create: (context) => RegisterViewModel()),
       ChangeNotifierProvider<LoginViewModel>(
@@ -37,6 +41,7 @@ void main() {
           create: (context) => AddressViewModel()),
       ChangeNotifierProvider<ImageViewModel>(
           create: (context) => ImageViewModel()),
+      ChangeNotifierProvider<CarViewModel>(create: (context) => CarViewModel()),
     ],
     child: const MyApp(),
   ));
@@ -61,7 +66,6 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold)),
         ),
       ),
-      //TODO set theme for text
       debugShowCheckedModeBanner: false,
       title: 'Sainee Detailing Services Online Booking System',
       onGenerateRoute: createRoute,
