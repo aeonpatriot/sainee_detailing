@@ -34,7 +34,6 @@ class CarScreenBody extends StatelessWidget {
               final error = snapshot.error;
               return Center(child: Text('Error: $error'));
             } else if (snapshot.hasData) {
-              print('from car body list');
               List<Car> data = snapshot.data as List<Car>;
               if (data.isEmpty) {
                 return const CustomPlaceholderEmptyList(

@@ -44,7 +44,6 @@ class AddAddressScreenBody extends StatelessWidget {
                       }
                     },
                     onChanged: (phoneNumber) {
-                      print(phoneNumber.completeNumber);
                       notifier.phoneNumber = phoneNumber.completeNumber;
                     },
                   )),
@@ -127,9 +126,6 @@ class AddAddressScreenBody extends StatelessWidget {
                                 loginNotifier.userDetails.id),
                             resetValidationItem:
                                 validationNotifier.resetValidationItem);
-
-                        //TODO need to pop and refresh the my address screen whether here or in the viewmodel
-                        //TODO set the validation item to null again so that the button will be disabled again when open the add address screen again
                       }
                     : null,
                 child: addressNotifier.isSubmitted

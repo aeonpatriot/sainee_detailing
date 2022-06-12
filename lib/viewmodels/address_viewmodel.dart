@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:flutter/cupertino.dart';
 import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/address.dart';

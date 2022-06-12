@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
-  const CustomCachedNetworkImage(
-      {Key? key, required this.imageUrl, bool? isCircle, bool? isCar})
-      : isCircle = isCircle ?? false,
+  const CustomCachedNetworkImage({
+    Key? key,
+    required this.imageUrl,
+    bool? isCircle,
+    bool? isCar,
+    bool? isHome,
+  })  : isCircle = isCircle ?? false,
         isCar = isCar ?? false,
+        isHome = isHome ?? false,
         super(key: key);
 
   final String imageUrl;
   final bool isCircle;
   final bool isCar;
+  final bool isHome;
   final String rootImageUrl = 'http://192.168.1.106:8080/storage';
   // final String rootImageUrl = 'http://192.168.1.107:8080/storage';
   // final String rootImageUrl = 'http://10.0.2.2:8000/storage';
@@ -46,7 +52,18 @@ class CustomCachedNetworkImage extends StatelessWidget {
                             topLeft: Radius.circular(20),
                             bottomLeft: Radius.circular(20))),
                   )
-              : null,
+              : isHome
+                  ? (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                  : null,
       placeholder: (context, url) => Container(
           height: isCircle
               ? 60

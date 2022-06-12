@@ -16,15 +16,24 @@ class MainMenuScreen extends StatelessWidget {
         Provider.of<MainmenuViewModel>(context);
 
     return Scaffold(
+      backgroundColor: kColorOffWhite,
       appBar: (mainmenuViewModel.currentIndex != 0)
           ? null
           : AppBar(
+              shadowColor: kSecondaryColorDark.withOpacity(0.2),
+              elevation: 2,
               titleTextStyle:
                   const TextStyle(color: Colors.white, fontSize: 20),
               automaticallyImplyLeading: false,
               iconTheme: const IconThemeData(color: Colors.black),
-              backgroundColor: kPrimaryColorDark,
-              title: const Text('Home'),
+              backgroundColor: kPrimaryColor,
+              title: Text(
+                'Home',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    ?.copyWith(color: kColorWhite),
+              ),
             ),
       body: IndexedStack(
         index: mainmenuViewModel.currentIndex,
