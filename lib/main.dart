@@ -14,6 +14,7 @@ import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/service_viewmodel.dart';
 
 import 'dependencies.dart' as di;
 
@@ -42,6 +43,8 @@ void main() {
       ChangeNotifierProvider<ImageViewModel>(
           create: (context) => ImageViewModel()),
       ChangeNotifierProvider<CarViewModel>(create: (context) => CarViewModel()),
+      ChangeNotifierProvider<ServiceViewModel>(
+          create: (context) => ServiceViewModel()),
     ],
     child: const MyApp(),
   ));

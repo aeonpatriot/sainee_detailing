@@ -10,6 +10,7 @@ class CarViewModel extends ChangeNotifier {
 
   late Car _editingCar;
   late Car _editingCarCopy;
+  late Car _defaultCar;
   bool _isSubmitted = false;
 
   final typeList = <String>[
@@ -24,11 +25,20 @@ class CarViewModel extends ChangeNotifier {
   set editingCar(value) => _editingCar = value;
   Car get editingCarCopy => _editingCarCopy;
   set editingCarCopy(value) => _editingCarCopy = value;
+  Car get defaultCar => _defaultCar;
 
   bool get isSubmitted => _isSubmitted;
   setIsSubmitted(value) {
     _isSubmitted = value;
     notifyListeners();
+  }
+
+  void setDefaultCar(List<Car> carList) {
+    for (Car car in carList) {
+      if (car.defaultCar == 'Y') {
+        _defaultCar = car;
+      }
+    }
   }
 
   Future getUserCars(String userId) async {
@@ -38,6 +48,8 @@ class CarViewModel extends ChangeNotifier {
     } else {
       print('get success');
       print(cars.length);
+      setDefaultCar(cars);
+      print(defaultCar);
       return cars;
     }
   }
@@ -166,7 +178,8 @@ class CarViewModel extends ChangeNotifier {
         editingCar.model != editingCarCopy.model ||
         editingCar.brand != editingCarCopy.brand ||
         editingCar.plateNumber != editingCarCopy.plateNumber ||
-        editingCar.description != editingCarCopy.description) {
+        editingCar.description != editingCarCopy.description ||
+        editingCar.defaultCar != editingCarCopy.defaultCar) {
       return true;
     } else {
       return false;

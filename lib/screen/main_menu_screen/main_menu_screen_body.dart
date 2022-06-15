@@ -53,7 +53,7 @@ class MainMenuScreenBody extends StatelessWidget {
                     CustomIconMenu(
                         label: 'Services',
                         onTap: () {
-                          print('services');
+                          Navigator.of(context).pushNamed('/services');
                         },
                         imageUrl: 'assets/icons/icons8-car-cleaning-48.png'),
                     CustomIconMenu(
