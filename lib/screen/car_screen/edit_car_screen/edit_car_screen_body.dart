@@ -138,7 +138,6 @@ class EditCarScreenBody extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const CustomTextDivider(title: 'Car Type'),
-          //TODO bug updating type only
           Consumer2<CarViewModel, CarValidation>(
               builder: (_, carNotifier, validationNotifier, __) =>
                   CustomDropdownField(
@@ -152,6 +151,7 @@ class EditCarScreenBody extends StatelessWidget {
                     ],
                     onChanged: (value) {
                       validationNotifier.setType(value);
+                      carNotifier.editingCarCopy.type = value;
                     },
                   )),
           const SizedBox(height: 10),
@@ -192,28 +192,19 @@ class EditCarScreenBody extends StatelessWidget {
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     )),
-                onPressed: () {
-                  carNotifier.updateCarDetails(
-                      resetImage: imageViewModel.resetImagePicker,
-                      clearCache: imageViewModel.clearCache,
-                      context: context,
-                      imageFile: imageViewModel.carTempFile,
-                      resetValidationItem:
-                          validationNotifier.resetValidationItem);
-                },
-                // (validationNotifier.isCarDetailsValid() ||
-                //         imageViewModel.isCarChanged)
-                //     ? () {
-                //         FocusScope.of(context).unfocus();
-                //         carNotifier.submitCarDetails(
-                //             imageFile: imageViewModel.carTempFile,
-                //             context: context,
-                //             newCar: validationNotifier
-                //                 .getValidatedCar(loginViewModel.userDetails.id),
-                //             resetValidationItem:
-                //                 validationNotifier.resetValidationItem);
-                //       }
-                //     : null,
+                onPressed: (carNotifier.isCarDetailsChanged() ||
+                        imageViewModel.isCarChanged)
+                    ? () {
+                        FocusScope.of(context).unfocus();
+                        carNotifier.updateCarDetails(
+                            resetImage: imageViewModel.resetImagePicker,
+                            clearCache: imageViewModel.clearCache,
+                            context: context,
+                            imageFile: imageViewModel.carTempFile,
+                            resetValidationItem:
+                                validationNotifier.resetValidationItem);
+                      }
+                    : null,
                 child: carNotifier.isSubmitted
                     ? SizedBox(
                         width: 300,
