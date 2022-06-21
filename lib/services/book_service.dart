@@ -18,8 +18,6 @@ class BookService {
 
   Future<List<Book>?> getTimeAvailability(String date) async {
     final json = await restService.get('booking/time/$date') as List?;
-    print('..................................................................');
-    print(json);
     if (json == null) {
       return null;
     }

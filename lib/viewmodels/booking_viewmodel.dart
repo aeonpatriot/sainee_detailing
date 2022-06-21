@@ -145,8 +145,6 @@ class BookingViewModel extends ChangeNotifier {
 
   void createNewBooking(
       {required BuildContext context, required String userId}) async {
-    print('============================================');
-    print(newBook(userId));
     final Book? book = await bookService.createNewBooking(newBook(userId));
     if (book == null) {
       FailedSnackBar.show(
@@ -206,6 +204,23 @@ class BookingViewModel extends ChangeNotifier {
     final DateTime todayDate =
         DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     if (pickedDateTime.compareTo(todayDate) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isAllBookingDetailsChosen() {
+    final bool isAddressChosen = chosenAddress != null ? true : false;
+    final bool isCarChosen = chosenCar != null ? true : false;
+    final bool isDateChosen = chosenDate != null ? true : false;
+    final bool isTimeSlotChosen = chosenTimeSlot != null ? true : false;
+    final bool isPaymentChosen = paymentMethod != 0 ? true : false;
+    if (isAddressChosen &&
+        isCarChosen &&
+        isDateChosen &&
+        isTimeSlotChosen &&
+        isPaymentChosen) {
       return true;
     } else {
       return false;

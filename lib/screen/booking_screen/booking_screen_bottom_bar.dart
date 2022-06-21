@@ -11,7 +11,7 @@ class BookingScreenBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BookingViewModel bookingViewModel =
-        Provider.of<BookingViewModel>(context, listen: false);
+        Provider.of<BookingViewModel>(context);
     final CarViewModel carViewModel =
         Provider.of<CarViewModel>(context, listen: false);
     final LoginViewModel loginViewModel =
@@ -34,6 +34,7 @@ class BookingScreenBottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(width: 1),
             Expanded(
               child: Text.rich(
                 TextSpan(text: 'Service:\n', children: [
@@ -56,32 +57,30 @@ class BookingScreenBottomBar extends StatelessWidget {
               ]),
             ),
             const SizedBox(width: 10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: kPrimaryColorDarker,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15.0,
-                  horizontal: 10.0,
+            Container(
+              color: bookingViewModel.isAllBookingDetailsChosen()
+                  ? kPrimaryColorDarker
+                  : Colors.grey[400],
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  elevation: 0,
+                  primary: kColorWhite,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: 10.0,
+                  ),
+                  minimumSize: const Size(150.0, 20.0),
+                  textStyle: Theme.of(context).textTheme.button,
                 ),
-                minimumSize: const Size(150.0, 20.0),
-                textStyle: Theme.of(context).textTheme.button,
+                child: Text('Book Now'.toUpperCase()),
+                onPressed: bookingViewModel.isAllBookingDetailsChosen()
+                    ? () {
+                        bookingViewModel.createNewBooking(
+                            context: context,
+                            userId: loginViewModel.userDetails.id);
+                      }
+                    : null,
               ),
-              child: Text('Book Now'.toUpperCase()),
-              onPressed: () {
-                // bookingViewModel.createNewBooking(
-                //     context: context, userId: loginViewModel.userDetails.id);
-                final DateTime today = DateTime.now();
-                final double firstSlotTime = 9.toDouble() + (0.toDouble() / 60);
-                final double currentTime =
-                    today.hour.toDouble() + (today.minute.toDouble() / 60);
-                print(firstSlotTime);
-                print(currentTime);
-                print(today.hour);
-                // if (currentTime > firstSlotTime) {
-                //   print('past 9 am');
-                // } else print(stil)
-              },
             ),
           ],
         ),
