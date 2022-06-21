@@ -93,13 +93,8 @@ class BookingScreenBody extends StatelessWidget {
                         bookingViewModel.setPastTimeSlot(date);
                         bookingViewModel.chosenDate = formattedDate;
                         bookingViewModel.setTimeAvailabilityData(formattedDate);
-                        print('date picked $formattedDate || $date');
                         bookingViewModel.setShowPaymentMethod(false);
                         bookingViewModel.paymentMethod = 0;
-                        print(
-                            'isPastFirstTimeSlot: ${bookingViewModel.isPastFirstTimeSlot}');
-                        print(
-                            'isPastSecondTimeSlot: ${bookingViewModel.isPastSecondTimeSlot}');
                       }),
                 ),
                 const SizedBox(height: 5),
