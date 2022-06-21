@@ -50,6 +50,12 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetHidePassword() {
+    _hidePassword = true;
+    email = null;
+    password = null;
+  }
+
   onLoginPressed(BuildContext context) async {
     final User user = User(
       email: email,
@@ -69,6 +75,7 @@ class LoginViewModel with ChangeNotifier {
       _userDetailsCopy = User.copy(_userDetails);
       Navigator.pushNamedAndRemoveUntil(
           context, '/main', ModalRoute.withName('/login'));
+      resetHidePassword();
       setIsLoginLoading(false);
     }
   }
@@ -128,19 +135,13 @@ class LoginViewModel with ChangeNotifier {
           title: 'On Snap!',
           message:
               'There is some problem updating your profile. If this error persists please call our customer service');
-      print('update failed');
-      print('update failed');
     } else {
       clearCache();
       SuccessSnackBar.show(
           context: context, message: 'Profile have been updated successfully');
-      print('update success');
       Navigator.of(context).pop();
       requestList = [];
     }
-
-    print('jsonResults');
-    print(jsonResults.last);
   }
 
   onEditProfileScreenSave(BuildContext context) async {
@@ -150,7 +151,6 @@ class LoginViewModel with ChangeNotifier {
     final _user = await userService.updateProfileDetails(userDetailsCopy);
 
     if (_user == null) {
-      print('update failed');
     } else {
       _userDetails = _user;
       _userDetailsCopy = User.copy(_userDetails);
@@ -158,7 +158,6 @@ class LoginViewModel with ChangeNotifier {
       Navigator.pop(context);
       SuccessSnackBar.show(
           context: context, message: 'Profile Have Been Updated Successfully');
-      print('update success');
     }
   }
 

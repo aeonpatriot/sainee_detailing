@@ -1,7 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 
 abstract class Rest {
-  String? _apiToken;
   set apiToken(value);
   get apiToken;
   Future get(String endpoint);

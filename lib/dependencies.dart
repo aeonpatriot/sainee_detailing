@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sainee_detailing/services/address_service.dart';
+import 'package:sainee_detailing/services/book_service.dart';
 import 'package:sainee_detailing/services/car_service.dart';
 import 'package:sainee_detailing/services/rest.dart';
 import 'package:sainee_detailing/services/rest_service.dart';
@@ -15,4 +16,5 @@ void init() {
   service.registerLazySingleton(() => AddressService());
   service.registerLazySingleton(() => CarService());
   service.registerLazySingleton(() => ServicesService());
+  service.registerLazySingleton(() => BookService());
 }

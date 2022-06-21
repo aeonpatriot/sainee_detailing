@@ -7,11 +7,12 @@ import 'package:sainee_detailing/services/address_service.dart';
 import 'package:sainee_detailing/widget/custom_snackbar.dart';
 
 class AddressViewModel extends ChangeNotifier {
+  final addressService = service<AddressService>();
+
   late Address _editingAddress;
   late Address _editingAddressCopy;
+  late Address defaultAddress;
   bool _isSubmitted = false;
-
-  final addressService = service<AddressService>();
 
   Address get editingAddress => _editingAddress;
   set editingAddress(Address address) => _editingAddress = address;
@@ -39,7 +40,6 @@ class AddressViewModel extends ChangeNotifier {
       print('get failed');
     } else {
       print('get success');
-      print(addresses);
     }
   }
 
@@ -49,9 +49,6 @@ class AddressViewModel extends ChangeNotifier {
     if (addresses == null) {
       print('get failed');
     } else {
-      print('get success');
-      print(addresses);
-      print(addresses.length);
       return addresses;
     }
   }
@@ -85,7 +82,6 @@ class AddressViewModel extends ChangeNotifier {
       {required BuildContext context,
       required Address address,
       required dynamic resetValidationItem}) async {
-    print(address);
     final json = await addressService.updateAddress(
         addressId: address.id, editedAddress: address);
 
@@ -96,7 +92,6 @@ class AddressViewModel extends ChangeNotifier {
           message:
               'There is some problem updating your address. Please try again');
       setIsSubmitted(false);
-      print('update failed');
     } else {
       resetValidationItem();
       Navigator.of(context).pop();
@@ -105,7 +100,6 @@ class AddressViewModel extends ChangeNotifier {
           context: context,
           message: 'Your address has been updated successfully');
       setIsSubmitted(false);
-      print('update success');
     }
   }
 
@@ -113,7 +107,6 @@ class AddressViewModel extends ChangeNotifier {
       {required BuildContext context,
       required String addressId,
       required VoidCallback resetValidationItem}) async {
-    print(addressId);
     final response = await addressService.deleteAddress(addressId);
 
     if (response == null) {

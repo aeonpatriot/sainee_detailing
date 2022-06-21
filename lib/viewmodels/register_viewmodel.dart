@@ -14,4 +14,9 @@ class RegisterViewModel extends ChangeNotifier {
     _hideConfirmPassword = !_hideConfirmPassword;
     notifyListeners();
   }
+
+  void resetHidePassword() {
+    _hideConfirmPassword = true;
+    _hidePassword = true;
+  }
 }

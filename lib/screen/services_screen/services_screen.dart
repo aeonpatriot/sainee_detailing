@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/services_screen/services_screen_body.dart';
-import 'package:sainee_detailing/viewmodels/service_viewmodel.dart';
 
 class ServicesScreen extends StatelessWidget {
   const ServicesScreen({Key? key}) : super(key: key);
@@ -12,8 +10,6 @@ class ServicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ServiceViewModel serviceViewModel =
-        Provider.of<ServiceViewModel>(context);
     return Scaffold(
       backgroundColor: kColorOffWhite,
       appBar: AppBar(
@@ -30,15 +26,6 @@ class ServicesScreen extends StatelessWidget {
               .headline6
               ?.copyWith(color: kColorWhite),
         ),
-        // actions: [
-        //   MaterialButton(
-        //     onPressed: () {
-        //       serviceViewModel.getServices();
-        //     },
-        //     child: const Text('tEST'),
-        //     color: kTertiaryColorDark,
-        //   )
-        // ],
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();

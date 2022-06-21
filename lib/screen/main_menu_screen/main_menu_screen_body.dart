@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_carousel_slider.dart';
+import 'package:sainee_detailing/widget/custom_icon.dart';
 
 class MainMenuScreenBody extends StatelessWidget {
   const MainMenuScreenBody({
@@ -13,6 +16,10 @@ class MainMenuScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final MainmenuViewModel mainmenuViewModel =
         Provider.of<MainmenuViewModel>(context);
+    final BookingViewModel bookingViewModel =
+        Provider.of<BookingViewModel>(context, listen: false);
+    final LoginViewModel loginViewModel =
+        Provider.of<LoginViewModel>(context, listen: false);
 
     return SingleChildScrollView(
       child: Column(
@@ -50,30 +57,42 @@ class MainMenuScreenBody extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CustomIconMenu(
-                        label: 'Services',
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/services');
-                        },
-                        imageUrl: 'assets/icons/icons8-car-cleaning-48.png'),
-                    CustomIconMenu(
-                        label: 'My Car',
-                        onTap: () {
-                          print('My Car');
-                        },
-                        imageUrl: 'assets/icons/icons8-car-theft-48.png'),
-                    CustomIconMenu(
-                        label: 'My Address',
-                        onTap: () {
-                          print('My Address');
-                        },
-                        imageUrl: 'assets/icons/icons8-address-64.png'),
-                    CustomIconMenu(
-                        label: 'My Booking',
-                        onTap: () {
-                          print('My Booking');
-                        },
-                        imageUrl: 'assets/icons/icons8-booking-64.png'),
+                    CustomIcon(
+                      label: 'Services',
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/services');
+                        bookingViewModel
+                            .getUserAddresses(loginViewModel.userDetails.id);
+                        bookingViewModel
+                            .getUserCars(loginViewModel.userDetails.id);
+                      },
+                      imageUrl: 'assets/icons/icons8-car-cleaning-48.png',
+                      circleIcon: true,
+                    ),
+                    CustomIcon(
+                      label: 'My Car',
+                      onTap: () {
+                        print('My Car');
+                      },
+                      imageUrl: 'assets/icons/icons8-car-theft-48.png',
+                      circleIcon: true,
+                    ),
+                    CustomIcon(
+                      label: 'My Address',
+                      onTap: () {
+                        print('My Address');
+                      },
+                      imageUrl: 'assets/icons/icons8-address-64.png',
+                      circleIcon: true,
+                    ),
+                    CustomIcon(
+                      label: 'My Booking',
+                      onTap: () {
+                        print('My Booking');
+                      },
+                      imageUrl: 'assets/icons/icons8-booking-64.png',
+                      circleIcon: true,
+                    ),
                   ],
                 ),
                 // decoration: BoxDecoration(
@@ -106,50 +125,6 @@ class MainMenuScreenBody extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomIconMenu extends StatelessWidget {
-  const CustomIconMenu({
-    Key? key,
-    this.onTap,
-    required this.imageUrl,
-    required this.label,
-  }) : super(key: key);
-
-  final void Function()? onTap;
-  final String imageUrl;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            height: 55,
-            width: 55,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: kSecondaryColorDark.withOpacity(0.1), //shadow
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: const Offset(0, 2))
-                ],
-                shape: BoxShape.circle,
-                color: Colors.white,
-                image: DecorationImage(image: AssetImage(imageUrl))),
-          ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
     );
   }
 }

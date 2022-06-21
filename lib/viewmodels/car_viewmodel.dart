@@ -44,12 +44,8 @@ class CarViewModel extends ChangeNotifier {
   Future getUserCars(String userId) async {
     final List<Car>? cars = await carService.getUserCars(userId);
     if (cars == null) {
-      print('get failed');
     } else {
-      print('get success');
-      print(cars.length);
       setDefaultCar(cars);
-      print(defaultCar);
       return cars;
     }
   }
@@ -154,7 +150,6 @@ class CarViewModel extends ChangeNotifier {
       {required BuildContext context,
       required String carId,
       required VoidCallback resetValidationItem}) async {
-    print(carId);
     final response = await carService.deleteCar(carId);
 
     if (response == null) {

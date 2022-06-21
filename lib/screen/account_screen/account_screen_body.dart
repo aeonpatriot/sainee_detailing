@@ -34,10 +34,13 @@ class AccountScreenBody extends StatelessWidget {
                 height: 280,
                 width: double.infinity,
                 child: loginViewModel.userDetailsCopy.headerImagePath != null
-                    ? CustomCachedNetworkImage(
-                        key: UniqueKey(),
-                        imageUrl:
-                            loginViewModel.userDetailsCopy.headerImagePath!,
+                    ? Hero(
+                        tag: 'headerImage',
+                        child: CustomCachedNetworkImage(
+                          key: UniqueKey(),
+                          imageUrl:
+                              loginViewModel.userDetailsCopy.headerImagePath!,
+                        ),
                       )
                     : const CustomPlaceholderImage(normalHeight: 280),
               ),

@@ -98,7 +98,6 @@ class ImageViewModel extends ChangeNotifier {
 
   Widget previewCarImage(String? carImageUrl, String? carImageName) {
     if (carImageUrl != null && carImageFile == null) {
-      print('image from netowrk in image vm');
       return Hero(
         tag: '$carImageName',
         child: CustomCachedNetworkImage(
@@ -122,7 +121,6 @@ class ImageViewModel extends ChangeNotifier {
 
   Widget previewHeaderImage(String? headerImageUrl) {
     if (headerImageUrl != null && headerImageFile == null) {
-      print('image from netowrk in image vm');
       return CustomCachedNetworkImage(
         key: UniqueKey(),
         imageUrl: headerImageUrl,
