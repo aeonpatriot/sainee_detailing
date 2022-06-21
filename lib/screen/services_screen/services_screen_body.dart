@@ -1,8 +1,10 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/models/service.dart';
+import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/service_viewmodel.dart';
 
@@ -14,6 +16,8 @@ class ServicesScreenBody extends StatelessWidget {
     final ServiceViewModel serviceViewModel =
         Provider.of<ServiceViewModel>(context);
     final CarViewModel carViewModel = Provider.of<CarViewModel>(context);
+    final BookingViewModel bookingViewModel =
+        Provider.of<BookingViewModel>(context, listen: false);
 
     return FutureBuilder(
       future: serviceViewModel.getServices(),
@@ -125,7 +129,7 @@ class ServicesScreenBody extends StatelessWidget {
                                               itemPadding:
                                                   const EdgeInsets.only(
                                                       left: 16, right: 16),
-                                              dropdownWidth: 150,
+                                              dropdownWidth: 160,
                                               dropdownPadding:
                                                   const EdgeInsets.symmetric(
                                                       vertical: 6),
@@ -170,7 +174,25 @@ class ServicesScreenBody extends StatelessWidget {
                                                   fontWeight: FontWeight.bold,
                                                 )),
                                             child: const Text('CHOOSE'),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              bookingViewModel.setPastTimeSlot(
+                                                  DateTime.now());
+                                              bookingViewModel
+                                                      .timeAvailability =
+                                                  bookingViewModel
+                                                      .checkTimeAvailability(
+                                                          DateFormat(
+                                                                  'yyyy-MM-dd')
+                                                              .format(DateTime
+                                                                  .now()));
+                                              bookingViewModel
+                                                  .setBookingDetails(
+                                                      service: data[index]);
+                                              bookingViewModel.chosenService =
+                                                  data[index];
+                                              Navigator.of(context)
+                                                  .pushNamed('/booking');
+                                            },
                                           ),
                                         )
                                       ],

@@ -36,7 +36,6 @@ class CarService {
   Future<Car?> createNewCar(Car newCar) async {
     final json = await restService.postWithToken('cars', data: newCar);
 
-    print(json);
     if (json == null) {
       return null;
     }
@@ -64,8 +63,6 @@ class CarService {
         requestName: 'carImage');
 
     if (json == null) return null;
-    print('from user service');
-    print(json);
     return Car.fromJson(json['data']);
   }
 

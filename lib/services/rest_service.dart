@@ -24,7 +24,7 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       return jsonDecode(response.body);
     }
 
@@ -40,8 +40,8 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      print(response.statusCode);
-      print(response.body);
+      // print(response.statusCode);
+      // print(response.body);
       return jsonDecode(response.body);
     }
 
@@ -61,12 +61,12 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      print(response.statusCode);
+      // print(response.statusCode);
 
       return jsonDecode(response.body);
     }
 
-    print(response.statusCode);
+    // print(response.statusCode);
     return null;
   }
 
@@ -85,18 +85,17 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      print(response.body);
-      print(response.statusCode);
+      // print(response.body);
+      // print(response.statusCode);
       return jsonDecode(response.body);
     }
-    print(response.statusCode);
+    // print(response.statusCode);
     return null;
   }
 
 //DELETE with token METHOD
   @override
   Future deleteWithToken(String endpoint) async {
-    print('$_baseUrl/$endpoint');
     final response = await http.delete(
       Uri.parse('$_baseUrl/$endpoint'),
       headers: {
@@ -106,12 +105,12 @@ class RestService implements Rest {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      print(response.statusCode);
+      // print(response.statusCode);
       return jsonDecode(response.body);
     }
 
-    print(response.statusCode);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body);
     return null;
   }
 
@@ -120,7 +119,6 @@ class RestService implements Rest {
       {required String endpoint,
       XFile? imageFile,
       required String requestName}) async {
-    print(endpoint);
     http.MultipartRequest request =
         http.MultipartRequest('POST', Uri.parse('$_baseUrl/$endpoint'));
 
@@ -129,8 +127,6 @@ class RestService implements Rest {
 
     File pickedFile = File(imageFile!.path);
 
-    print(pickedFile.path.split("/").last);
-
     request.files.add(http.MultipartFile(requestName,
         pickedFile.readAsBytes().asStream(), pickedFile.lengthSync(),
         filename: pickedFile.path.split("/").last));
@@ -138,11 +134,11 @@ class RestService implements Rest {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.statusCode);
+      // print(response.statusCode);
       return jsonDecode(await response.stream.bytesToString());
     } else {
-      print(response.contentLength);
-      print(response.statusCode);
+      // print(response.contentLength);
+      // print(response.statusCode);
       return null;
     }
   }

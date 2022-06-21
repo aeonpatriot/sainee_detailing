@@ -8,8 +8,6 @@ class UserService {
 
   Future<User?> createNewUser(User user) async {
     final json = await restService.post('register', data: user);
-    print(json);
-    print(json['user']);
     if (json == null) return null;
 
     return User.fromJson(json['user']);
@@ -29,7 +27,6 @@ class UserService {
     // print('user service');
     // print(json);
     if (json == null) return null;
-    print('user service update succss');
     return User.fromJson(json);
   }
 
@@ -51,8 +48,6 @@ class UserService {
         endpoint: endpoint, imageFile: imageFile, requestName: requestName);
 
     if (json == null) return null;
-    print('from user service');
-    print(json);
     return User.fromJson(json['data']);
   }
 

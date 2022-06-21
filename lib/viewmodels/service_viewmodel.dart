@@ -11,10 +11,7 @@ class ServiceViewModel extends ChangeNotifier {
   Future getServices() async {
     final List<Service>? services = await servicesService.getAllServices();
     if (services == null) {
-      print('get failed');
     } else {
-      print('get success');
-      print(services);
       servicesList = services;
       return services;
     }

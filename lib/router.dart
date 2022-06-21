@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sainee_detailing/screen/address_screen/add_address_screen/add_address_screen.dart';
 import 'package:sainee_detailing/screen/address_screen/address_screen.dart';
 import 'package:sainee_detailing/screen/address_screen/edit_address_screen/edit_address_screen.dart';
+import 'package:sainee_detailing/screen/booking_screen/booking_screen.dart';
 import 'package:sainee_detailing/screen/car_screen/add_car_screen/add_car_screen.dart';
 import 'package:sainee_detailing/screen/car_screen/edit_car_screen/edit_car_screen.dart';
 import 'package:sainee_detailing/screen/login_screen/login_screen.dart';
@@ -46,6 +47,8 @@ Route<dynamic>? createRoute(settings) {
       return EditCarScreen.route();
     case '/services':
       return ServicesScreen.route();
+    case '/booking':
+      return BookingScreen.route();
   }
   return null;
 }

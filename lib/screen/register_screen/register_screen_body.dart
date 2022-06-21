@@ -204,6 +204,7 @@ class RegisterScreenBody extends StatelessWidget {
                           FocusScope.of(context).unfocus();
                           notifier.setIsRegisterLoading(true);
                           notifier.submitRegistration(context);
+                          registerViewModel.resetHidePassword();
                         },
                   child: notifier.isRegisterLoading
                       ? SizedBox(

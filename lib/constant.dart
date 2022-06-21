@@ -13,6 +13,7 @@ const kTertiaryColorDark = Color.fromRGBO(159, 169, 27, 1);
 const kColorWhite = Color.fromRGBO(255, 255, 255, 1.0);
 const kColorOffWhite = Color.fromRGBO(244, 246, 252, 1.0);
 const kColorBlack = Color.fromRGBO(0, 0, 0, 1.0);
+const kColorOffBlack = Color.fromRGBO(69, 89, 122, 1);
 
 const double kHeadingFont = 34.0;
 const double kMaincontentFont = 15.0;
