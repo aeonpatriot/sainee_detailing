@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
-import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final String _editType;

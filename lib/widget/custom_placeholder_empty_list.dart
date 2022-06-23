@@ -4,21 +4,21 @@ import 'package:sainee_detailing/constant.dart';
 class CustomPlaceholderEmptyList extends StatelessWidget {
   const CustomPlaceholderEmptyList({
     Key? key,
-    required this.firstText,
-    required this.secondText,
-    required this.thirdText,
+    this.firstText,
+    this.secondText,
+    this.thirdText,
+    this.iconUrl,
   }) : super(key: key);
 
-  final String firstText;
-  final String secondText;
-  final String thirdText;
+  final String? firstText;
+  final String? secondText;
+  final String? thirdText;
+  final String? iconUrl;
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? textstyle = Theme.of(context)
-        .textTheme
-        .headline6
-        ?.copyWith(color: kSecondaryColorDark);
+    final TextStyle? textstyle =
+        Theme.of(context).textTheme.headline6?.copyWith(color: kColorBlack);
 
     return SizedBox(
       height: double.infinity,
@@ -28,18 +28,25 @@ class CustomPlaceholderEmptyList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              firstText,
-              style: textstyle,
-            ),
-            Text(
-              secondText,
-              style: textstyle,
-            ),
-            Text(
-              thirdText,
-              style: textstyle,
-            ),
+            iconUrl != null ? Image.asset(iconUrl!) : Container(),
+            firstText != null
+                ? Text(
+                    firstText!,
+                    style: textstyle,
+                  )
+                : Container(),
+            secondText != null
+                ? Text(
+                    secondText!,
+                    style: textstyle,
+                  )
+                : Container(),
+            thirdText != null
+                ? Text(
+                    thirdText!,
+                    style: textstyle,
+                  )
+                : Container(),
           ],
         ),
       ),

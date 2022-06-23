@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_cached_network_image.dart';
@@ -19,6 +20,8 @@ class AccountScreenBody extends StatelessWidget {
     final AccountViewModel accountViewModel =
         Provider.of<AccountViewModel>(context, listen: false);
     final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    final BookingListViewModel bookingListViewModel =
+        Provider.of<BookingListViewModel>(context, listen: false);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -108,6 +111,7 @@ class AccountScreenBody extends StatelessWidget {
                       case 3:
                         accountViewModel.onTapLogout(context);
                         mainmenuViewModel.currentIndex = 0;
+                        bookingListViewModel.customerBookingTab = 0;
                         break;
                       default:
                     }

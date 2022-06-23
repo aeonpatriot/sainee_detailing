@@ -5,8 +5,8 @@ import 'package:sainee_detailing/screen/car_screen/edit_car_screen/edit_car_scre
 import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
-import 'package:sainee_detailing/widget/confirm_delete_alert.dart';
-import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_delete_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
 
 class EditCarScreen extends StatelessWidget {
   const EditCarScreen({Key? key}) : super(key: key);

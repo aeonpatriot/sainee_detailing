@@ -21,15 +21,22 @@ class _RegisterSuccessScreenState extends State<RegisterSuccessScreen> {
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 3),
-        () => Navigator.pushReplacement(context, LoginScreen.route()));
     startTimer();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
   }
 
   void startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() => seconds--);
+      if (seconds == 0) {
+        Navigator.pushReplacement(context, LoginScreen.route());
+      }
     });
   }
 
@@ -43,11 +50,9 @@ class _RegisterSuccessScreenState extends State<RegisterSuccessScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-              kSecondaryColor,
               kPrimaryColor,
               kPrimaryColorDark,
               kPrimaryColorDarker,
-              kSecondaryColorDark,
             ])),
         height: double.infinity,
         width: double.infinity,

@@ -32,6 +32,23 @@ class RestService implements Rest {
   }
 
   @override
+  Future getWithToken(String endpoint) async {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/$endpoint'),
+      headers: {
+        'Content-Type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+
+    return null;
+  }
+
+  @override
   Future post(String endpoint, {dynamic data}) async {
     final response = await http.post(
       Uri.parse('$_baseUrl/$endpoint'),

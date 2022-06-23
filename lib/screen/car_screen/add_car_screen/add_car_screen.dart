@@ -4,7 +4,7 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/car_screen/add_car_screen/add_car_screen_body.dart';
 import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
-import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
 
 class AddCarScreen extends StatelessWidget {
   const AddCarScreen({Key? key}) : super(key: key);

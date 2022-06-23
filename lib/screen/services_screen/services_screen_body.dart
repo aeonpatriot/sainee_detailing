@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
@@ -26,10 +27,10 @@ class ServicesScreenBody extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const Center(
-              child: CircularProgressIndicator(
-                color: kSecondaryColorDark,
-              ),
-            );
+                child: SpinKitCubeGrid(
+              color: kSecondaryColor,
+              size: 50.0,
+            ));
           case ConnectionState.done:
           default:
             if (snapshot.hasError) {

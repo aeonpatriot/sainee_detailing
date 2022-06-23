@@ -6,6 +6,7 @@ import 'package:sainee_detailing/models/book.dart';
 import 'package:sainee_detailing/models/car.dart';
 import 'package:sainee_detailing/models/other/timeslot.dart';
 import 'package:sainee_detailing/models/service.dart';
+import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/book_service.dart';
 import 'package:sainee_detailing/widget/custom_snackbar.dart';
 
@@ -109,7 +110,7 @@ class BookingViewModel extends ChangeNotifier {
     chosenCar = setDefaultCar();
   }
 
-  Address setDefaultAddress() {
+  Address? setDefaultAddress() {
     dynamic defaultAddress;
     for (Address address in addressList) {
       if (address.defaultAddress == 'Y') {
@@ -119,7 +120,7 @@ class BookingViewModel extends ChangeNotifier {
     return defaultAddress;
   }
 
-  Car setDefaultCar() {
+  Car? setDefaultCar() {
     dynamic defaultCar;
     for (Car car in carList) {
       if (car.defaultCar == 'Y') {
@@ -129,12 +130,15 @@ class BookingViewModel extends ChangeNotifier {
     return defaultCar;
   }
 
-  Book newBook(String userId) {
+  Book newBook(User user) {
     final Book book = Book(
-        userId: userId,
+        userId: user.id,
+        userName: user.name,
         carId: chosenCar?.id,
+        carName: '${chosenCar?.brand} ${chosenCar?.model}',
         addressId: chosenAddress?.id,
         serviceId: chosenService.id,
+        serviceName: chosenService.name,
         date: chosenDate,
         timeSlot: chosenTimeSlot,
         totalPrice:
@@ -144,8 +148,8 @@ class BookingViewModel extends ChangeNotifier {
   }
 
   void createNewBooking(
-      {required BuildContext context, required String userId}) async {
-    final Book? book = await bookService.createNewBooking(newBook(userId));
+      {required BuildContext context, required User user}) async {
+    final Book? book = await bookService.createNewBooking(newBook(user));
     if (book == null) {
       FailedSnackBar.show(
           context: context,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 
 class MainmenuBottomNav extends StatelessWidget {
@@ -12,6 +15,11 @@ class MainmenuBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final BookingListViewModel bookingListViewModel =
+        Provider.of<BookingListViewModel>(context, listen: false);
+    final LoginViewModel loginViewModel =
+        Provider.of<LoginViewModel>(context, listen: false);
+
     return BottomNavigationBar(
         selectedLabelStyle:
             Theme.of(context).textTheme.caption?.copyWith(fontSize: 14),
@@ -23,7 +31,35 @@ class MainmenuBottomNav extends StatelessWidget {
         iconSize: 35,
         selectedIconTheme: const IconThemeData(color: kPrimaryColorDarker),
         selectedItemColor: kPrimaryColorDarker,
-        onTap: (index) => mainmenuViewModel.onTapBottomNav(index),
+        onTap: (index) {
+          mainmenuViewModel.onTapBottomNav(index);
+          switch (index) {
+            case 0:
+              print(mainmenuViewModel.indexBefore);
+              break;
+            case 1:
+              if (loginViewModel.userDetails.type == 'customer') {
+                if (mainmenuViewModel.indexBefore != 1) {
+                  bookingListViewModel.setFutureCustomerBookingList(
+                      loginViewModel.userDetails.id);
+                }
+              } else {
+                if (mainmenuViewModel.indexBefore != 1) {
+                  bookingListViewModel.setFutureAllBookingList();
+                }
+              }
+              break;
+            case 2:
+              print(mainmenuViewModel.indexBefore);
+              break;
+            case 3:
+              print(mainmenuViewModel.indexBefore);
+              break;
+            default:
+              break;
+          }
+          mainmenuViewModel.indexBefore = index;
+        },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: (mainmenuViewModel.currentIndex == 0)
