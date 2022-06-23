@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/car_validation.dart';
@@ -197,9 +198,10 @@ class AddCarScreenBody extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
-                                  color: kPrimaryColorDark,
-                                  backgroundColor: kPrimaryColor),
+                              child: SpinKitWave(
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
                             ),
                           ],
                         ),
