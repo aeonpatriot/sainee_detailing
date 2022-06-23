@@ -9,6 +9,8 @@ import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/bookingdetails_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
@@ -48,6 +50,10 @@ void main() {
           create: (context) => ServiceViewModel()),
       ChangeNotifierProvider<BookingViewModel>(
           create: (context) => BookingViewModel()),
+      ChangeNotifierProvider<BookingListViewModel>(
+          create: (context) => BookingListViewModel()),
+      ChangeNotifierProvider<BookingDetailsViewModel>(
+          create: (context) => BookingDetailsViewModel()),
     ],
     child: const MyApp(),
   ));

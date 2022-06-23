@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/widget/centered_textbox.dart';
 
@@ -11,6 +13,8 @@ class LoginScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
+    final BookingListViewModel bookingListViewModel =
+        Provider.of<BookingListViewModel>(context, listen: false);
 
     return SizedBox(
       width: double.infinity,
@@ -130,6 +134,7 @@ class LoginScreenBody extends StatelessWidget {
                     FocusScope.of(context).unfocus();
                     notifier.setIsLoginLoading(true);
                     loginViewModel.onLoginPressed(context);
+                    bookingListViewModel.customerBookingTab = 0;
                   },
                   child: notifier.isLoginLoading
                       ? SizedBox(
@@ -144,10 +149,11 @@ class LoginScreenBody extends StatelessWidget {
                               const SizedBox(width: 10),
                               const SizedBox(
                                 height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                    color: kPrimaryColorDark,
-                                    backgroundColor: kPrimaryColor),
+                                width: 50,
+                                child: SpinKitHourGlass(
+                                  color: Colors.white,
+                                  size: 20.0,
+                                ),
                               ),
                             ],
                           ),

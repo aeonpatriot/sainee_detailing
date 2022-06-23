@@ -1,4 +1,5 @@
 import 'package:flutter/Material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/models/address.dart';
@@ -30,7 +31,10 @@ class AddressScreenBody extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return const Center(
-                child: CircularProgressIndicator(color: kSecondaryColorDark));
+                child: SpinKitCubeGrid(
+              color: kSecondaryColor,
+              size: 50.0,
+            ));
           case ConnectionState.done:
           default:
             if (snapshot.hasError) {
@@ -40,9 +44,9 @@ class AddressScreenBody extends StatelessWidget {
               List<Address> data = snapshot.data as List<Address>;
               if (data.isEmpty) {
                 return const CustomPlaceholderEmptyList(
+                  iconUrl: 'assets/icons/icons8-address-100.png',
                   firstText: 'Its empty here...',
-                  secondText: 'Add new address now.',
-                  thirdText: 'Click the ADD + button at the top.',
+                  thirdText: 'Click the ADD + button at the top',
                 );
               }
               return ListView.builder(

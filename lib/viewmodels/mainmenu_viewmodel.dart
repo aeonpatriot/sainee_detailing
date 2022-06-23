@@ -6,11 +6,14 @@ import 'package:sainee_detailing/screen/main_menu_screen/main_menu_screen_body.d
 
 class MainmenuViewModel extends ChangeNotifier {
   int _currentIndex = 0;
+  int _indexBefore = 0;
   int _topImageCurrentIndex = 0;
   int _bottomImageCurrentIndex = 0;
 
   get currentIndex => _currentIndex;
   set currentIndex(value) => _currentIndex = value;
+  get indexBefore => _indexBefore;
+  set indexBefore(value) => _indexBefore = value;
   get topImageCurrentIndex => _topImageCurrentIndex;
   set topImageCurrentIndex(value) {
     _topImageCurrentIndex = value;
@@ -23,7 +26,14 @@ class MainmenuViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Widget> screenList = [
+  List<Widget> customerScreenList = [
+    const MainMenuScreenBody(),
+    const BookingListScreen(),
+    const CarScreen(),
+    const AccountScreen(),
+  ];
+
+  List<Widget> staffScreenList = [
     const MainMenuScreenBody(),
     const BookingListScreen(),
     const CarScreen(),

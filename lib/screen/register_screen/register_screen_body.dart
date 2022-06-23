@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
@@ -217,9 +218,10 @@ class RegisterScreenBody extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                                 width: 20,
-                                child: CircularProgressIndicator(
-                                    color: kPrimaryColorDark,
-                                    backgroundColor: kPrimaryColor),
+                                child: SpinKitHourGlass(
+                                  color: Colors.white,
+                                  size: 20.0,
+                                ),
                               ),
                             ],
                           ),

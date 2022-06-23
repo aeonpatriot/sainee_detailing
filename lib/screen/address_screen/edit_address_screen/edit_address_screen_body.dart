@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/address_screen/full_width_phone_field.dart';
@@ -150,6 +151,7 @@ class EditAddressScreenBody extends StatelessWidget {
                 onPressed: validationNotifier.isDetailsValid()
                     ? () {
                         FocusScope.of(context).unfocus();
+                        addressNotifier.setIsSubmitted(true);
                         addressNotifier.updateAddress(
                             context: context,
                             address: addressNotifier.editingAddressCopy,
@@ -169,11 +171,10 @@ class EditAddressScreenBody extends StatelessWidget {
                             ),
                             const SizedBox(width: 10),
                             const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                  color: kPrimaryColorDark,
-                                  backgroundColor: kPrimaryColor),
+                              child: SpinKitWave(
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
                             ),
                           ],
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
@@ -31,20 +32,24 @@ class BookingScreenBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SelectCard(
-            mainText: bookingViewModel.chosenAddress?.addressLine1,
-            titleText: 'Location for Pickup',
-            mainIcon: Icons.location_on,
-            iconSize: 19,
-          ),
+          bookingViewModel.chosenAddress != null
+              ? SelectCard(
+                  mainText: bookingViewModel.chosenAddress?.addressLine1,
+                  titleText: 'Location for Pickup',
+                  mainIcon: Icons.location_on,
+                  iconSize: 19,
+                )
+              : Container(),
           const SizedBox(height: 15),
-          SelectCard(
-            mainText:
-                '${bookingViewModel.chosenCar!.brand!} ${bookingViewModel.chosenCar!.model!}, ${bookingViewModel.chosenCar!.plateNumber!}',
-            titleText: 'Car for Detailing',
-            mainIcon: Icons.directions_car_filled,
-            iconSize: 19,
-          ),
+          bookingViewModel.chosenCar != null
+              ? SelectCard(
+                  mainText:
+                      '${bookingViewModel.chosenCar!.brand!} ${bookingViewModel.chosenCar!.model!}, ${bookingViewModel.chosenCar!.plateNumber!}',
+                  titleText: 'Car for Detailing',
+                  mainIcon: Icons.directions_car_filled,
+                  iconSize: 19,
+                )
+              : Container(),
           const SizedBox(height: 15),
           Container(
             padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
@@ -183,10 +188,9 @@ class BookingScreenBody extends StatelessWidget {
                             SizedBox(height: 52 / 2),
                             Center(
                                 child: SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                color: kSecondaryColor,
+                              child: SpinKitThreeInOut(
+                                color: kPrimaryColorDarker,
+                                size: 20.0,
                               ),
                             )),
                             SizedBox(height: 52 / 2),

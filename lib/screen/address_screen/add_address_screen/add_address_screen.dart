@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/address_screen/add_address_screen/add_address_screen_body.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
-import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
 
 class AddAddressScreen extends StatelessWidget {
   const AddAddressScreen({Key? key}) : super(key: key);

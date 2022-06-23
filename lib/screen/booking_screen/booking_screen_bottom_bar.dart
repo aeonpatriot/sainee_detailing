@@ -76,8 +76,7 @@ class BookingScreenBottomBar extends StatelessWidget {
                 onPressed: bookingViewModel.isAllBookingDetailsChosen()
                     ? () {
                         bookingViewModel.createNewBooking(
-                            context: context,
-                            userId: loginViewModel.userDetails.id);
+                            context: context, user: loginViewModel.userDetails);
                       }
                     : null,
               ),

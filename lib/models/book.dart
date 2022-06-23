@@ -3,9 +3,12 @@
 class Book {
   final String? _id;
   final String? _userId;
+  final String? _userName;
   String? carId;
+  String? carName;
   String? addressId;
   String? serviceId;
+  String? serviceName;
   String? date;
   String? timeSlot;
   String? totalPrice;
@@ -17,9 +20,12 @@ class Book {
   Book({
     id,
     userId,
+    userName,
     this.carId,
+    this.carName,
     this.addressId,
     this.serviceId,
+    this.serviceName,
     this.date,
     this.timeSlot,
     this.totalPrice,
@@ -29,11 +35,13 @@ class Book {
     updated_at,
   })  : _id = id,
         _userId = userId,
+        _userName = userName,
         _created_at = created_at,
         _updated_at = updated_at;
 
   String? get id => _id;
   String? get userId => _userId;
+  String? get userName => _userName;
   String? get created_at => _created_at;
   String? get updated_at => _updated_at;
 
@@ -41,9 +49,12 @@ class Book {
     return Book(
       id: from.id,
       userId: from.userId,
+      userName: from.userName,
       carId: from.carId,
+      carName: from.carName,
       addressId: from.addressId,
       serviceId: from.serviceId,
+      serviceName: from.serviceName,
       date: from.date,
       timeSlot: from.timeSlot,
       totalPrice: from.totalPrice,
@@ -58,9 +69,12 @@ class Book {
     return Book(
       id: json['id'],
       userId: json['userId'],
+      userName: json['userName'],
       carId: json['carId'],
+      carName: json['carName'],
       addressId: json['addressId'],
       serviceId: json['serviceId'],
+      serviceName: json['serviceName'],
       date: json['date'],
       timeSlot: json['timeSlot'],
       totalPrice: json['totalPrice'],
@@ -74,9 +88,12 @@ class Book {
   Map<String, dynamic> toJson() => {
         'id': _id,
         'userId': userId,
+        'userName': userName,
         'carId': carId,
+        'carName': carName,
         'addressId': addressId,
         'serviceId': serviceId,
+        'serviceName': serviceName,
         'date': date,
         'timeSlot': timeSlot,
         'totalPrice': totalPrice,
@@ -92,9 +109,12 @@ class Book {
       Book: {
         id: $_id,
         userId: $userId,
+        userName: $userName,
         carId: $carId,
+        carName: $carName,
         addressId: $addressId,
         serviceId: $serviceId,
+        serviceName: $serviceName,
         date: $date,
         timeSlot: $timeSlot,
         totalPrice: $totalPrice,

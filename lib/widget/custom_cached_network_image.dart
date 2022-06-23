@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sainee_detailing/constant.dart';
 
 class CustomCachedNetworkImage extends StatelessWidget {
@@ -80,7 +81,10 @@ class CustomCachedNetworkImage extends StatelessWidget {
             color: Colors.transparent,
           ),
           child: const Center(
-              child: CircularProgressIndicator(color: kSecondaryColorDark))),
+              child: SpinKitThreeBounce(
+            color: kSecondaryColor,
+            size: 30.0,
+          ))),
       errorWidget: (context, url, error) => const Icon(Icons.error),
       fit: BoxFit.cover,
       width: isCircle ? null : double.infinity,

@@ -4,8 +4,8 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/address_screen/edit_address_screen/edit_address_screen_body.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
-import 'package:sainee_detailing/widget/confirm_delete_alert.dart';
-import 'package:sainee_detailing/widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_delete_alert.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
 
 class EditAddressScreen extends StatelessWidget {
   const EditAddressScreen({Key? key}) : super(key: key);
