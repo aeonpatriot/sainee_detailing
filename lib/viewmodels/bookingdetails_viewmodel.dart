@@ -5,6 +5,7 @@ import 'package:sainee_detailing/models/book.dart';
 import 'package:sainee_detailing/models/car.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/book_service.dart';
+import 'package:sainee_detailing/widget/custom_snackbar.dart';
 
 class BookingDetailsViewModel extends ChangeNotifier {
   final bookService = service<BookService>();
@@ -33,6 +34,23 @@ class BookingDetailsViewModel extends ChangeNotifier {
       getCarById(carId),
       getAddressById(addressId),
     ]);
+  }
+
+  Future updateBookingStatus(
+      {required BuildContext context,
+      required String status,
+      required void Function() setFutureAllBookingList}) async {
+    bookingDetails.status = status;
+    final Book? updatedBooking =
+        await bookService.updateBookingStatus(bookingDetails);
+    if (updatedBooking == null) {
+      FailedSnackBar.show(
+          context: context, message: 'Failed to confirm booking');
+    } else {
+      setFutureAllBookingList();
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+    }
   }
 
   Future getUserById(String userId) async {

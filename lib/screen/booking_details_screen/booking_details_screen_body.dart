@@ -18,18 +18,17 @@ class BookingDetailsScreenBody extends StatelessWidget {
     final LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
 
-    final TextStyle? statusTextStyle = Theme.of(context)
-        .textTheme
-        .bodyText1
-        ?.copyWith(fontSize: 17, color: kColorWhite);
+    final TextStyle? themeStyle = Theme.of(context).textTheme.bodyText1;
+
+    final TextStyle? statusTextStyle =
+        themeStyle?.copyWith(fontSize: 17, color: kColorWhite);
     final TextStyle? mainTextStyle =
         Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 17);
-    final TextStyle? greyTextStyle = Theme.of(context)
-        .textTheme
-        .bodyText1
-        ?.copyWith(color: Colors.grey[600]);
-    final TextStyle? secondaryTextStyle =
-        Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16);
+    final TextStyle? greyTextStyle =
+        themeStyle?.copyWith(color: Colors.grey[600]);
+    final TextStyle? secondaryTextStyle = themeStyle?.copyWith(fontSize: 16);
+
+    final String userType = loginViewModel.userDetails.type;
 
     return Container(
       color: kColorOffWhite,
@@ -54,7 +53,6 @@ class BookingDetailsScreenBody extends StatelessWidget {
                 final User user = snapshot.data[0];
                 final Car car = snapshot.data[1];
                 final Address address = snapshot.data[2];
-                print(user.type);
                 return SingleChildScrollView(
                   padding: const EdgeInsets.all(0),
                   child: Column(
@@ -64,38 +62,60 @@ class BookingDetailsScreenBody extends StatelessWidget {
                           ? Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15, horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
                                           'Booking Completed',
                                           style: statusTextStyle,
                                         ),
-                                      ),
-                                      const Icon(
-                                        Icons.thumb_up_off_alt_outlined,
-                                        color: kColorWhite,
-                                      )
-                                    ],
+                                        userType == 'customer'
+                                            ? const SizedBox(height: 10)
+                                            : Container(),
+                                        userType == 'customer'
+                                            ? Text(
+                                                'Thank you for using our service',
+                                                style: statusTextStyle,
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
                                   ),
-                                  loginViewModel.userDetails.type == 'customer'
-                                      ? const SizedBox(height: 10)
-                                      : Container(),
-                                  loginViewModel.userDetails.type == 'customer'
-                                      ? Text(
-                                          'Thank you for using our service',
-                                          style: statusTextStyle,
-                                        )
-                                      : Container(),
+                                  Image.asset(
+                                    'assets/icons/icons8-task-completed-80.png',
+                                    height: userType == 'staff' ? 50 : null,
+                                    width: userType == 'staff' ? 50 : null,
+                                  ),
+                                  const SizedBox(width: 20),
                                 ],
                               ),
                               width: double.infinity,
                               color: kSecondaryColor,
                             )
-                          : Container(),
+                          : bookingDetailsViewModel.bookingDetails.status ==
+                                  'CANCELLED'
+                              ? Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 10),
+                                  child: Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Booking Cancelled',
+                                          style: statusTextStyle,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  width: double.infinity,
+                                  color: Colors.red[700])
+                              : Container(),
                       Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: 9, horizontal: 10),
@@ -263,10 +283,22 @@ class BookingDetailsScreenBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              bookingDetailsViewModel
-                                  .bookingDetails.serviceName!,
-                              style: mainTextStyle,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    bookingDetailsViewModel
+                                        .bookingDetails.serviceName!,
+                                    style: mainTextStyle,
+                                  ),
+                                ),
+                                Text(
+                                  bookingDetailsViewModel
+                                      .bookingDetails.status!,
+                                  style: themeStyle?.copyWith(
+                                      color: kPrimaryColorDarker),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10),
                             Row(

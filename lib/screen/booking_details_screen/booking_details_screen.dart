@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/booking_details_screen/booking_details_screen_body.dart';
+import 'package:sainee_detailing/screen/booking_details_screen/booking_details_screen_bottom_bar.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   const BookingDetailsScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class BookingDetailsScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           )),
       body: const BookingDetailsScreenBody(),
+      bottomNavigationBar: const BookingDetailsScreenBottomBar(),
     );
   }
 }

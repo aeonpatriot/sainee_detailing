@@ -17,6 +17,17 @@ class BookService {
     return book;
   }
 
+  Future<Book?> updateBookingStatus(Book newBook) async {
+    print('booking/status/${newBook.id}');
+    final json = await restService.postWithToken('booking/status/${newBook.id}',
+        data: newBook);
+
+    if (json == null) {
+      return null;
+    }
+    return Book.fromJson(json);
+  }
+
   Future<List<Book>?> getTimeAvailability(String date) async {
     final json = await restService.get('booking/time/$date') as List?;
     if (json == null) {
