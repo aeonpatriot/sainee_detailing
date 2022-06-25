@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/dashboard_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/widget/centered_textbox.dart';
 
@@ -15,6 +16,8 @@ class LoginScreenBody extends StatelessWidget {
         Provider.of<LoginViewModel>(context, listen: false);
     final BookingListViewModel bookingListViewModel =
         Provider.of<BookingListViewModel>(context, listen: false);
+    final DashboardViewModel dashboardViewModel =
+        Provider.of<DashboardViewModel>(context, listen: false);
 
     return SizedBox(
       width: double.infinity,
@@ -133,7 +136,8 @@ class LoginScreenBody extends StatelessWidget {
                   onPressed: () {
                     FocusScope.of(context).unfocus();
                     notifier.setIsLoginLoading(true);
-                    loginViewModel.onLoginPressed(context);
+                    loginViewModel.onLoginPressed(
+                        context, dashboardViewModel.setFutureDashboardData);
                     bookingListViewModel.customerBookingTab = 0;
                   },
                   child: notifier.isLoginLoading

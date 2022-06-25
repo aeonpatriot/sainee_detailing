@@ -6,6 +6,7 @@ import 'package:sainee_detailing/screen/booking_details_screen/booking_details_s
 import 'package:sainee_detailing/screen/booking_screen/booking_screen.dart';
 import 'package:sainee_detailing/screen/car_screen/add_car_screen/add_car_screen.dart';
 import 'package:sainee_detailing/screen/car_screen/edit_car_screen/edit_car_screen.dart';
+import 'package:sainee_detailing/screen/dashboard_screen/dashboard_screen.dart';
 import 'package:sainee_detailing/screen/login_screen/login_screen.dart';
 import 'package:sainee_detailing/screen/main_menu_screen/main_menu.dart';
 import 'package:sainee_detailing/screen/other_screen/register_success_screen.dart';
@@ -30,6 +31,8 @@ Route<dynamic>? createRoute(settings) {
       return RegisterScreen.route();
     case '/main':
       return MainMenuScreen.route();
+    case '/dashboard':
+      return DashboardScreen.route();
     case '/profile':
       return ProfileScreen.route();
     case '/editProfile':

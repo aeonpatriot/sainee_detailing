@@ -67,8 +67,9 @@ class BookingListScreenBody extends StatelessWidget {
                     height: double.infinity,
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 1, color: Colors.transparent)),
+                        border: Border.symmetric(
+                            vertical: BorderSide(
+                                color: Colors.grey[200]!, width: 1))),
                     child: Center(
                       child: Text(
                         'Confirmed',

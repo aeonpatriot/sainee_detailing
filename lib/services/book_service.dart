@@ -2,11 +2,29 @@ import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/address.dart';
 import 'package:sainee_detailing/models/book.dart';
 import 'package:sainee_detailing/models/car.dart';
+import 'package:sainee_detailing/models/other/dashboard.dart';
 import 'package:sainee_detailing/models/user.dart';
 import 'package:sainee_detailing/services/rest.dart';
 
 class BookService {
   final restService = service<Rest>();
+
+  Future<Dashboard?> getDashboardData() async {
+    final json = await restService.getWithToken('booking/dashboard');
+    if (json == null) {
+      return null;
+    }
+    return Dashboard.fromJson(json);
+  }
+
+  Future<List<Book>?> getAllBooking() async {
+    final json = await restService.getWithToken('booking') as List?;
+    if (json == null) {
+      return [];
+    }
+    List<Book> bookingList = json.map((book) => Book.fromJson(book)).toList();
+    return bookingList;
+  }
 
   Future<Book?> createNewBooking(Book newBook) async {
     final json = await restService.postWithToken('booking', data: newBook);

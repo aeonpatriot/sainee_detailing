@@ -45,6 +45,7 @@ class RestService implements Rest {
       return jsonDecode(response.body);
     }
 
+    print(response.statusCode);
     return null;
   }
 
