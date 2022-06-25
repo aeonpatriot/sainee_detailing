@@ -56,7 +56,8 @@ class LoginViewModel with ChangeNotifier {
     password = null;
   }
 
-  onLoginPressed(BuildContext context) async {
+  onLoginPressed(
+      BuildContext context, void Function() setFutureDashboardData) async {
     final User user = User(
       email: email,
       password: password,
@@ -73,8 +74,15 @@ class LoginViewModel with ChangeNotifier {
     } else {
       _userDetails = _user;
       _userDetailsCopy = User.copy(_userDetails);
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/main', ModalRoute.withName('/login'));
+      print(_userDetails.type);
+      if (_userDetails.type == 'customer') {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/main', ModalRoute.withName('/login'));
+      } else {
+        setFutureDashboardData();
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/dashboard', ModalRoute.withName('/login'));
+      }
       resetHidePassword();
       setIsLoginLoading(false);
     }

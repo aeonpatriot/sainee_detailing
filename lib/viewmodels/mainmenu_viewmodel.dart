@@ -33,13 +33,6 @@ class MainmenuViewModel extends ChangeNotifier {
     const AccountScreen(),
   ];
 
-  List<Widget> staffScreenList = [
-    const MainMenuScreenBody(),
-    const BookingListScreen(),
-    const CarScreen(),
-    const AccountScreen(),
-  ];
-
   final List<String> imageList = [
     'assets/images/promo.jpg',
     'assets/images/promo.jpg',

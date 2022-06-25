@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/dashboard_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
-import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 
-class MainmenuBottomNav extends StatelessWidget {
-  const MainmenuBottomNav({
+class DashboardBottomNav extends StatelessWidget {
+  const DashboardBottomNav({
     Key? key,
-    required this.mainmenuViewModel,
   }) : super(key: key);
-
-  final MainmenuViewModel mainmenuViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,59 +16,62 @@ class MainmenuBottomNav extends StatelessWidget {
         Provider.of<BookingListViewModel>(context, listen: false);
     final LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
+    final DashboardViewModel dashboardViewModel =
+        Provider.of<DashboardViewModel>(context);
 
     return BottomNavigationBar(
         selectedLabelStyle:
             Theme.of(context).textTheme.caption?.copyWith(fontSize: 14),
         unselectedLabelStyle: Theme.of(context).textTheme.caption,
         backgroundColor: kColorWhite,
-        currentIndex: mainmenuViewModel.currentIndex,
+        currentIndex: dashboardViewModel.currentIndex,
         type: BottomNavigationBarType.fixed,
         elevation: 50,
         iconSize: 35,
         selectedIconTheme: const IconThemeData(color: kPrimaryColorDarker),
         selectedItemColor: kPrimaryColorDarker,
         onTap: (index) {
-          mainmenuViewModel.onTapBottomNav(index);
+          dashboardViewModel.onTapBottomNav(index);
           switch (index) {
             case 0:
-              print(mainmenuViewModel.indexBefore);
+              dashboardViewModel.setFutureDashboardData();
+              // dashboardViewModel.;
+              print(dashboardViewModel.indexBefore);
               break;
             case 1:
-              if (mainmenuViewModel.indexBefore != 1) {
-                bookingListViewModel.setFutureCustomerBookingList(
-                    loginViewModel.userDetails.id);
+              if (dashboardViewModel.indexBefore != 1) {
+                bookingListViewModel.setFutureAllBookingList();
               }
               break;
             case 2:
-              print(mainmenuViewModel.indexBefore);
+              print(dashboardViewModel.indexBefore);
               break;
             case 3:
-              print(mainmenuViewModel.indexBefore);
+              print(dashboardViewModel.indexBefore);
               break;
             default:
               break;
           }
-          mainmenuViewModel.indexBefore = index;
+          dashboardViewModel.indexBefore = index;
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: (mainmenuViewModel.currentIndex == 0)
+              icon: (dashboardViewModel.currentIndex == 0)
                   ? const Icon(Icons.home)
                   : const Icon(Icons.home_outlined),
-              label: 'Home'),
+              label: 'Dashboard'),
           BottomNavigationBarItem(
-              icon: (mainmenuViewModel.currentIndex == 1)
+              icon: (dashboardViewModel.currentIndex == 1)
                   ? const Icon(Icons.edit_calendar_rounded)
                   : const Icon(Icons.edit_calendar_outlined),
               label: 'Booking'),
           BottomNavigationBarItem(
-              icon: (mainmenuViewModel.currentIndex == 2)
-                  ? const Icon(Icons.directions_car_filled)
-                  : const Icon(Icons.directions_car_filled_outlined),
-              label: 'Car'),
+              icon: (dashboardViewModel.currentIndex == 2)
+                  ? const Icon(Icons.car_rental)
+                  : const Icon(Icons.car_rental_outlined),
+              label: 'Service'),
           BottomNavigationBarItem(
-              icon: (mainmenuViewModel.currentIndex == 3)
+              icon: (dashboardViewModel.currentIndex == 3)
                   ? const Icon(Icons.person)
                   : const Icon(Icons.person_outline_outlined),
               label: 'Account'),

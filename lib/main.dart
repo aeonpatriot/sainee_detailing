@@ -12,6 +12,7 @@ import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/bookingdetails_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/dashboard_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
@@ -54,6 +55,8 @@ void main() {
           create: (context) => BookingListViewModel()),
       ChangeNotifierProvider<BookingDetailsViewModel>(
           create: (context) => BookingDetailsViewModel()),
+      ChangeNotifierProvider<DashboardViewModel>(
+          create: (context) => DashboardViewModel()),
     ],
     child: const MyApp(),
   ));
