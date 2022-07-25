@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
+import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_carousel_slider.dart';
@@ -18,6 +19,8 @@ class MainMenuScreenBody extends StatelessWidget {
         Provider.of<MainmenuViewModel>(context);
     final BookingViewModel bookingViewModel =
         Provider.of<BookingViewModel>(context, listen: false);
+    final BookingListViewModel bookingListViewModel =
+        Provider.of<BookingListViewModel>(context, listen: false);
     final LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
 
@@ -72,7 +75,7 @@ class MainMenuScreenBody extends StatelessWidget {
                     CustomIcon(
                       label: 'My Car',
                       onTap: () {
-                        print('My Car');
+                        mainmenuViewModel.onTapBottomNav(2);
                       },
                       imageUrl: 'assets/icons/icons8-car-theft-48.png',
                       circleIcon: true,
@@ -80,7 +83,7 @@ class MainMenuScreenBody extends StatelessWidget {
                     CustomIcon(
                       label: 'My Address',
                       onTap: () {
-                        print('My Address');
+                        Navigator.of(context).pushNamed('/address');
                       },
                       imageUrl: 'assets/icons/icons8-address-64.png',
                       circleIcon: true,
@@ -88,7 +91,9 @@ class MainMenuScreenBody extends StatelessWidget {
                     CustomIcon(
                       label: 'My Booking',
                       onTap: () {
-                        print('My Booking');
+                        bookingListViewModel.setFutureCustomerBookingList(
+                            loginViewModel.userDetails.id);
+                        mainmenuViewModel.onTapBottomNav(1);
                       },
                       imageUrl: 'assets/icons/icons8-booking-64.png',
                       circleIcon: true,

@@ -74,7 +74,6 @@ class LoginViewModel with ChangeNotifier {
     } else {
       _userDetails = _user;
       _userDetailsCopy = User.copy(_userDetails);
-      print(_userDetails.type);
       if (_userDetails.type == 'customer') {
         Navigator.pushNamedAndRemoveUntil(
             context, '/main', ModalRoute.withName('/login'));

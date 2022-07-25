@@ -28,7 +28,7 @@ class CustomFullWidthIntlPhoneField extends StatelessWidget {
       initialCountryCode: 'MY',
       onChanged: _onChanged,
       style: Theme.of(context).textTheme.bodyText1,
-      initialValue: _editNumber,
+      initialValue: _editNumber?.substring(3, _editNumber?.length),
       decoration: InputDecoration(
           labelText: 'Phone Number',
           labelStyle: Theme.of(context)

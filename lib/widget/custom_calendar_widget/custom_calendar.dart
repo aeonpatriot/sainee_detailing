@@ -103,6 +103,7 @@ class _CalendarState extends State<AnimatedHorizontalCalendar> {
       controller: _scrollController,
       scrollDirection: Axis.horizontal,
       reverse: false,
+      // ignore: avoid_unnecessary_containers
       child: Container(
         child: Row(
           children: <Widget>[

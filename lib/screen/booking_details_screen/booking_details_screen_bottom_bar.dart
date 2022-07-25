@@ -27,19 +27,37 @@ class BookingDetailsScreenBottomBar extends StatelessWidget {
         (userType == 'staff' && bookingStatus == 'CONFIRMED') ? true : false;
     final bool isCustomerAndPending =
         (userType == 'customer' && bookingStatus == 'PENDING') ? true : false;
+    final bool isCustomerAndConfirmed = (userType == 'customer' &&
+            (bookingStatus == 'CONFIRMED' ||
+                bookingStatus == 'COMPLETED' ||
+                bookingStatus == 'CANCELLED'))
+        ? true
+        : false;
+    final bool isStaffAndCompleted = (userType == 'staff' &&
+            (bookingStatus == 'COMPLETED' || bookingStatus == 'CANCELLED'))
+        ? true
+        : false;
 
     return Container(
       height: 50,
       padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, -1),
-            blurRadius: 5,
-            color: kSecondaryColorDark.withOpacity(0.2),
-          ),
-        ],
+        color: isCustomerAndConfirmed
+            ? Colors.transparent
+            : isStaffAndCompleted
+                ? Colors.transparent
+                : Colors.white,
+        boxShadow: isCustomerAndConfirmed
+            ? []
+            : isStaffAndCompleted
+                ? []
+                : [
+                    BoxShadow(
+                      offset: const Offset(0, -1),
+                      blurRadius: 5,
+                      color: kSecondaryColorDark.withOpacity(0.2),
+                    ),
+                  ],
       ),
       child: SafeArea(
         child: isStaffAndPending
@@ -52,9 +70,10 @@ class BookingDetailsScreenBottomBar extends StatelessWidget {
                       buttonText: 'Confirm',
                       onButtonPressed: () {
                         bookingDetailsViewModel.updateBookingStatus(
+                            failMessage: 'Fail to confirm booking',
                             context: context,
                             status: 'CONFIRMED',
-                            setFutureAllBookingList:
+                            setBookingList:
                                 bookingListViewModel.setFutureAllBookingList);
                       });
                 },
@@ -69,9 +88,10 @@ class BookingDetailsScreenBottomBar extends StatelessWidget {
                           buttonText: 'Complete',
                           onButtonPressed: () {
                             bookingDetailsViewModel.updateBookingStatus(
+                                failMessage: 'Fail to complete booking',
                                 context: context,
                                 status: 'COMPLETED',
-                                setFutureAllBookingList: bookingListViewModel
+                                setBookingList: bookingListViewModel
                                     .setFutureAllBookingList);
                           });
                     },
@@ -85,12 +105,13 @@ class BookingDetailsScreenBottomBar extends StatelessWidget {
                               context: context,
                               buttonText: 'Cancel',
                               onButtonPressed: () {
-                                bookingDetailsViewModel.updateBookingStatus(
-                                    context: context,
-                                    status: 'CANCELLED',
-                                    setFutureAllBookingList:
-                                        bookingListViewModel
-                                            .setFutureAllBookingList);
+                                bookingDetailsViewModel
+                                    .updateCustomerBookingStatus(
+                                        userId: loginViewModel.userDetails.id,
+                                        context: context,
+                                        status: 'CANCELLED',
+                                        setBookingList: bookingListViewModel
+                                            .setFutureCustomerBookingList);
                               });
                         },
                       )

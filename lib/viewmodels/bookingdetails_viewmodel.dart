@@ -39,7 +39,8 @@ class BookingDetailsViewModel extends ChangeNotifier {
   Future updateBookingStatus(
       {required BuildContext context,
       required String status,
-      required void Function() setFutureAllBookingList}) async {
+      required dynamic setBookingList,
+      required String failMessage}) async {
     bookingDetails.status = status;
     final Book? updatedBooking =
         await bookService.updateBookingStatus(bookingDetails);
@@ -47,7 +48,25 @@ class BookingDetailsViewModel extends ChangeNotifier {
       FailedSnackBar.show(
           context: context, message: 'Failed to confirm booking');
     } else {
-      setFutureAllBookingList();
+      setBookingList();
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future updateCustomerBookingStatus(
+      {required BuildContext context,
+      required String status,
+      required void Function(String) setBookingList,
+      required String userId}) async {
+    bookingDetails.status = status;
+    final Book? updatedBooking =
+        await bookService.updateBookingStatus(bookingDetails);
+    if (updatedBooking == null) {
+      FailedSnackBar.show(
+          context: context, message: 'Failed to cancel booking');
+    } else {
+      setBookingList(userId);
       Navigator.of(context).pop();
       Navigator.of(context).pop();
     }

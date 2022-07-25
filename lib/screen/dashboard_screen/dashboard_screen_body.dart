@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
-import 'package:sainee_detailing/screen/dashboard_screen/chart/bar_booking_status.dart';
-import 'package:sainee_detailing/screen/dashboard_screen/chart/bar_service.dart';
-import 'package:sainee_detailing/screen/dashboard_screen/chart/doughnut_payment_type.dart';
 import 'package:sainee_detailing/viewmodels/dashboard_viewmodel.dart';
 import 'package:sainee_detailing/widget/dashboard_status_box.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class DashboardScreenBody extends StatelessWidget {
   const DashboardScreenBody({Key? key}) : super(key: key);
@@ -190,17 +188,16 @@ class DashboardScreenBody extends StatelessWidget {
                         //     border: Border.all(color: kSecondaryColorDark, width: 5)),
                         child: Column(children: [
                           Container(
-                            // color: kColorWhite,
                             padding: const EdgeInsets.only(top: 0),
                             height: 350,
                             // child: Container(),
                             child: PageView(
                               controller: dashboardViewModel.chartController,
-                              children: const [
-                                DoughNutPaymentType(),
-                                BarBookingStatus(),
-                                BarServiceBooked()
-                              ],
+                              onPageChanged: (index) {
+                                dashboardViewModel.setChartActiveIndex(index);
+                              },
+                              children:
+                                  dashboardViewModel.dashboardPageViewList,
                             ),
                             decoration: const BoxDecoration(
                               color: kColorWhite,
@@ -210,29 +207,47 @@ class DashboardScreenBody extends StatelessWidget {
                               //     color: kTertiaryColorDark, width: 0)
                             ),
                           ),
+                          Container(
+                            height: 20,
+                            width: double.infinity,
+                            color: kColorWhite,
+                            child: Center(
+                              child: AnimatedSmoothIndicator(
+                                activeIndex:
+                                    dashboardViewModel.chartActiveIndex,
+                                count: dashboardViewModel
+                                    .dashboardPageViewList.length,
+                                effect: CustomizableEffect(
+                                  activeDotDecoration: DotDecoration(
+                                    width: 19,
+                                    height: 8,
+                                    color: Colors.indigo,
+                                    rotationAngle: 180,
+                                    verticalOffset: -10,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  dotDecoration: DotDecoration(
+                                    width: 12,
+                                    height: 6,
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(16),
+                                    verticalOffset: 0,
+                                  ),
+                                  spacing: 6.0,
+                                  // activeColorOverride: (i) => colors[i],
+                                  inActiveColorOverride: (i) =>
+                                      dashboardViewModel.sliderColors[i],
+                                ),
+                                // const ExpandingDotsEffect(
+                                //     activeDotColor: kSecondaryColorDark,
+                                //     dotHeight: 5,
+                                //     dotWidth: 5),
+                              ),
+                            ),
+                          ),
+                          Container(color: kColorWhite, height: 10)
                         ]),
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.all(10),
-                      //   width: double.infinity,
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       Text(
-                      //         'Chart',
-                      //         style: Theme.of(context).textTheme.headline6,
-                      //       ),
-                      //       const SizedBox(height: 15),
-                      //       Container(
-                      //         width: double.infinity,
-                      //         decoration: BoxDecoration(
-                      //             border:
-                      //                 Border.all(color: Colors.red, width: 2)),
-                      //         child: const Text('sdfhsdkjfkjsdhf'),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 );

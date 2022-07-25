@@ -26,6 +26,9 @@ class AccountScreenBody extends StatelessWidget {
     final BookingListViewModel bookingListViewModel =
         Provider.of<BookingListViewModel>(context, listen: false);
 
+    final String userType = loginViewModel.userDetails.type;
+    final bool isCustomer = (userType == 'customer') ? true : false;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -97,31 +100,56 @@ class AccountScreenBody extends StatelessWidget {
         Expanded(
           child: SizedBox(
             child: ListView.builder(
-              itemCount: accountViewModel.items.length,
+              itemCount: isCustomer
+                  ? accountViewModel.customerItems.length
+                  : accountViewModel.staffItems.length,
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   onTap: () {
-                    switch (index) {
-                      case 0:
-                        accountViewModel.onTapProfile(context);
-                        break;
-                      case 1:
-                        accountViewModel.onTapAddress(context);
-                        break;
-                      case 2:
-                        mainmenuViewModel.onTapBottomNav(2);
-                        break;
-                      case 3:
-                        accountViewModel.onTapLogout(context);
-                        mainmenuViewModel.currentIndex = 0;
-                        dashboardViewModel.currentIndex = 0;
-                        bookingListViewModel.customerBookingTab = 0;
-                        break;
-                      default:
+                    if (isCustomer) {
+                      switch (index) {
+                        case 0:
+                          accountViewModel.onTapProfile(context);
+                          break;
+                        case 1:
+                          accountViewModel.onTapAddress(context);
+                          break;
+                        case 2:
+                          mainmenuViewModel.onTapBottomNav(2);
+                          break;
+                        case 3:
+                          accountViewModel.onTapLogout(context);
+                          mainmenuViewModel.currentIndex = 0;
+                          dashboardViewModel.currentIndex = 0;
+                          bookingListViewModel.customerBookingTab = 0;
+                          break;
+                        default:
+                      }
+                    } else {
+                      switch (index) {
+                        case 0:
+                          accountViewModel.onTapProfile(context);
+                          break;
+                        case 1:
+                          dashboardViewModel.onTapBottomNav(1);
+                          break;
+                        case 2:
+                          dashboardViewModel.onTapBottomNav(2);
+                          break;
+                        case 3:
+                          accountViewModel.onTapLogout(context);
+                          mainmenuViewModel.currentIndex = 0;
+                          dashboardViewModel.currentIndex = 0;
+                          bookingListViewModel.customerBookingTab = 0;
+                          break;
+                        default:
+                      }
                     }
                   },
                   title: Text(
-                    accountViewModel.items[index],
+                    isCustomer
+                        ? accountViewModel.customerItems[index]
+                        : accountViewModel.staffItems[index],
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   trailing: (index == 3)

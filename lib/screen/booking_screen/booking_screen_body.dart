@@ -35,9 +35,14 @@ class BookingScreenBody extends StatelessWidget {
           bookingViewModel.chosenAddress != null
               ? SelectCard(
                   mainText: bookingViewModel.chosenAddress?.addressLine1,
-                  titleText: 'Location for Pickup',
+                  titleText: bookingViewModel.noPickup
+                      ? 'Location for Service'
+                      : 'Location for Pickup',
                   mainIcon: Icons.location_on,
                   iconSize: 19,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/chooseAddress');
+                  },
                 )
               : Container(),
           const SizedBox(height: 15),
@@ -48,6 +53,9 @@ class BookingScreenBody extends StatelessWidget {
                   titleText: 'Car for Detailing',
                   mainIcon: Icons.directions_car_filled,
                   iconSize: 19,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/chooseCar');
+                  },
                 )
               : Container(),
           const SizedBox(height: 15),

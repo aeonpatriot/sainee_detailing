@@ -2,6 +2,7 @@ import 'package:flutter/Material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/screen/profile_screen/custom_profile_container.dart';
+import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_placeholder_image.dart';
@@ -15,6 +16,8 @@ class ProfileScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
     ImageViewModel imageViewModel = Provider.of<ImageViewModel>(context);
+    final RegistrationValidation registrationValidation =
+        Provider.of<RegistrationValidation>(context);
     // ProfileViewModel profileViewModel =
     //     Provider.of<ProfileViewModel>(context, listen: false);
 

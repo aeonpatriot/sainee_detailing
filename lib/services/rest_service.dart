@@ -45,7 +45,6 @@ class RestService implements Rest {
       return jsonDecode(response.body);
     }
 
-    print(response.statusCode);
     return null;
   }
 
@@ -75,6 +74,7 @@ class RestService implements Rest {
         'Content-Type': 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $_apiToken'
       },
+      // body: data,
       body: jsonEncode(data),
     );
 
