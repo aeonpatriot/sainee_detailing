@@ -8,12 +8,14 @@ class SelectCard extends StatelessWidget {
     required this.titleText,
     required this.mainIcon,
     required this.iconSize,
+    this.onTap,
   }) : super(key: key);
 
   final String mainText;
   final String titleText;
   final IconData mainIcon;
   final double iconSize;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,7 @@ class SelectCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: kPrimaryColorDark.withOpacity(0.1),
             child: InkWell(
-              onTap: () {
-                print('select card ontap');
-              },
+              onTap: onTap,
               child: Row(
                 children: [
                   Expanded(

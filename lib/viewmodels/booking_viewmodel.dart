@@ -25,6 +25,9 @@ class BookingViewModel extends ChangeNotifier {
   bool showPaymentMethod = false;
   bool isPastFirstTimeSlot = false;
   bool isPastSecondTimeSlot = false;
+  bool noPickup = false;
+  int selectedAddressIndex = 0;
+  int selectedCarIndex = 0;
 
   final List<TimeSlot> smallTimeSlot = [
     TimeSlot('1', '9AM - 3PM', ''),
@@ -85,9 +88,8 @@ class BookingViewModel extends ChangeNotifier {
   Future getUserAddresses(String userId) async {
     final List<Address>? addresses = await bookService.getUserAddress(userId);
     if (addresses == null) {
-      print('get failed');
+      return null;
     } else {
-      print('get success');
       addressList = addresses;
       return addresses;
     }
@@ -96,9 +98,8 @@ class BookingViewModel extends ChangeNotifier {
   Future getUserCars(String userId) async {
     final List<Car>? cars = await bookService.getUserCars(userId);
     if (cars == null) {
-      print('get failed');
+      return null;
     } else {
-      print('get success');
       carList = cars;
       return cars;
     }
@@ -108,6 +109,17 @@ class BookingViewModel extends ChangeNotifier {
     chosenService = service;
     chosenAddress = setDefaultAddress();
     chosenCar = setDefaultCar();
+  }
+
+  void setChosenAddress({required Address address}) {
+    chosenAddress = address;
+    noPickup = true;
+    notifyListeners();
+  }
+
+  void setChosenCar({required Car car}) {
+    chosenCar = car;
+    notifyListeners();
   }
 
   Address? setDefaultAddress() {
@@ -239,5 +251,8 @@ class BookingViewModel extends ChangeNotifier {
   void resetBookingDetails() {
     paymentMethod = 0;
     showPaymentMethod = false;
+    noPickup = false;
+    selectedAddressIndex = 0;
+    selectedCarIndex = 0;
   }
 }

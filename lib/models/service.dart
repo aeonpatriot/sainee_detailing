@@ -55,9 +55,9 @@ class Service {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': _id,
+        // 'id': _id,
         'name': name,
-        'details': _convertListtoString(details ?? []),
+        'details': _convertListtoString(details!),
         'smallPrice': smallPrice,
         'mediumPrice': mediumPrice,
         'largePrice': largePrice,
@@ -67,8 +67,10 @@ class Service {
 
   String _convertListtoString(List<String> details) {
     String converted = '';
-    details.map((detail) => converted + '|' + detail);
-    return converted;
+    for (String detail in details) {
+      converted = converted + '|' + detail;
+    }
+    return converted.substring(1);
   }
 
   @override

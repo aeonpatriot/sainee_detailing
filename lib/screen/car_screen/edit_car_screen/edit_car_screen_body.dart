@@ -5,6 +5,7 @@ import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/viewmodels/car_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/image_viewmodel.dart';
+import 'package:sainee_detailing/widget/custom_alert_dialog_widget/car_info_alert.dart';
 import 'package:sainee_detailing/widget/custom_dropdown_field.dart';
 import 'package:sainee_detailing/widget/custom_full_width_text_field.dart';
 import 'package:sainee_detailing/widget/custom_labeled_switch.dart';
@@ -138,7 +139,22 @@ class EditCarScreenBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const CustomTextDivider(title: 'Car Type'),
+          Row(
+            children: [
+              const CustomTextDivider(
+                title: 'Car Type',
+                isInfo: true,
+              ),
+              IconButton(
+                  color: kSecondaryColor,
+                  splashRadius: 15,
+                  onPressed: () {
+                    CarInfoAlertDialog.showAlertDialog(context: context);
+                  },
+                  iconSize: 18,
+                  icon: Icon(Icons.info_outline))
+            ],
+          ),
           Consumer2<CarViewModel, CarValidation>(
               builder: (_, carNotifier, validationNotifier, __) =>
                   CustomDropdownField(

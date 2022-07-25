@@ -21,7 +21,7 @@ class BookingListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setFutureCustomerBookingList(String userId) {
+  setFutureCustomerBookingList(String userId) {
     futureCustomerNewBookingList = getCustomerNewBookingList(userId);
     futureCustomerConfirmedBookingList =
         getCustomerConfirmedBookingList(userId);

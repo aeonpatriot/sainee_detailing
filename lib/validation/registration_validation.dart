@@ -55,6 +55,7 @@ class RegistrationValidation extends ChangeNotifier {
     } else {
       _name = ValidationItem(null, 'Must be at least 3 characters');
     }
+    print(value);
     notifyListeners();
   }
 
@@ -90,6 +91,11 @@ class RegistrationValidation extends ChangeNotifier {
           ValidationItem(confirmPassword.value, 'The password is not match');
     }
     notifyListeners();
+  }
+
+  void resetValidationItem() {
+    _name = ValidationItem(null, null);
+    _email = ValidationItem(null, null);
   }
 
   Future submitRegistration(BuildContext context) async {

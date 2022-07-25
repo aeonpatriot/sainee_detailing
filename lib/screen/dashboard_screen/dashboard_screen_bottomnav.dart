@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
 import 'package:sainee_detailing/viewmodels/bookinglist_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/dashboard_viewmodel.dart';
-import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 
 class DashboardBottomNav extends StatelessWidget {
   const DashboardBottomNav({
@@ -14,8 +13,6 @@ class DashboardBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final BookingListViewModel bookingListViewModel =
         Provider.of<BookingListViewModel>(context, listen: false);
-    final LoginViewModel loginViewModel =
-        Provider.of<LoginViewModel>(context, listen: false);
     final DashboardViewModel dashboardViewModel =
         Provider.of<DashboardViewModel>(context);
 
@@ -35,8 +32,6 @@ class DashboardBottomNav extends StatelessWidget {
           switch (index) {
             case 0:
               dashboardViewModel.setFutureDashboardData();
-              // dashboardViewModel.;
-              print(dashboardViewModel.indexBefore);
               break;
             case 1:
               if (dashboardViewModel.indexBefore != 1) {
@@ -44,10 +39,8 @@ class DashboardBottomNav extends StatelessWidget {
               }
               break;
             case 2:
-              print(dashboardViewModel.indexBefore);
               break;
             case 3:
-              print(dashboardViewModel.indexBefore);
               break;
             default:
               break;

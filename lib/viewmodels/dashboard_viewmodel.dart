@@ -4,16 +4,18 @@ import 'package:sainee_detailing/dependencies.dart';
 import 'package:sainee_detailing/models/other/dashboard.dart';
 import 'package:sainee_detailing/screen/account_screen/account_screen.dart';
 import 'package:sainee_detailing/screen/booking_list_screen/booking_list_screen.dart';
-import 'package:sainee_detailing/screen/car_screen/car_screen.dart';
 import 'package:sainee_detailing/screen/dashboard_screen/chart/bar_booking_status.dart';
+import 'package:sainee_detailing/screen/dashboard_screen/chart/bar_service.dart';
 import 'package:sainee_detailing/screen/dashboard_screen/chart/doughnut_payment_type.dart';
-import 'package:sainee_detailing/screen/dashboard_screen/dahsboard_screen_body.dart';
+import 'package:sainee_detailing/screen/dashboard_screen/dashboard_screen_body.dart';
+import 'package:sainee_detailing/screen/services_screen/staff/staff_services_screen.dart';
 import 'package:sainee_detailing/services/book_service.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class DashboardViewModel extends ChangeNotifier {
   final bookService = service<BookService>();
 
+  final sliderController = PageController(viewportFraction: 0.8);
   final chartController = PageController(initialPage: 0);
   late TooltipBehavior tooltipBehavior = TooltipBehavior(enable: true);
 
@@ -22,6 +24,7 @@ class DashboardViewModel extends ChangeNotifier {
   // double totalRevenue = 0;
   // int totalPending = 0;
   // int totalConfirmed = 0;
+  int chartActiveIndex = 0;
 
   Future<Object?>? futureDashboardData;
   late Dashboard dashboardData;
@@ -34,15 +37,32 @@ class DashboardViewModel extends ChangeNotifier {
   get indexBefore => _indexBefore;
   set indexBefore(value) => _indexBefore = value;
 
+  List<Widget> dashboardPageViewList = [
+    const DoughNutPaymentType(),
+    const BarBookingStatus(),
+    const BarServiceBooked(),
+  ];
+
   List<Widget> staffScreenList = [
     const DashboardScreenBody(),
     const BookingListScreen(),
-    const CarScreen(),
+    const StaffServicesScreen(),
     const AccountScreen(),
+  ];
+
+  List<Color> sliderColors = const <Color>[
+    Color.fromARGB(255, 255, 115, 248),
+    Color.fromARGB(255, 255, 88, 79),
+    Color.fromARGB(255, 136, 255, 209),
   ];
 
   onTapBottomNav(int index) {
     _currentIndex = index;
+    notifyListeners();
+  }
+
+  setChartActiveIndex(value) {
+    chartActiveIndex = value;
     notifyListeners();
   }
 
@@ -54,7 +74,7 @@ class DashboardViewModel extends ChangeNotifier {
   Future getDashboardData() async {
     final Dashboard? data = await bookService.getDashboardData();
     if (data == null) {
-      print('no data');
+      return null;
     } else {
       dashboardData = data;
       initializeChartData(data);

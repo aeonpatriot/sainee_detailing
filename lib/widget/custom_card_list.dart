@@ -10,15 +10,18 @@ class CustomCardList extends StatelessWidget {
       required this.isDefault,
       required this.textList,
       bool? hasImage,
+      bool? isSelected,
       this.imageUrl,
       this.imageName})
       : hasImage = hasImage ?? false,
+        isSelected = isSelected ?? false,
         super(key: key);
 
   final String isDefault;
   final void Function()? onTap;
   final List<Widget> textList;
   final bool hasImage;
+  final bool isSelected;
   final String? imageUrl;
   final String? imageName;
 
@@ -53,9 +56,11 @@ class CustomCardList extends StatelessWidget {
                     height: 10,
                     width: 100,
                     decoration: BoxDecoration(
-                        color: isDefault == 'N'
-                            ? Colors.transparent
-                            : kSecondaryColor,
+                        color: isSelected
+                            ? kPrimaryColorDarker
+                            : isDefault == 'N'
+                                ? Colors.transparent
+                                : kSecondaryColor,
                         borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(20)))),
               ),

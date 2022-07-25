@@ -35,17 +35,6 @@ class BookService {
     return book;
   }
 
-  Future<Book?> updateBookingStatus(Book newBook) async {
-    print('booking/status/${newBook.id}');
-    final json = await restService.postWithToken('booking/status/${newBook.id}',
-        data: newBook);
-
-    if (json == null) {
-      return null;
-    }
-    return Book.fromJson(json);
-  }
-
   Future<List<Book>?> getTimeAvailability(String date) async {
     final json = await restService.get('booking/time/$date') as List?;
     if (json == null) {
@@ -53,6 +42,16 @@ class BookService {
     }
     List<Book>? bookings = json.map((book) => Book.fromJson(book)).toList();
     return bookings;
+  }
+
+  Future<Book?> updateBookingStatus(Book newBook) async {
+    final json = await restService.postWithToken('booking/status/${newBook.id}',
+        data: newBook);
+
+    if (json == null) {
+      return null;
+    }
+    return Book.fromJson(json);
   }
 
   Future<List<Car>?> getUserCars(String userId) async {
@@ -141,7 +140,6 @@ class BookService {
 
   Future<User?> getUserById(String userId) async {
     final json = await restService.getWithToken('user/details/$userId');
-    print(json);
     if (json == null) {
       return null;
     }

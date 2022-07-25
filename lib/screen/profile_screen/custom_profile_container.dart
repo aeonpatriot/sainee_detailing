@@ -48,7 +48,7 @@ class CustomProfileContainer extends StatelessWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                       content: SizedBox(
-                        height: 180,
+                        height: 135,
                         child: Column(
                           children: [
                             SizedBox(
@@ -65,9 +65,9 @@ class CustomProfileContainer extends StatelessWidget {
                             GenderOptionContainer(
                                 title: 'Female',
                                 loginViewModel: _loginViewModel),
-                            GenderOptionContainer(
-                                title: 'Other',
-                                loginViewModel: _loginViewModel),
+                            // GenderOptionContainer(
+                            //     title: 'Other',
+                            //     loginViewModel: _loginViewModel),
                           ],
                         ),
                       ),

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sainee_detailing/validation/address_validation.dart';
 import 'package:sainee_detailing/validation/car_validation.dart';
 import 'package:sainee_detailing/validation/registration_validation.dart';
+import 'package:sainee_detailing/validation/service_validation.dart';
 import 'package:sainee_detailing/viewmodels/account_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/address_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/booking_viewmodel.dart';
@@ -19,13 +20,19 @@ import 'package:sainee_detailing/viewmodels/mainmenu_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/register_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/service_viewmodel.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'dependencies.dart' as di;
 
 void main() {
   di.init();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  removeSplash();
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider<ServiceValidation>(
+          create: (context) => ServiceValidation()),
       ChangeNotifierProvider<AddressValidation>(
           create: (context) => AddressValidation()),
       ChangeNotifierProvider<RegistrationValidation>(
@@ -60,6 +67,11 @@ void main() {
     ],
     child: const MyApp(),
   ));
+}
+
+Future removeSplash() async {
+  await Future.delayed(
+      Duration(seconds: 3), () => FlutterNativeSplash.remove());
 }
 
 class MyApp extends StatelessWidget {

@@ -35,7 +35,6 @@ class MainmenuBottomNav extends StatelessWidget {
           mainmenuViewModel.onTapBottomNav(index);
           switch (index) {
             case 0:
-              print(mainmenuViewModel.indexBefore);
               break;
             case 1:
               if (mainmenuViewModel.indexBefore != 1) {
@@ -44,10 +43,8 @@ class MainmenuBottomNav extends StatelessWidget {
               }
               break;
             case 2:
-              print(mainmenuViewModel.indexBefore);
               break;
             case 3:
-              print(mainmenuViewModel.indexBefore);
               break;
             default:
               break;

@@ -1,7 +1,6 @@
 import 'package:flutter/Material.dart';
 
 class ProfileViewModel extends ChangeNotifier {
-  //TODO need to check the profile details for update
   final Map<String, EditProfile> editList = {
     'name': EditProfile(
         appbarTitle: 'Edit Name',
@@ -9,6 +8,18 @@ class ProfileViewModel extends ChangeNotifier {
     'email': EditProfile(appbarTitle: 'Edit Email', instructions: ''),
     'phone': EditProfile(appbarTitle: 'Edit Phone Number', instructions: ''),
   };
+
+  String? _phoneNumber;
+  bool _isPhoneNumberValid = false;
+
+  String? get phoneNumber => _phoneNumber;
+  set phoneNumber(value) => _phoneNumber = value;
+
+  bool get isPhoneNumberValid => _isPhoneNumberValid;
+  setIsPhoneNumberValid(value) {
+    _isPhoneNumberValid = value;
+    notifyListeners();
+  }
 }
 
 class EditProfile {

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sainee_detailing/constant.dart';
+import 'package:sainee_detailing/validation/registration_validation.dart';
 import 'package:sainee_detailing/viewmodels/login_viewmodel.dart';
 import 'package:sainee_detailing/viewmodels/profile_viewmodel.dart';
 import 'package:sainee_detailing/widget/custom_alert_dialog_widget/confirm_discard_alert.dart';
+import 'package:sainee_detailing/widget/custom_full_width_text_field.dart';
+import 'package:sainee_detailing/screen/address_screen/full_width_phone_field.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final String _editType;
@@ -21,6 +24,12 @@ class EditProfileScreen extends StatelessWidget {
         Provider.of<ProfileViewModel>(context, listen: false);
     final LoginViewModel loginViewModel =
         Provider.of<LoginViewModel>(context, listen: false);
+    final RegistrationValidation registrationValidation =
+        Provider.of<RegistrationValidation>(context);
+
+    final bool isEditName = _editType == 'name' ? true : false;
+    final bool isEditEmail = _editType == 'email' ? true : false;
+    final bool isEditPhone = _editType == 'phone' ? true : false;
 
     return WillPopScope(
       onWillPop: () async {
@@ -30,11 +39,13 @@ class EditProfileScreen extends StatelessWidget {
             Navigator.pop(context);
           });
           loginViewModel.isProfileSame = true;
+          registrationValidation.resetValidationItem();
           return false;
         } else {
           ConfirmDiscardAlert.showAlertDialog(
               context: context,
               onDiscardPressed: () {
+                registrationValidation.resetValidationItem();
                 loginViewModel.onEditProfileDiscard();
                 Navigator.pop(context);
                 Navigator.pop(context);
@@ -59,11 +70,13 @@ class EditProfileScreen extends StatelessWidget {
                     Navigator.pop(context);
                   });
                   loginViewModel.isProfileSame = true;
+                  registrationValidation.resetValidationItem();
                 } else {
                   ConfirmDiscardAlert.showAlertDialog(
                       context: context,
                       onDiscardPressed: () {
                         loginViewModel.onEditProfileDiscard();
+                        registrationValidation.resetValidationItem();
                         Navigator.pop(context);
                         Navigator.pop(context);
                         loginViewModel.isProfileSame = true;
@@ -106,30 +119,56 @@ class EditProfileScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          TextField(
-            controller: TextEditingController(
-                text: getInitialProfile(_editType, loginViewModel)),
-            autofocus: true,
-            onChanged: (value) {
-              setnewProfile(value, loginViewModel, _editType);
-              loginViewModel.checkProfile(_editType);
-            },
-            style: Theme.of(context).textTheme.bodyText1,
-            decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent)),
-                focusColor: Colors.transparent,
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 17, horizontal: 15),
-                filled: true,
-                fillColor: Colors.white,
-                // errorText: '_errorText',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 100, color: Colors.red),
-                )),
-          )
+          isEditName
+              ? CustomFullWidthTextField(
+                  isAutoFocus: true,
+                  errorText: registrationValidation.name.error,
+                  labelText: 'Name',
+                  onChanged: (value) {
+                    setnewProfile(value, loginViewModel, _editType);
+                    loginViewModel.checkProfile(_editType);
+                    registrationValidation.setName(value);
+                  },
+                  isEdit: true,
+                  editext: getInitialProfile(_editType, loginViewModel),
+                )
+              : isEditEmail
+                  ? CustomFullWidthTextField(
+                      isAutoFocus: true,
+                      errorText: registrationValidation.email.error,
+                      labelText: 'Email',
+                      onChanged: (value) {
+                        setnewProfile(value, loginViewModel, _editType);
+                        loginViewModel.checkProfile(_editType);
+                        registrationValidation.setEmail(value);
+                      },
+                      isEdit: true,
+                      editext: getInitialProfile(_editType, loginViewModel),
+                    )
+                  : CustomFullWidthIntlPhoneField(
+                      editNumber: getInitialProfile(_editType, loginViewModel),
+                      validator: (phoneNumber) {
+                        if (phoneNumber != null &&
+                            (phoneNumber.number.length < 9 ||
+                                phoneNumber.number.length > 10)) {
+                          profileViewModel.phoneNumber =
+                              phoneNumber.completeNumber;
+                          profileViewModel.setIsPhoneNumberValid(false);
+                          return 'Enter valid phone number';
+                        } else {
+                          profileViewModel.setIsPhoneNumberValid(true);
+                          return null;
+                        }
+                      },
+                      onChanged: (phoneNumber) {
+                        print(phoneNumber.completeNumber);
+                        profileViewModel.phoneNumber =
+                            phoneNumber.completeNumber;
+                        setnewProfile(phoneNumber.completeNumber,
+                            loginViewModel, _editType);
+                        loginViewModel.checkProfile(_editType);
+                      },
+                    ),
         ]),
       ),
     );

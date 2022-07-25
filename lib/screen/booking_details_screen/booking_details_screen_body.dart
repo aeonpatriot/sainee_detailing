@@ -101,17 +101,15 @@ class BookingDetailsScreenBody extends StatelessWidget {
                               ? Container(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 10),
-                                  child: Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Booking Cancelled',
-                                          style: statusTextStyle,
-                                        )
-                                      ],
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Booking Cancelled',
+                                        style: statusTextStyle,
+                                      )
+                                    ],
                                   ),
                                   width: double.infinity,
                                   color: Colors.red[700])
@@ -188,7 +186,9 @@ class BookingDetailsScreenBody extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    'Pickup Address',
+                                    address.id == '1'
+                                        ? 'Service Location'
+                                        : 'Pickup Address',
                                     style: mainTextStyle,
                                   )
                                 ],
@@ -200,10 +200,15 @@ class BookingDetailsScreenBody extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        '${address.name}',
-                                        style: greyTextStyle,
-                                      ),
+                                      address.id == '1'
+                                          ? Text(
+                                              'Ahmad Husaini',
+                                              style: greyTextStyle,
+                                            )
+                                          : Text(
+                                              '${address.name}',
+                                              style: greyTextStyle,
+                                            ),
                                       const SizedBox(height: 3),
                                       Text(
                                         '${address.phoneNumber}',

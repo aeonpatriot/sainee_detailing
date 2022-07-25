@@ -37,9 +37,9 @@ class AddressViewModel extends ChangeNotifier {
   Future getAllAddress() async {
     final List<Address>? addresses = await addressService.getAllAddress();
     if (addresses == null) {
-      print('get failed');
+      return null;
     } else {
-      print('get success');
+      return addresses;
     }
   }
 
@@ -47,7 +47,7 @@ class AddressViewModel extends ChangeNotifier {
     final List<Address>? addresses =
         await addressService.getUserAddress(userId);
     if (addresses == null) {
-      print('get failed');
+      return null;
     } else {
       return addresses;
     }
