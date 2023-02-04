@@ -9,7 +9,7 @@ class RestService implements Rest {
   String? _apiToken;
   // static const String _baseUrl = 'http://10.0.2.2:8000/api';
   // static const String _baseUrl = 'http://192.168.1.107:8080/api';
-  static const String _baseUrl = 'http://192.168.1.106:8080/api';
+  static const String _baseUrl = 'http://192.168.1.104:8080/api';
 
   @override
   set apiToken(value) => _apiToken = value;
